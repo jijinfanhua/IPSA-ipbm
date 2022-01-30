@@ -1,0 +1,364 @@
+syntax = "proto3";
+package rp4;
+
+service ModService {
+  rpc handleMatchTable(FlowEntryModRequest) returns (ReturnCodeResponse);
+  rpc getFlowEntry(FlowEntryRequest) returns (FlowEntry);
+  rpc addParserInfo(ModParserInfo) returns (ReturnCodeResponse);
+  rpc addMatcherInfo(ModMatcherInfo) returns (ReturnCodeResponse);
+  rpc addActionInfo(AddActionInfo) returns (ReturnCodeResponse);
+  rpc addExecuterInfo(AddExecuterInfo) returns (ReturnCodeResponse);
+  rpc addFlowTable(AddFlowTableInfo) returns (ReturnCodeResponse);
+  rpc addProcessor(AddProcessorRequest) returns (ReturnCodeResponse);
+
+  rpc addMetaData(AddMetaDataRequest) returns (ReturnCodeResponse);
+
+  rpc requestMemoryInfo(MemoryInfoRequest) returns (MemoryInfo);
+
+  rpc initSRAMandTCAM(MemoryInfo) returns (ReturnCodeResponse);
+  rpc initParser(InitParserInfo) returns (ReturnCodeResponse);
+}
+
+enum MemType
+{
+  SRAM = 0;
+  TCAM = 1;
+}
+
+enum MatchType
+{
+  EXACT = 0;
+  TERNARY = 1;
+  LPM = 2;
+  RANGE = 3;
+}
+
+message ReturnCodeResponse
+{
+  sint32 return_code = 1;
+}
+
+/*********** Begin FlowEntry Modification *************/
+enum FlowEntryModType
+{
+  ADD = 0;
+  DELETE = 1;
+  MODIFY = 2;
+}
+
+enum FlowEntryModRes
+{
+  ADD_OK = 0;
+  DELETE_OK = 1;
+  UPDATE_OK = 2;
+  NO_ENTRY = 3; // modify or delete with no such entry
+  TABLE_OVERFLOW = 4; // flow entry num exceeds max
+}
+
+message FlowEntry
+{
+  string key = 1; // because of match_key is variable length, define it as string
+  string mask = 2;
+  int32 action_id = 3; // the action is implemented in device as built-in, search by id;
+  repeated bytes action_data = 4; // define parameters as Array, data is defined as string
+  int32 tag = 5; // discriminate different flow tables on logical table
+}
+
+message FlowEntryRequest {
+  int32 flow_table_id = 1;
+  FlowEntry flow_entry = 2;
+}
+
+message FlowEntryModRequest { // add, delete or modify flow entry in data plane
+  //  MemType mem_type = 1;
+  int32 flow_table_id = 1; // table flag, find table, TCAM.1, TCAM.2, ..., SRAM.2, ...
+  FlowEntry srcFlow = 2; // the original flow in device flow match table(modify, delete); new flow(add)
+  FlowEntryModType mod_type = 3; // tell device the modification type
+  FlowEntry modFlow = 4; // if mod_type=2, modFlow is useful
+}
+
+message FlowEntryModResponse { // to response the result of modification
+  FlowEntryModRes res = 1;
+}
+/*********** End FlowEntry Modification *************/
+
+
+/*********** Begin Parser Modification *************/
+enum ParserModRes
+{
+  HEADER_ADD_OK = 0;
+  HEADER_UPDATE_OK = 1;
+  HEADER_DELETE_OK = 2;
+  ALREADY_IN = 3;
+  ID_WRONG = 4;
+  FAIL_WITH_NO_REASON = 5;
+}
+
+message Field { // field in header
+  int32 header_id = 1;
+  int32 field_length = 2;
+  int32 internal_offset = 3;
+  //  int32 field_id = 4;
+}
+
+message Header {
+  int32 header_id = 1; // define header id
+
+  repeated int32 previous_header_id = 2; // the info of its previous protocol should be modified
+  string header_tag = 3; // like 0x0800
+
+  sint32 header_length = 4; // "+" is length, "-" is the value of the field
+  int32 next_header_type_internal_offset = 5; // tell the place where next_header_type start
+  int32 next_header_type_length = 6;
+
+  repeated Field fields = 7;
+  repeated NextHeader next_headers = 8;
+}
+
+message NextHeader {
+  int32 header_id = 1;
+  string tag = 2;
+}
+
+message ModParserInfo { // we only consider header adding by now, improvement will be done later
+  Header header = 1; //
+}
+
+message ModParserInfoResponse {
+  ParserModRes parser_mod_res = 1;
+}
+/*********** End Parser Modification *************/
+
+
+/*********** Begin Matcher Modification *************/
+enum MatcherModRes
+{
+  MATCHER_ADD_OK = 0;
+  MATCHER_ADD_FAIL = 1;
+}
+
+message MatchField // {header_id.field_id : match_type}
+{
+  int32 header_id = 1;
+  int32 field_id = 2;
+  MatchType match_type = 3;
+}
+
+message ModMatcherInfo {
+  int32 processor_id = 1; // which matcher
+  repeated MatchField match_fields = 2; // list of match fields
+  int32 match_length = 3;
+  //  MemType table_type = 4;
+  int32 table_id = 5; // determine which table to search
+  MatchType match_type = 6;
+}
+
+message ModMatcherInfoResponse {
+  MatcherModRes matcher_mod_res = 1;
+}
+/*********** End Matcher Modification *************/
+
+
+/*********** Begin Action Modification *************/
+
+
+message Primitive
+{
+  int32 op_id = 1; // opcode id
+
+  message Parameter
+  {
+    int32 prefix_id = 1;// ipv4.ttl : 2(prefix).18(suffix)
+    int32 suffix_id = 2;
+    int32 val = 3;
+  }
+
+  repeated Parameter parameters = 2; // a = b + c, three parameters
+}
+
+message Action
+{
+  int32 action_id = 1;
+  int32 parameter_num = 2;// ipv4_forward(bit<32> dstAddr, bit<9> port)
+  repeated int32 parameter_lengths = 3; // bit<32> bit<9> -> [32, 9]
+  repeated Primitive primitives = 4; //
+  string action_name = 5;
+}
+
+enum ActionAddRes
+{
+  ACTION_ADD_OK = 0;
+  ACTION_ADD_FAIL = 1;
+}
+
+message AddActionInfo {
+  /**
+      ipv4.ttl = ipv4.ttl - 1;
+      standard_metadata.egress_spec = parameter.port;
+   */
+  int32 processor_id = 1; // same as executer_id
+  Action action = 2;
+}
+
+message AddActionInfoResponse{
+  ActionAddRes action_add_res = 1;
+}
+/*********** End Action Modification *************/
+
+
+/*********** Begin Executer Modification *************/
+enum ExecuterAddRes
+{
+  EXCUTER_ADD_OK = 0;
+  NO_FREE_PROCESSOR = 1;
+  EXECUTER_ADD_FAIL = 2;
+}
+
+message AddExecuterInfo
+{
+  int32 processor_id = 1;
+  int32 executer_id = 2;
+  // repeated Action actions = 3;
+  int32 hit_action = 3;
+  int32 hit_next_proc = 4;
+  int32 miss_action = 5;
+  int32 miss_next_proc = 6;
+  repeated Field args_spec = 7;
+}
+
+message AddExecuterInfoResponse
+{
+  ExecuterAddRes executer_add_res = 1;
+}
+/*********** End Executer Modification *************/
+
+
+/*********** Begin FlowTable Add *************/
+enum AddFlowTableRes {
+  ADDFLOWTABLE_OK = 0;
+  ADDFLOWTABLE_FAIL = 1;
+}
+
+/* define high level logical flow table that function needs */
+message FlowTable {
+  uint32 flow_table_id = 1;
+  MatchType match_type = 2;
+  MemType mem_type = 3; // SRAM / TCAM
+  uint32 resided_logical_table_id = 4; // the table should be place on which logic table in memory pool
+  //  uint32 key_length = 5;
+  repeated Field key_fields = 5;
+  uint32 value_length = 6;
+  bool is_counter = 7;
+  //  uint32 action_data_num = 7;
+}
+
+message AddFlowTableInfo {
+  FlowTable flow_table = 1;
+}
+
+message AddFlowTableInfoResponse {
+  AddFlowTableRes add_flow_table_res = 1;
+}
+
+/*********** End FlowTable Add *************/
+
+/*********** begin add processor ***********/
+message NextStage {
+  bool is_table = 1;
+  int32 next_id = 2;
+}
+
+message AddProcessorRequest {
+  int32 proc_id = 1;
+  int32 valid_hdr_id = 2;
+  NextStage true_next = 3;
+  NextStage false_next = 4;
+}
+/*********** end add processor ***********/
+
+/*********** Add Meta Data ************/
+enum MetaDataType {
+  INT = 0;
+  FLOAT = 1;
+  STRING = 2;
+}
+
+message MetaData {
+  Field data = 1;
+  MetaDataType data_type = 2;
+}
+
+message AddMetaDataRequest {
+  repeated MetaData meta_data = 1;
+}
+
+/*********** End Add Meta Data ********/
+
+/************** begin request memory (SRAM/TCAM) info **************/
+message MemoryInfoRequest {
+  uint32 request_id = 1;
+}
+
+/* define middle level logical tables that form SRAM/TCAM memory pool */
+message LogicalTable {
+  uint32 logical_table_id = 1;
+  MemType mem_type = 2;
+  uint32 resided_hardware_id = 3;
+  uint32 supported_max_length = 4; // sram: key length + value length; tcam: key length
+  uint32 supported_max_num = 5; // max entry num
+  repeated FlowTable inside_flow_tables = 6;
+}
+
+/**
+ * TCAM is different from SRAM
+ * each TCAM can abstract only one length logical table, but SRAM can abstract many
+ */
+message LogicalTableVector {
+  repeated LogicalTable logical_tables = 1;
+}
+
+/* get the memory(SRAM/TCAM) info from device */
+message MemoryInfo {
+  int32 sram_num = 1;
+  int32 tcam_num = 2;
+  int32 bit_per_sram = 3;
+  int32 bit_per_tcam = 4;
+  map<int32, LogicalTableVector> sram_memory_info = 5; // hardware->logical table : one-to-many
+  map<int32, LogicalTable> tcam_memory_info = 6; // hardware->logical table : one-to-one
+}
+/*************** end request memory info ****************/
+
+
+// below is the initialization info to data plane
+
+/************* Begin init SRAM and TCAM **************/
+enum InitMemRes
+{
+  INIT_MEM_OK = 0;
+  INIT_MEM_FAI = 1;
+}
+//request message isMemoryInfo
+message InitMemResponse
+{
+  InitMemRes init_mem_res = 1;
+}
+/************* End init SRAM and TCAM **************/
+
+
+/************ Begin init Parser ************/
+message InitParserInfo
+{
+  repeated Header headers = 1;
+}
+
+enum InitParserRes
+{
+  INIT_PARSER_OK = 0;
+  INIT_PARSER_FAI = 1;
+}
+
+message InitParserInfoResponse
+{
+  InitParserRes init_parser_res = 1;
+}
+/************ End init Parser ************/

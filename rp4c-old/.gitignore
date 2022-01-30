@@ -1,0 +1,10 @@
+# ide
+.vscode/
+.idea/
+
+# project
+build/
+cmake-build-debug/
+lex.yy.cpp
+yacc.tab.cpp
+yacc.tab.h

@@ -1,0 +1,9 @@
+
+add_executable(controller_client controller_client.cpp)
+target_link_libraries(controller_client rp4)
+
+add_executable(ctrl_init_dataplane ctrl_init_dataplane.cpp)
+target_link_libraries(ctrl_init_dataplane rp4)
+
+add_executable(ctrl_mod_table ctrl_mod_table.cpp)
+target_link_libraries(ctrl_mod_table rp4)
