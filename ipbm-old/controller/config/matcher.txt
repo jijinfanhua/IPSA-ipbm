@@ -1,0 +1,21 @@
+# m [processor_name]
+# t [match_flow_table_name]
+# f [header.field match_type]
+
+m mac_learn
+t mac_table
+f Ethernet.smac exact
+f VLAN.vid exact
+
+m l2_forward
+t mac_table
+f Ethernet.dmac exact
+f VLAN.vid exact
+
+m ipv4_forward
+t ipv4_lpm
+f IPv4.dstAddr lpm
+
+m arp_forward
+t arp_table
+f m.nhop exact

@@ -1,0 +1,97 @@
+header ethernet_t {
+	bit<48>	dstAddr;
+	bit<48>	srcAddr;
+	bit<16>	etherType;
+}
+header ipv4_t {
+	bit<4>	version;
+	bit<4>	ihl;
+	bit<8>	diffserv;
+	bit<16>	totalLen;
+	bit<16>	identification;
+	bit<3>	flags;
+	bit<13>	fragOffset;
+	bit<8>	ttl;
+	bit<8>	protocol;
+	bit<16>	hdrChecksum;
+	bit<32>	srcAddr;
+	bit<32>	dstAddr;
+}
+struct metadata {
+} meta;
+struct headers {
+	ethernet_t	ethernet;
+	ipv4_t	ipv4;
+} hdr;
+
+struct standard_metadata_t {
+    bit<9> ingress_port;
+    bit<9> egress_spec;
+    bit<9> egress_port;
+    bit<32> clone_spec;
+    bit<32> instance_type;
+    bit<1> drop;
+    bit<16> recirculate_port;
+    bit<32> packet_length;
+} standard_metadata;
+
+parser MyParser(packet_in packet) {
+	state start {
+		packet.extract(hdr.ethernet);
+		transition select(hdr.ethernet.etherType) {
+			0x0800: parse_ipv4;
+			default: accept;
+		}
+	}
+	state parse_ipv4 {
+		packet.extract(hdr.ipv4);
+		transition accept;
+	}
+}
+
+actions {
+	action NoAction() {
+	}
+	action drop() {
+		standard_metadata.drop = 1;
+	}
+	action ipv4_forward(bit<48> dstAddr, bit<9> port) {
+		standard_metadata.egress_spec = port;
+		hdr.ethernet.srcAddr = hdr.ethernet.dstAddr;
+		hdr.ethernet.dstAddr = dstAddr;
+		hdr.ipv4.ttl = ((hdr.ipv4.ttl + 0xff) & 0xff);
+	}
+}
+
+tables {
+	table ipv4_lpm {
+		key = {
+			hdr.ipv4.dstAddr: lpm;
+		}
+		size = 1024;
+		value_width = 73;
+		default_action = drop;
+	}
+}
+
+control MyIngress {
+	stage node_2 {
+		parser {
+			ipv4;
+		};
+		matcher {
+			switch (hdr.ipv4.isValid()) {
+				0b1: table(ipv4_lpm);
+				*: None;
+			}
+		};
+		executor {
+			drop: None;
+			ipv4_forward: None;
+			NoAction: None;
+		};
+	}
+}
+control MyEgress {
+}
+

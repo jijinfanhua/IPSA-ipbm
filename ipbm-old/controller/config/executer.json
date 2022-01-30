@@ -1,0 +1,92 @@
+{
+   "ipv4_forward": [
+      {
+         "action_name": "ipv4_forward",
+         "parameter_num": 2,
+         "primitives": [
+            {
+               "primitive_name": "copy_field",
+               "parameters": [
+                  {
+                     "type": "standard_metadata",
+                     "value": "egress_spec"
+                  },
+                  {
+                     "type": "p",
+                     "value": "2"
+                  }
+               ]
+            },
+            {
+               "primitive_name": "copy_field",
+               "parameters": [
+                  {
+                     "type": "ethernet",
+                     "value": "srcAddr"
+                  },
+                  {
+                     "type": "ethernet",
+                     "value": "dstAddr"
+                  }
+               ]
+            },
+            {
+               "primitive_name": "copy_field",
+               "parameters": [
+                  {
+                     "type": "ethernet",
+                     "value": "dstAddr"
+                  },
+                  {
+                     "type": "p",
+                     "value": "1"
+                  }
+               ]
+            },
+            {
+               "primitive_name": "decrement",
+               "parameters": [
+                  {
+                     "type": "ipv4",
+                     "value": "ttl"
+                  }
+               ]
+            }
+         ]
+      }
+   ],
+   "arp_forward": [
+      {
+         "action_name": "set_nhop",
+         "parameter_num": 2,
+         "primitives": [
+            {
+               "primitive_name": "copy_field",
+               "parameters": [
+                  {
+                     "type": "ethernet",
+                     "value": "srcAddr"
+                  },
+                  {
+                     "type": "p",
+                     "value": "2"
+                  }
+               ]
+            },
+            {
+               "primitive_name": "copy_field",
+               "parameters": [
+                  {
+                     "type": "ethernet",
+                     "value": "dstAddr"
+                  },
+                  {
+                     "type": "p",
+                     "value": "1"
+                  }
+               ]
+            }
+         ]
+      }
+   ]
+}

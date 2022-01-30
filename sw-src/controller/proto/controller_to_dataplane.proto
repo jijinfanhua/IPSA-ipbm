@@ -1,0 +1,429 @@
+syntax = "proto3";
+package rp4;
+
+service CfgService {
+
+  /****** metadata *****/
+  rpc setMetadata (SetMetadataReq) returns (SetMetadataResp);
+
+  /***** parser *****/
+  rpc initParserLevel (ParserLevelReq) returns (ParserLevelResp);
+  rpc modParserEntry (ModParserEntryReq) returns (ModParserEntryResp);
+  rpc clearParser (ClearParserReq) returns (ClearParserResp);
+
+  /***** gateway *****/
+  rpc insertRelationExp (InsertRelationExpReq) returns (InsertRelationExpResp);
+  rpc clearRelationExp (ClearRelationExpReq) returns (ClearRelationExpResp);
+  rpc clearResMap (ClearResMapReq) returns (ClearResMapResp);
+  rpc modResMap (ModResMapReq) returns (ModResMapResp);
+  rpc setDefaultGateEntry (SetDefaultGateEntryReq) returns (SetDefaultGateEntryResp);
+
+  /****** matcher *******/
+  rpc setNoTable (SetNoTableReq) returns (SetNoTableResp);
+  rpc setActionProc (SetActionProcReq) returns (SetActionProcResp);
+  rpc setMemConfig (SetMemConfigReq) returns (SetMemConfigResp);
+  rpc setFieldInfo (SetFieldInfoReq) returns (SetFieldInfoResp);
+//  rpc setHitMissBitmap (SetHitMissBitmapReq) returns (SetHitMissBitmapResp);
+  rpc clearOldConfig (ClearOldConfigReq) returns (ClearOldConfigResp);
+//  rpc setHitActId (SetHitActIdReq) returns (SetHitActIdResp);
+  rpc setMissActId (SetMissActIdReq) returns (SetMissActIdResp);
+
+  // table entry
+  rpc insertSramEntry (InsertSramEntryReq) returns (InsertSramEntryResp);
+  rpc insertTcamEntry (InsertTcamEntryReq) returns (InsertTcamEntryResp);
+
+  /****** executor *******/
+  rpc insertAction (InsertActionReq) returns (InsertActionResp);
+  rpc clearAction (ClearActionReq) returns (ClearActionResp);
+  rpc delAction (DelActionReq) returns (DelActionResp);
+
+  
+}
+
+message HeaderInfo {
+  int32 headerId = 1;
+  int32 headerLength = 2;
+  int32 headerOffset = 3;
+}
+
+message SetMetadataReq {
+  repeated HeaderInfo headerInfos = 1;
+}
+
+message SetMetadataResp {
+  Res res = 1;
+}
+
+message ClearStageReq {
+  int32 procId = 1;
+}
+
+/************** parser start *****************/
+message ParserLevelReq {
+  int32 procId = 1;
+  int32 parserLevel = 2;
+}
+
+enum Res {
+  OK = 0;
+  FAIL = 1;
+}
+
+message ParserLevelResp {
+  Res res = 1;
+}
+/************** parser end *****************/
+
+/************** gateway start *****************/
+enum FieldType {
+  FD = 0;
+  VALID = 1;
+  HIT = 2;
+  MISS = 3;
+}
+
+message FieldInfo {
+  int32 hdrId = 1;
+  int32 internalOffset = 2;
+  int32 fieldLen = 3;
+  FieldType fieldType = 4;
+}
+
+message ModParserEntryReq {
+  int32 procId = 1;
+  int32 parserLevel = 2;
+  int32 state = 3;
+  uint32 key = 4;
+  int32 mask = 5;
+  int32 hdrId = 6;
+  int32 hdrLen = 7;
+  int32 nextState = 8;
+  int32 transFieldNum = 9;
+  repeated FieldInfo transFds = 10;
+  int32 miss_act = 11;
+}
+
+message ModParserEntryResp {
+  Res res = 1;
+}
+
+message ClearParserReq {
+  int32 procId = 1;
+//  repeated int32 parserLevels = 2;
+}
+
+message ClearParserResp {
+  Res res = 1;
+}
+
+enum ParameterType {
+  CONSTANT = 0;
+  HEADER = 1;
+  FIELD = 2;
+  PARAM = 3;
+  OPERATOR = 4;
+}
+
+enum RelationCode {
+  GT = 0;
+  GTE = 1;
+  LT = 2;
+  LTE = 3;
+  EQ = 4;
+  NEQ = 5;
+}
+
+//message Field {
+//  int32 hdrId = 1;
+//  int32 internalOffset = 2;
+//  int32 fdLen = 3;
+//}
+
+message Data {
+  int32 len = 1;
+  bytes val = 2;
+}
+
+enum GateEntryType {
+  TABLE = 0;
+  STAGE = 1;
+}
+
+message GateEntry {
+  GateEntryType type = 1;
+  int32 val = 2;
+}
+
+message SetDefaultGateEntryReq {
+  int32 proc_id = 1;
+  GateEntry default_entry = 2;
+}
+
+message SetDefaultGateEntryResp {
+  Res res  = 1;
+}
+
+message GatewayParam {
+  ParameterType paramType = 1;
+  oneof value{
+    FieldInfo field = 2;
+    Data data = 3;
+  }
+}
+
+message RelationExp {
+  GatewayParam param1 = 1;
+  GatewayParam param2 = 2;
+  RelationCode relation = 3;
+}
+
+message InsertRelationExpReq {
+  int32 procId = 1;
+  GatewayParam param1 = 2;
+  GatewayParam param2 = 3;
+  RelationCode relation = 4;
+}
+
+message InsertRelationExpResp {
+  Res res = 1;
+}
+
+message ClearRelationExpReq {
+  int32 procId = 1;
+}
+
+message ClearRelationExpResp {
+  Res res = 1;
+}
+
+message ClearResMapReq {
+  int32 procId = 1;
+//  int32 clear = 2;
+}
+
+message ClearResMapResp {
+  Res res = 1;
+}
+
+message ModResMapReq {
+  int32 procId = 1;
+  int32 key = 2;
+  GateEntry entry = 3;
+//  int32 procValue = 3;
+//  int32 matcherValue = 4;
+//  int32 actionValue = 5;
+}
+
+message ModResMapResp {
+  Res res = 1;
+}
+/************** gateway end *****************/
+
+/************** matcher start *****************/
+enum MatchType {
+  EXACT = 0;
+  TERNARY = 1;
+  LPM = 2;
+}
+
+message SetNoTableReq {
+  int32 procId = 1;
+  int32 matcherId = 2;
+  bool noTable = 3;
+}
+
+message SetNoTableResp {
+  Res res = 1;
+}
+
+message ActionProc {
+  int32 actionId = 1;
+  int32 procId = 2;
+}
+
+message SetActionProcReq {
+  int32 procId = 1;
+  int32 matcherId = 2;
+  repeated ActionProc actionProcs = 3;
+}
+
+message SetActionProcResp {
+  Res res = 1;
+}
+
+message SetMemConfigReq {
+  int32 procId = 1;
+  int32 matcherId = 2;
+  int32 keyWidth = 3;
+  int32 valueWidth = 4;
+  bytes keyConfig = 5;
+  bytes valueConfig = 6;
+  MatchType matchType = 7;
+  int32 depth = 8;
+  int32 missActId = 9;
+}
+
+message SetMemConfigResp {
+  Res res = 1;
+}
+
+message SetFieldInfoReq {
+  int32 procId = 1;
+  int32 matcherId = 2;
+  repeated FieldInfo fdInfos = 3;
+}
+
+message SetFieldInfoResp {
+  Res res = 1;
+}
+
+message InsertSramEntryReq {
+  int32 procId = 1;
+  int32 matcherId = 2;
+  bytes key = 3;
+  bytes value = 4;
+  int32 key_byte_len = 5;
+  int32 value_byte_len = 6;
+}
+
+message InsertSramEntryResp {
+  Res res = 1;
+}
+
+message InsertTcamEntryReq {
+  int32 procId = 1;
+  int32 matcherId = 2;
+  bytes key = 3;
+  bytes mask = 4;
+  bytes value = 5;
+  int32 key_byte_len = 6;
+  int32 value_byte_len = 7;
+}
+
+message InsertTcamEntryResp {
+  Res res = 1;
+}
+
+message ClearOldConfigReq {
+  int32 procId = 1;
+  int32 matcherId = 2;
+}
+
+message ClearOldConfigResp {
+  Res res = 1;
+}
+
+//message SetHitMissBitmapReq {
+//  int32 procId = 1;
+//  int32 matcherId = 2;
+//  int32 value = 3;
+//}
+//
+//message SetHitMissBitmapResp {
+//  Res res = 1;
+//}
+
+//message SetHitActIdReq {
+//  int32 procId = 1;
+//  int32 matcherId = 2;
+//  int32 hit_act_id = 3;
+//}
+//
+//message SetHitActIdResp {
+//  Res res = 1;
+//}
+
+message SetMissActIdReq {
+  int32 procId = 1;
+  int32 matcherId = 2;
+  int32 miss_act_id = 3;
+}
+
+message SetMissActIdResp {
+  Res res = 1;
+}
+
+/************** matcher end *****************/
+
+/************** executor start *****************/
+enum OpCode {
+  ADD = 0;
+  SUB = 1;
+  SET_FIELD = 2;
+  COPY_FIELD = 3;
+  SHIFT_LEFT = 4;
+  SHIFT_RIGHT = 5;
+  BIT_AND = 6;
+  BIT_OR = 7;
+  BIT_XOR = 8;
+  BIT_NEG = 9;
+}
+
+message Parameter {
+  ParameterType type = 1;
+  oneof val {
+    int32 hdrId = 2;
+    FieldInfo field = 3;
+    Data constantData = 4;
+    int32 actionParaId = 5;
+    OpCode op = 6;
+  }
+}
+
+//message Primitive {
+//  OpCode op = 1;
+//  int32 paraNum = 2;
+//  repeated Parameter params = 3;
+//}
+
+message ExpTreeNode {
+  Parameter opt = 1;
+  ExpTreeNode left = 2;
+  ExpTreeNode right = 3;
+}
+
+message Prim {
+  FieldInfo lvalue = 1;
+  ExpTreeNode root = 2;
+}
+
+//message ActionParam {
+//  int32 actionParamLen = 1;
+//  bytes val = 2;
+//}
+
+message Action {
+  int32 paraNum = 1;
+  repeated Prim prims = 2;
+//  repeated ActionParam actionParas = 3;
+  repeated int32 actionParaLens = 4;
+}
+
+message InsertActionReq {
+  int32 procId = 1;
+  Action action = 2;
+  int32 actionId = 3;
+}
+
+message InsertActionResp {
+  Res res = 1;
+}
+
+message ClearActionReq {
+  int32 procId = 1;
+}
+
+message ClearActionResp {
+  Res res = 1;
+}
+
+message DelActionReq {
+  int32 procId = 1;
+  int32 actionId = 2;
+}
+
+message DelActionResp {
+  Res res = 1;
+}
+
+/************** executor start *****************/

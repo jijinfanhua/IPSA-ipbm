@@ -1,0 +1,99 @@
+<rp4_declaration> ::= {<header_def>} {<struct_def>} <headers_seq> <parser_def> 
+                        <action_declaration> <table_declaration> <ingress_def> <egress_def>
+
+# header
+<header_def> ::= 'header' <header_name> '{' {<field_def>} '}'
+<field_def> ::= <type_ref> <field_name> ';'
+<type_ref> ::= 'bit' '<' <num> '>'
+
+# struct
+<struct_def> ::= 'struct' <struct_name> '{' {<member_def>} '}' <instance_name> ';'
+<member_def> ::= <type_ref> <member_name>
+             |   <header_name> <member_name>
+
+# parser
+<parameter> ::= <type_ref> <parameter_name>
+<parser_def> ::= 'parser' <parser_name> '(' {<member_def>} ')' '{' {<state_def>} '}'
+<state_def> ::= 'state' <state_name> '{' 
+                      {<expression>} <extract_statement> <transition_statement>
+                    | <extract_statement> {<expression>} <transition_statement>
+                '}'
+<extract_statement> ::= <parameter>'.extract(' {<instance_name>'.'<member_name> ','} [<instance_name>'.'<member_name>] ');'
+<transition_statement> ::= 'transition select(' <instance_name>'.'<member_name>.<field_name> ') {' {<transition_entry>} '}'
+                        |   'transtioh accept;'
+                        |   'transition reject;'
+<transition_entry> ::= <transition_key> ':' 
+                        <state_name> 
+                      | 'accept'
+                        ';'
+<transition_key> ::= <integer>
+                    | <integer> '&&&' <integer>
+                    | 'default'
+
+# action
+<action_declaration> ::= 'actions {' {<action_def>} '}'
+<action_def> ::= 'action' <action_name> '(' [{<paramter> ','}] [parameter]')'
+                '{' [{<expression>}] '}'
+
+<expression> ::= <lvalue> '=' <ops> ';'
+                | <action_name> '(' [<parameter_name> ',' | <integer> ','] [<parameter_name> | <integer>] ')' ';' # function call
+<lvalue> ::= <instance_name>'.'<member_name>['.'<field_name>]
+<oprand> ::= <integer>
+            | <instance_name>'.'<member_name>['.'<field_name>]
+            | <parameter_name>
+<ops> ::= [<op>] <operand>
+        | [<op>] <ops>
+        | <operand> <op> <ops>
+        | '(' <ops> ')'
+<op> ::= '+' | '-' | '*' | '/' | '&' | '|' | '^' | '>' | '>=' | '<' | '<=' | '==' | '!=' | '~' | '!'
+
+# table
+<table_declaration> ::= 'tables {' [{<table_def>}] '}'
+<table_def> ::= 'table' <table_name> '{' <key_def> [{<optStatement>}] '}'
+<key_def> ::= 'key = {' [{<key_entry>}] '}'
+<key_entry> ::= <lvalue> ':' <match_type> ';'
+<match_type> ::= 'exact' | 'ternary' | 'lpm'
+<optStatement> ::= 'size = ' <num> ';'
+                | 'const entries = {' [{<match_entry>}] '}'
+                | 'const default_action = ' <action_name> ';'
+<match_entry> ::= <match_key> ':' <action_name> ';'
+<match_key> ::= '(' [{<value>','}] [<value>] ')'
+<value> ::= <integer> 
+            | <integer> '&&&' <integer>
+            | <bool>
+<bool> ::= true | false
+
+# ingress
+<ingress_def> ::= 'control' <ingress_name> '{' [{<stage_def>}] '}'
+<egress_def> ::= 'control' <egress_name> '{' [{<stage_def>}] '}'
+<stage_def> ::= 'stage' <stage_name> '{' <parser_statement> <matcher_def> <executor_def> '}'
+<parser_statement> ::= 'parser' '{' {<instance_name>'.'<member_name> ';'} '}'
+<matcher_def> ::= 'matcher {' 'switch(' {<ops>','} <ops>')' '{' [<switch_entry>]  '}' '}'
+<switch_entry> ::= <switch_key> : <switch_value> ';'
+<switch_key> ::= <integer> | '*'
+<switch_value> ::= 'table(' <table_name> ')'
+                |  'stage(' <stage_name> ')'
+                |  'None'
+                |  'NoAction'
+<executor_def> ::= 'executor {' {<action_name> ':' <stage_name> ';'} '}'
+
+# variable
+<header_name> ::= <identifier>
+<field_name> ::= <identifier>
+<member_name> ::= <identifier>
+<struct_name> ::= <identifier>
+<instance_name> ::= <identifier>
+<parameter_name> ::= <identifier>
+<parser_name> ::= <identifier>
+<stage_name> ::= <identifier>
+<table_name> ::= <identifier>
+<action_name> ::= <identifier>
+<ingress_name> ::= <identifier>
+<egress_name> ::= <identifier>
+<letter> ::= 'a' | 'b' | ... | 'z' | 'A' | ... | 'Z'
+<digit> ::= '0' | '1' | '2' | ... | '9'
+<identifier> = <letter>  { <letter> | <digit> | '_' }
+<num> ::= <digit> | <digit> <num>
+<binary> ::= '0b'{'0' | '1'}
+<hex> ::= '0x'{<digit> | 'A' | 'B' | ... | 'F' | 'a' | 'b' | ... | 'f'}
+<integer> ::= <num> | <binary> | <hex>

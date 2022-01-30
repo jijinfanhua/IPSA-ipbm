@@ -1,0 +1,2658 @@
+{
+  "metadata" : [
+    {
+      "id" : 31,
+      "length" : 20,
+      "offset" : 0
+    },
+    {
+      "id" : 0,
+      "length" : 120,
+      "offset" : 20
+    },
+    {
+      "id" : 1,
+      "length" : 24,
+      "offset" : 140
+    }
+  ],
+  "processor_0" : {
+    "executor" : [
+      {
+        "action_parameters_lengths" : [
+          16
+        ],
+        "id" : 9,
+        "parameter_num" : 1,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 51,
+              "field_length" : 16,
+              "header_id" : 1,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "PARAM",
+              "value" : 0
+            }
+          }
+        ]
+      },
+      {
+        "action_parameters_lengths" : [],
+        "id" : 0,
+        "parameter_num" : 0,
+        "primitives" : []
+      }
+    ],
+    "gateway" : {
+      "expressions" : [
+        {
+          "type" : "EXPR",
+          "value" : {
+            "left" : {
+              "type" : "CONST",
+              "value" : 1
+            },
+            "op" : "==",
+            "right" : {
+              "type" : "CONST",
+              "value" : 1
+            }
+          }
+        }
+      ],
+      "next_table" : {
+        "default" : {
+          "type" : "TABLE",
+          "value" : 0
+        },
+        "entries" : [
+          {
+            "bitmap" : 1,
+            "value" : {
+              "type" : "TABLE",
+              "value" : 0
+            }
+          }
+        ]
+      }
+    },
+    "id" : 0,
+    "matcher" : [
+      {
+        "action_to_proc" : [
+          {
+            "action_id" : 9,
+            "proc_id" : 1
+          },
+          {
+            "action_id" : 0,
+            "proc_id" : 1
+          }
+        ],
+        "field_infos" : [
+          {
+            "field_internal_offset" : 0,
+            "field_length" : 9,
+            "header_id" : 31,
+            "type" : "FIELD"
+          }
+        ],
+        "id" : 0,
+        "key_memory" : {
+          "config" : [
+            0
+          ],
+          "depth" : 1,
+          "type" : "SRAM",
+          "width" : 1
+        },
+        "match_type" : "EXACT",
+        "miss_action_id" : 0,
+        "no_table" : 0,
+        "value_memory" : {
+          "config" : [
+            1
+          ],
+          "width" : 1
+        }
+      }
+    ],
+    "parser" : {
+      "levels" : [],
+      "parser_level" : 0
+    }
+  },
+  "processor_1" : {
+    "executor" : [
+      {
+        "action_parameters_lengths" : [
+          16,
+          16
+        ],
+        "id" : 10,
+        "parameter_num" : 2,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 3,
+              "field_length" : 16,
+              "header_id" : 1,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "PARAM",
+              "value" : 0
+            }
+          },
+          {
+            "lvalue" : {
+              "field_internal_offset" : 19,
+              "field_length" : 16,
+              "header_id" : 1,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "PARAM",
+              "value" : 1
+            }
+          }
+        ]
+      },
+      {
+        "action_parameters_lengths" : [],
+        "id" : 1,
+        "parameter_num" : 0,
+        "primitives" : []
+      }
+    ],
+    "gateway" : {
+      "expressions" : [
+        {
+          "type" : "EXPR",
+          "value" : {
+            "left" : {
+              "type" : "CONST",
+              "value" : 1
+            },
+            "op" : "==",
+            "right" : {
+              "type" : "CONST",
+              "value" : 1
+            }
+          }
+        }
+      ],
+      "next_table" : {
+        "default" : {
+          "type" : "TABLE",
+          "value" : 0
+        },
+        "entries" : [
+          {
+            "bitmap" : 1,
+            "value" : {
+              "type" : "TABLE",
+              "value" : 0
+            }
+          }
+        ]
+      }
+    },
+    "id" : 1,
+    "matcher" : [
+      {
+        "action_to_proc" : [
+          {
+            "action_id" : 10,
+            "proc_id" : 2
+          },
+          {
+            "action_id" : 1,
+            "proc_id" : 2
+          }
+        ],
+        "field_infos" : [
+          {
+            "field_internal_offset" : 51,
+            "field_length" : 16,
+            "header_id" : 1,
+            "type" : "FIELD"
+          },
+          {
+            "field_internal_offset" : 0,
+            "field_length" : 0,
+            "header_id" : 3,
+            "type" : "VALID"
+          },
+          {
+            "field_internal_offset" : 4,
+            "field_length" : 12,
+            "header_id" : 3,
+            "type" : "FIELD"
+          }
+        ],
+        "id" : 0,
+        "key_memory" : {
+          "config" : [
+            0
+          ],
+          "depth" : 1,
+          "type" : "TCAM",
+          "width" : 1
+        },
+        "match_type" : "TERNARY",
+        "miss_action_id" : 1,
+        "no_table" : 0,
+        "value_memory" : {
+          "config" : [
+            2
+          ],
+          "width" : 1
+        }
+      }
+    ],
+    "parser" : {
+      "levels" : [
+        [
+          {
+            "parser_sram_entry" : {
+              "accept_drop" : 2,
+              "header_id" : 2,
+              "header_length" : 112,
+              "next_state" : 1,
+              "transition_field_num" : 1,
+              "transition_fields" : [
+                {
+                  "field_internal_offset" : 96,
+                  "field_length" : 16,
+                  "header_id" : 2,
+                  "type" : "FIELD"
+                }
+              ]
+            },
+            "parser_tcam_entry" : {
+              "current_state" : 0,
+              "entry" : 0,
+              "mask" : 0
+            }
+          }
+        ],
+        [
+          {
+            "parser_sram_entry" : {
+              "accept_drop" : 2,
+              "header_id" : 4,
+              "header_length" : 160,
+              "next_state" : 3,
+              "transition_field_num" : 1,
+              "transition_fields" : [
+                {
+                  "field_internal_offset" : 72,
+                  "field_length" : 8,
+                  "header_id" : 4,
+                  "type" : "FIELD"
+                }
+              ]
+            },
+            "parser_tcam_entry" : {
+              "current_state" : 1,
+              "entry" : 2048,
+              "mask" : -1
+            }
+          },
+          {
+            "parser_sram_entry" : {
+              "accept_drop" : 2,
+              "header_id" : 5,
+              "header_length" : 320,
+              "next_state" : 4,
+              "transition_field_num" : 1,
+              "transition_fields" : [
+                {
+                  "field_internal_offset" : 48,
+                  "field_length" : 8,
+                  "header_id" : 5,
+                  "type" : "FIELD"
+                }
+              ]
+            },
+            "parser_tcam_entry" : {
+              "current_state" : 1,
+              "entry" : 34525,
+              "mask" : -1
+            }
+          },
+          {
+            "parser_sram_entry" : {
+              "accept_drop" : 2,
+              "header_id" : 3,
+              "header_length" : 32,
+              "next_state" : 2,
+              "transition_field_num" : 1,
+              "transition_fields" : [
+                {
+                  "field_internal_offset" : 16,
+                  "field_length" : 16,
+                  "header_id" : 3,
+                  "type" : "FIELD"
+                }
+              ]
+            },
+            "parser_tcam_entry" : {
+              "current_state" : 1,
+              "entry" : 33024,
+              "mask" : -1
+            }
+          },
+          {
+            "parser_sram_entry" : {
+              "accept_drop" : 0,
+              "header_id" : 0,
+              "header_length" : 0,
+              "next_state" : 0,
+              "transition_field_num" : 0,
+              "transition_fields" : []
+            },
+            "parser_tcam_entry" : {
+              "current_state" : 1,
+              "entry" : 0,
+              "mask" : 0
+            }
+          }
+        ]
+      ],
+      "parser_level" : 2
+    }
+  },
+  "processor_10" : {
+    "executor" : [
+      {
+        "action_parameters_lengths" : [
+          16
+        ],
+        "id" : 25,
+        "parameter_num" : 1,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 35,
+              "field_length" : 16,
+              "header_id" : 1,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "PARAM",
+              "value" : 0
+            }
+          },
+          {
+            "lvalue" : {
+              "field_internal_offset" : 2,
+              "field_length" : 1,
+              "header_id" : 1,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "CONST",
+              "value" : 0
+            }
+          }
+        ]
+      },
+      {
+        "action_parameters_lengths" : [],
+        "id" : 27,
+        "parameter_num" : 0,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 2,
+              "field_length" : 1,
+              "header_id" : 1,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "CONST",
+              "value" : 0
+            }
+          }
+        ]
+      }
+    ],
+    "gateway" : {
+      "expressions" : [
+        {
+          "type" : "EXPR",
+          "value" : {
+            "left" : {
+              "type" : "CONST",
+              "value" : 1
+            },
+            "op" : "==",
+            "right" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 1,
+                "field_length" : 1,
+                "header_id" : 1,
+                "type" : "FIELD"
+              }
+            }
+          }
+        }
+      ],
+      "next_table" : {
+        "default" : {
+          "type" : "STAGE",
+          "value" : 11
+        },
+        "entries" : [
+          {
+            "bitmap" : 0,
+            "value" : {
+              "type" : "TABLE",
+              "value" : 0
+            }
+          }
+        ]
+      }
+    },
+    "id" : 13,
+    "matcher" : [
+      {
+        "action_to_proc" : [
+          {
+            "action_id" : 25,
+            "proc_id" : 11
+          },
+          {
+            "action_id" : 27,
+            "proc_id" : 11
+          }
+        ],
+        "field_infos" : [
+          {
+            "field_internal_offset" : 19,
+            "field_length" : 16,
+            "header_id" : 1,
+            "type" : "FIELD"
+          },
+          {
+            "field_internal_offset" : 352,
+            "field_length" : 128,
+            "header_id" : 0,
+            "type" : "FIELD"
+          }
+        ],
+        "id" : 0,
+        "key_memory" : {
+          "config" : [
+            1,
+            2,
+            3
+          ],
+          "depth" : 1,
+          "type" : "TCAM",
+          "width" : 3
+        },
+        "match_type" : "TERNARY",
+        "miss_action_id" : 27,
+        "no_table" : 0,
+        "value_memory" : {
+          "config" : [
+            8
+          ],
+          "width" : 1
+        }
+      }
+    ],
+    "parser" : {
+      "levels" : [],
+      "parser_level" : 0
+    }
+  },
+  "processor_11" : {
+    "executor" : [
+      {
+        "action_parameters_lengths" : [
+          16,
+          48
+        ],
+        "id" : 28,
+        "parameter_num" : 2,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 2,
+              "field_length" : 1,
+              "header_id" : 1,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "CONST",
+              "value" : 1
+            }
+          },
+          {
+            "lvalue" : {
+              "field_internal_offset" : 3,
+              "field_length" : 16,
+              "header_id" : 1,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "PARAM",
+              "value" : 0
+            }
+          },
+          {
+            "lvalue" : {
+              "field_internal_offset" : 0,
+              "field_length" : 48,
+              "header_id" : 2,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "PARAM",
+              "value" : 1
+            }
+          }
+        ]
+      },
+      {
+        "action_parameters_lengths" : [],
+        "id" : 5,
+        "parameter_num" : 0,
+        "primitives" : []
+      }
+    ],
+    "gateway" : {
+      "expressions" : [
+        {
+          "type" : "EXPR",
+          "value" : {
+            "left" : {
+              "type" : "CONST",
+              "value" : 1
+            },
+            "op" : "==",
+            "right" : {
+              "type" : "CONST",
+              "value" : 1
+            }
+          }
+        }
+      ],
+      "next_table" : {
+        "default" : {
+          "type" : "TABLE",
+          "value" : 0
+        },
+        "entries" : [
+          {
+            "bitmap" : 1,
+            "value" : {
+              "type" : "TABLE",
+              "value" : 0
+            }
+          }
+        ]
+      }
+    },
+    "id" : 6,
+    "matcher" : [
+      {
+        "action_to_proc" : [
+          {
+            "action_id" : 28,
+            "proc_id" : 12
+          },
+          {
+            "action_id" : 5,
+            "proc_id" : 12
+          }
+        ],
+        "field_infos" : [
+          {
+            "field_internal_offset" : 35,
+            "field_length" : 16,
+            "header_id" : 1,
+            "type" : "FIELD"
+          },
+          {
+            "field_internal_offset" : 224,
+            "field_length" : 128,
+            "header_id" : 0,
+            "type" : "FIELD"
+          },
+          {
+            "field_internal_offset" : 352,
+            "field_length" : 128,
+            "header_id" : 0,
+            "type" : "FIELD"
+          },
+          {
+            "field_internal_offset" : 140,
+            "field_length" : 20,
+            "header_id" : 0,
+            "type" : "FIELD"
+          },
+          {
+            "field_internal_offset" : 160,
+            "field_length" : 32,
+            "header_id" : 0,
+            "type" : "FIELD"
+          },
+          {
+            "field_internal_offset" : 192,
+            "field_length" : 32,
+            "header_id" : 0,
+            "type" : "FIELD"
+          }
+        ],
+        "id" : 0,
+        "key_memory" : {
+          "config" : [
+            3,
+            4,
+            5
+          ],
+          "depth" : 1,
+          "type" : "SRAM",
+          "width" : 3
+        },
+        "match_type" : "EXACT",
+        "miss_action_id" : 5,
+        "no_table" : 0,
+        "value_memory" : {
+          "config" : [
+            6
+          ],
+          "width" : 1
+        }
+      }
+    ],
+    "parser" : {
+      "levels" : [],
+      "parser_level" : 0
+    }
+  },
+  "processor_12" : {
+    "executor" : [
+      {
+        "action_parameters_lengths" : [],
+        "id" : 29,
+        "parameter_num" : 0,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 64,
+              "field_length" : 8,
+              "header_id" : 4,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "EXPR",
+              "value" : {
+                "left" : {
+                  "type" : "EXPR",
+                  "value" : {
+                    "left" : {
+                      "type" : "FIELD",
+                      "value" : {
+                        "field_internal_offset" : 64,
+                        "field_length" : 8,
+                        "header_id" : 4,
+                        "type" : "FIELD"
+                      }
+                    },
+                    "op" : "+",
+                    "right" : {
+                      "type" : "CONST",
+                      "value" : 255
+                    }
+                  }
+                },
+                "op" : "&",
+                "right" : {
+                  "type" : "CONST",
+                  "value" : 255
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "action_parameters_lengths" : [],
+        "id" : 30,
+        "parameter_num" : 0,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 56,
+              "field_length" : 8,
+              "header_id" : 5,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "EXPR",
+              "value" : {
+                "left" : {
+                  "type" : "EXPR",
+                  "value" : {
+                    "left" : {
+                      "type" : "FIELD",
+                      "value" : {
+                        "field_internal_offset" : 56,
+                        "field_length" : 8,
+                        "header_id" : 5,
+                        "type" : "FIELD"
+                      }
+                    },
+                    "op" : "+",
+                    "right" : {
+                      "type" : "CONST",
+                      "value" : 255
+                    }
+                  }
+                },
+                "op" : "&",
+                "right" : {
+                  "type" : "CONST",
+                  "value" : 255
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "action_parameters_lengths" : [],
+        "id" : 6,
+        "parameter_num" : 0,
+        "primitives" : []
+      }
+    ],
+    "gateway" : {
+      "expressions" : [
+        {
+          "type" : "EXPR",
+          "value" : {
+            "left" : {
+              "type" : "CONST",
+              "value" : 1
+            },
+            "op" : "==",
+            "right" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 2,
+                "field_length" : 1,
+                "header_id" : 1,
+                "type" : "FIELD"
+              }
+            }
+          }
+        }
+      ],
+      "next_table" : {
+        "default" : {
+          "type" : "STAGE",
+          "value" : 14
+        },
+        "entries" : [
+          {
+            "bitmap" : 1,
+            "value" : {
+              "type" : "TABLE",
+              "value" : 0
+            }
+          }
+        ]
+      }
+    },
+    "id" : 14,
+    "matcher" : [
+      {
+        "action_to_proc" : [
+          {
+            "action_id" : 29,
+            "proc_id" : 13
+          },
+          {
+            "action_id" : 30,
+            "proc_id" : 13
+          },
+          {
+            "action_id" : 6,
+            "proc_id" : 13
+          }
+        ],
+        "field_infos" : [
+          {
+            "field_internal_offset" : 0,
+            "field_length" : 0,
+            "header_id" : 4,
+            "type" : "VALID"
+          },
+          {
+            "field_internal_offset" : 0,
+            "field_length" : 0,
+            "header_id" : 5,
+            "type" : "VALID"
+          }
+        ],
+        "id" : 0,
+        "key_memory" : {
+          "config" : [],
+          "depth" : 1,
+          "type" : "SRAM",
+          "width" : 0
+        },
+        "match_type" : "EXACT",
+        "miss_action_id" : 6,
+        "no_table" : 0,
+        "value_memory" : {
+          "config" : [
+            4
+          ],
+          "width" : 1
+        }
+      }
+    ],
+    "parser" : {
+      "levels" : [],
+      "parser_level" : 0
+    }
+  },
+  "processor_13" : {
+    "executor" : [
+      {
+        "action_parameters_lengths" : [
+          48
+        ],
+        "id" : 31,
+        "parameter_num" : 1,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 48,
+              "field_length" : 48,
+              "header_id" : 2,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "PARAM",
+              "value" : 0
+            }
+          }
+        ]
+      },
+      {
+        "action_parameters_lengths" : [],
+        "id" : 7,
+        "parameter_num" : 0,
+        "primitives" : []
+      }
+    ],
+    "gateway" : {
+      "expressions" : [
+        {
+          "type" : "EXPR",
+          "value" : {
+            "left" : {
+              "type" : "CONST",
+              "value" : 1
+            },
+            "op" : "==",
+            "right" : {
+              "type" : "CONST",
+              "value" : 1
+            }
+          }
+        }
+      ],
+      "next_table" : {
+        "default" : {
+          "type" : "TABLE",
+          "value" : 0
+        },
+        "entries" : [
+          {
+            "bitmap" : 1,
+            "value" : {
+              "type" : "TABLE",
+              "value" : 0
+            }
+          }
+        ]
+      }
+    },
+    "id" : 7,
+    "matcher" : [
+      {
+        "action_to_proc" : [
+          {
+            "action_id" : 31,
+            "proc_id" : 14
+          },
+          {
+            "action_id" : 7,
+            "proc_id" : 14
+          }
+        ],
+        "field_infos" : [
+          {
+            "field_internal_offset" : 3,
+            "field_length" : 16,
+            "header_id" : 1,
+            "type" : "FIELD"
+          }
+        ],
+        "id" : 0,
+        "key_memory" : {
+          "config" : [
+            0
+          ],
+          "depth" : 1,
+          "type" : "SRAM",
+          "width" : 1
+        },
+        "match_type" : "EXACT",
+        "miss_action_id" : 7,
+        "no_table" : 0,
+        "value_memory" : {
+          "config" : [
+            1
+          ],
+          "width" : 1
+        }
+      }
+    ],
+    "parser" : {
+      "levels" : [],
+      "parser_level" : 0
+    }
+  },
+  "processor_14" : {
+    "executor" : [
+      {
+        "action_parameters_lengths" : [
+          16
+        ],
+        "id" : 19,
+        "parameter_num" : 1,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 67,
+              "field_length" : 16,
+              "header_id" : 1,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "PARAM",
+              "value" : 0
+            }
+          }
+        ]
+      },
+      {
+        "action_parameters_lengths" : [],
+        "id" : 18,
+        "parameter_num" : 0,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 67,
+              "field_length" : 16,
+              "header_id" : 1,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "CONST",
+              "value" : 65535
+            }
+          }
+        ]
+      }
+    ],
+    "gateway" : {
+      "expressions" : [
+        {
+          "type" : "EXPR",
+          "value" : {
+            "left" : {
+              "type" : "CONST",
+              "value" : 1
+            },
+            "op" : "==",
+            "right" : {
+              "type" : "CONST",
+              "value" : 1
+            }
+          }
+        }
+      ],
+      "next_table" : {
+        "default" : {
+          "type" : "TABLE",
+          "value" : 0
+        },
+        "entries" : [
+          {
+            "bitmap" : 1,
+            "value" : {
+              "type" : "TABLE",
+              "value" : 0
+            }
+          }
+        ]
+      }
+    },
+    "id" : 8,
+    "matcher" : [
+      {
+        "action_to_proc" : [
+          {
+            "action_id" : 19,
+            "proc_id" : -1
+          },
+          {
+            "action_id" : 18,
+            "proc_id" : -1
+          }
+        ],
+        "field_infos" : [
+          {
+            "field_internal_offset" : 3,
+            "field_length" : 16,
+            "header_id" : 1,
+            "type" : "FIELD"
+          },
+          {
+            "field_internal_offset" : 0,
+            "field_length" : 48,
+            "header_id" : 2,
+            "type" : "FIELD"
+          }
+        ],
+        "id" : 0,
+        "key_memory" : {
+          "config" : [
+            2
+          ],
+          "depth" : 1,
+          "type" : "SRAM",
+          "width" : 1
+        },
+        "match_type" : "EXACT",
+        "miss_action_id" : 18,
+        "no_table" : 0,
+        "value_memory" : {
+          "config" : [
+            3
+          ],
+          "width" : 1
+        }
+      }
+    ],
+    "parser" : {
+      "levels" : [],
+      "parser_level" : 0
+    }
+  },
+  "processor_15" : null,
+  "processor_2" : {
+    "executor" : [
+      {
+        "action_parameters_lengths" : [],
+        "id" : 11,
+        "parameter_num" : 0,
+        "primitives" : []
+      },
+      {
+        "action_parameters_lengths" : [],
+        "id" : 15,
+        "parameter_num" : 0,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 0,
+              "field_length" : 48,
+              "header_id" : 0,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 48,
+                "field_length" : 48,
+                "header_id" : 2,
+                "type" : "FIELD"
+              }
+            }
+          },
+          {
+            "lvalue" : {
+              "field_internal_offset" : 48,
+              "field_length" : 48,
+              "header_id" : 0,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 0,
+                "field_length" : 48,
+                "header_id" : 2,
+                "type" : "FIELD"
+              }
+            }
+          },
+          {
+            "lvalue" : {
+              "field_internal_offset" : 96,
+              "field_length" : 16,
+              "header_id" : 0,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 16,
+                "field_length" : 16,
+                "header_id" : 3,
+                "type" : "FIELD"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "action_parameters_lengths" : [],
+        "id" : 14,
+        "parameter_num" : 0,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 0,
+              "field_length" : 48,
+              "header_id" : 0,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 48,
+                "field_length" : 48,
+                "header_id" : 2,
+                "type" : "FIELD"
+              }
+            }
+          },
+          {
+            "lvalue" : {
+              "field_internal_offset" : 48,
+              "field_length" : 48,
+              "header_id" : 0,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 0,
+                "field_length" : 48,
+                "header_id" : 2,
+                "type" : "FIELD"
+              }
+            }
+          },
+          {
+            "lvalue" : {
+              "field_internal_offset" : 96,
+              "field_length" : 16,
+              "header_id" : 0,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 96,
+                "field_length" : 16,
+                "header_id" : 2,
+                "type" : "FIELD"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "action_parameters_lengths" : [],
+        "id" : 2,
+        "parameter_num" : 0,
+        "primitives" : []
+      }
+    ],
+    "gateway" : {
+      "expressions" : [
+        {
+          "type" : "EXPR",
+          "value" : {
+            "left" : {
+              "type" : "CONST",
+              "value" : 1
+            },
+            "op" : "==",
+            "right" : {
+              "type" : "CONST",
+              "value" : 1
+            }
+          }
+        }
+      ],
+      "next_table" : {
+        "default" : {
+          "type" : "TABLE",
+          "value" : 0
+        },
+        "entries" : [
+          {
+            "bitmap" : 1,
+            "value" : {
+              "type" : "TABLE",
+              "value" : 0
+            }
+          }
+        ]
+      }
+    },
+    "id" : 2,
+    "matcher" : [
+      {
+        "action_to_proc" : [
+          {
+            "action_id" : 11,
+            "proc_id" : 3
+          },
+          {
+            "action_id" : 15,
+            "proc_id" : 3
+          },
+          {
+            "action_id" : 14,
+            "proc_id" : 3
+          },
+          {
+            "action_id" : 2,
+            "proc_id" : 3
+          }
+        ],
+        "field_infos" : [
+          {
+            "field_internal_offset" : 48,
+            "field_length" : 48,
+            "header_id" : 2,
+            "type" : "FIELD"
+          },
+          {
+            "field_internal_offset" : 0,
+            "field_length" : 48,
+            "header_id" : 2,
+            "type" : "FIELD"
+          },
+          {
+            "field_internal_offset" : 0,
+            "field_length" : 0,
+            "header_id" : 3,
+            "type" : "VALID"
+          }
+        ],
+        "id" : 0,
+        "key_memory" : {
+          "config" : [
+            1,
+            2
+          ],
+          "depth" : 1,
+          "type" : "TCAM",
+          "width" : 2
+        },
+        "match_type" : "TERNARY",
+        "miss_action_id" : 2,
+        "no_table" : 0,
+        "value_memory" : {
+          "config" : [
+            3
+          ],
+          "width" : 1
+        }
+      }
+    ],
+    "parser" : {
+      "levels" : [],
+      "parser_level" : 0
+    }
+  },
+  "processor_3" : {
+    "executor" : [
+      {
+        "action_parameters_lengths" : [],
+        "id" : 12,
+        "parameter_num" : 0,
+        "primitives" : []
+      },
+      {
+        "action_parameters_lengths" : [],
+        "id" : 16,
+        "parameter_num" : 0,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 112,
+              "field_length" : 4,
+              "header_id" : 0,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "CONST",
+              "value" : 4
+            }
+          },
+          {
+            "lvalue" : {
+              "field_internal_offset" : 132,
+              "field_length" : 8,
+              "header_id" : 0,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 8,
+                "field_length" : 8,
+                "header_id" : 4,
+                "type" : "FIELD"
+              }
+            }
+          },
+          {
+            "lvalue" : {
+              "field_internal_offset" : 116,
+              "field_length" : 8,
+              "header_id" : 0,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 72,
+                "field_length" : 8,
+                "header_id" : 4,
+                "type" : "FIELD"
+              }
+            }
+          },
+          {
+            "lvalue" : {
+              "field_internal_offset" : 124,
+              "field_length" : 8,
+              "header_id" : 0,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 64,
+                "field_length" : 8,
+                "header_id" : 4,
+                "type" : "FIELD"
+              }
+            }
+          },
+          {
+            "lvalue" : {
+              "field_internal_offset" : 160,
+              "field_length" : 32,
+              "header_id" : 0,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 96,
+                "field_length" : 32,
+                "header_id" : 4,
+                "type" : "FIELD"
+              }
+            }
+          },
+          {
+            "lvalue" : {
+              "field_internal_offset" : 192,
+              "field_length" : 32,
+              "header_id" : 0,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 128,
+                "field_length" : 32,
+                "header_id" : 4,
+                "type" : "FIELD"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "action_parameters_lengths" : [],
+        "id" : 3,
+        "parameter_num" : 0,
+        "primitives" : []
+      }
+    ],
+    "gateway" : {
+      "expressions" : [
+        {
+          "type" : "EXPR",
+          "value" : {
+            "left" : {
+              "type" : "CONST",
+              "value" : 1
+            },
+            "op" : "==",
+            "right" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 0,
+                "field_length" : 0,
+                "header_id" : 4,
+                "type" : "VALID"
+              }
+            }
+          }
+        }
+      ],
+      "next_table" : {
+        "default" : {
+          "type" : "STAGE",
+          "value" : 4
+        },
+        "entries" : [
+          {
+            "bitmap" : 1,
+            "value" : {
+              "type" : "TABLE",
+              "value" : 0
+            }
+          }
+        ]
+      }
+    },
+    "id" : 9,
+    "matcher" : [
+      {
+        "action_to_proc" : [
+          {
+            "action_id" : 12,
+            "proc_id" : 5
+          },
+          {
+            "action_id" : 16,
+            "proc_id" : 5
+          },
+          {
+            "action_id" : 3,
+            "proc_id" : 5
+          }
+        ],
+        "field_infos" : [
+          {
+            "field_internal_offset" : 0,
+            "field_length" : 4,
+            "header_id" : 4,
+            "type" : "FIELD"
+          },
+          {
+            "field_internal_offset" : 4,
+            "field_length" : 4,
+            "header_id" : 4,
+            "type" : "FIELD"
+          },
+          {
+            "field_internal_offset" : 64,
+            "field_length" : 8,
+            "header_id" : 4,
+            "type" : "FIELD"
+          }
+        ],
+        "id" : 0,
+        "key_memory" : {
+          "config" : [
+            3
+          ],
+          "depth" : 1,
+          "type" : "TCAM",
+          "width" : 1
+        },
+        "match_type" : "TERNARY",
+        "miss_action_id" : 3,
+        "no_table" : 0,
+        "value_memory" : {
+          "config" : [
+            4
+          ],
+          "width" : 1
+        }
+      }
+    ],
+    "parser" : {
+      "levels" : [
+        [
+          {
+            "parser_sram_entry" : {
+              "accept_drop" : 2,
+              "header_id" : 4,
+              "header_length" : 160,
+              "next_state" : 3,
+              "transition_field_num" : 1,
+              "transition_fields" : [
+                {
+                  "field_internal_offset" : 72,
+                  "field_length" : 8,
+                  "header_id" : 4,
+                  "type" : "FIELD"
+                }
+              ]
+            },
+            "parser_tcam_entry" : {
+              "current_state" : 2,
+              "entry" : 2048,
+              "mask" : -1
+            }
+          },
+          {
+            "parser_sram_entry" : {
+              "accept_drop" : 2,
+              "header_id" : 5,
+              "header_length" : 320,
+              "next_state" : 4,
+              "transition_field_num" : 1,
+              "transition_fields" : [
+                {
+                  "field_internal_offset" : 48,
+                  "field_length" : 8,
+                  "header_id" : 5,
+                  "type" : "FIELD"
+                }
+              ]
+            },
+            "parser_tcam_entry" : {
+              "current_state" : 2,
+              "entry" : 34525,
+              "mask" : -1
+            }
+          },
+          {
+            "parser_sram_entry" : {
+              "accept_drop" : 0,
+              "header_id" : 0,
+              "header_length" : 0,
+              "next_state" : 0,
+              "transition_field_num" : 0,
+              "transition_fields" : []
+            },
+            "parser_tcam_entry" : {
+              "current_state" : 2,
+              "entry" : 0,
+              "mask" : 0
+            }
+          }
+        ]
+      ],
+      "parser_level" : 1
+    }
+  },
+  "processor_4" : {
+    "executor" : [
+      {
+        "action_parameters_lengths" : [],
+        "id" : 13,
+        "parameter_num" : 0,
+        "primitives" : []
+      },
+      {
+        "action_parameters_lengths" : [],
+        "id" : 17,
+        "parameter_num" : 0,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 112,
+              "field_length" : 4,
+              "header_id" : 0,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "CONST",
+              "value" : 6
+            }
+          },
+          {
+            "lvalue" : {
+              "field_internal_offset" : 132,
+              "field_length" : 8,
+              "header_id" : 0,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 4,
+                "field_length" : 8,
+                "header_id" : 5,
+                "type" : "FIELD"
+              }
+            }
+          },
+          {
+            "lvalue" : {
+              "field_internal_offset" : 116,
+              "field_length" : 8,
+              "header_id" : 0,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 48,
+                "field_length" : 8,
+                "header_id" : 5,
+                "type" : "FIELD"
+              }
+            }
+          },
+          {
+            "lvalue" : {
+              "field_internal_offset" : 124,
+              "field_length" : 8,
+              "header_id" : 0,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 56,
+                "field_length" : 8,
+                "header_id" : 5,
+                "type" : "FIELD"
+              }
+            }
+          },
+          {
+            "lvalue" : {
+              "field_internal_offset" : 224,
+              "field_length" : 128,
+              "header_id" : 0,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 64,
+                "field_length" : 128,
+                "header_id" : 5,
+                "type" : "FIELD"
+              }
+            }
+          },
+          {
+            "lvalue" : {
+              "field_internal_offset" : 352,
+              "field_length" : 128,
+              "header_id" : 0,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 192,
+                "field_length" : 128,
+                "header_id" : 5,
+                "type" : "FIELD"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "action_parameters_lengths" : [],
+        "id" : 4,
+        "parameter_num" : 0,
+        "primitives" : []
+      }
+    ],
+    "gateway" : {
+      "expressions" : [
+        {
+          "type" : "EXPR",
+          "value" : {
+            "left" : {
+              "type" : "CONST",
+              "value" : 1
+            },
+            "op" : "==",
+            "right" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 0,
+                "field_length" : 0,
+                "header_id" : 5,
+                "type" : "VALID"
+              }
+            }
+          }
+        }
+      ],
+      "next_table" : {
+        "default" : {
+          "type" : "STAGE",
+          "value" : 5
+        },
+        "entries" : [
+          {
+            "bitmap" : 1,
+            "value" : {
+              "type" : "TABLE",
+              "value" : 0
+            }
+          }
+        ]
+      }
+    },
+    "id" : 10,
+    "matcher" : [
+      {
+        "action_to_proc" : [
+          {
+            "action_id" : 13,
+            "proc_id" : 5
+          },
+          {
+            "action_id" : 17,
+            "proc_id" : 5
+          },
+          {
+            "action_id" : 4,
+            "proc_id" : 5
+          }
+        ],
+        "field_infos" : [
+          {
+            "field_internal_offset" : 0,
+            "field_length" : 4,
+            "header_id" : 5,
+            "type" : "FIELD"
+          },
+          {
+            "field_internal_offset" : 56,
+            "field_length" : 8,
+            "header_id" : 5,
+            "type" : "FIELD"
+          }
+        ],
+        "id" : 0,
+        "key_memory" : {
+          "config" : [
+            0
+          ],
+          "depth" : 1,
+          "type" : "TCAM",
+          "width" : 1
+        },
+        "match_type" : "TERNARY",
+        "miss_action_id" : 4,
+        "no_table" : 0,
+        "value_memory" : {
+          "config" : [
+            4
+          ],
+          "width" : 1
+        }
+      }
+    ],
+    "parser" : {
+      "levels" : [
+        [
+          {
+            "parser_sram_entry" : {
+              "accept_drop" : 2,
+              "header_id" : 2,
+              "header_length" : 112,
+              "next_state" : 1,
+              "transition_field_num" : 1,
+              "transition_fields" : [
+                {
+                  "field_internal_offset" : 96,
+                  "field_length" : 16,
+                  "header_id" : 2,
+                  "type" : "FIELD"
+                }
+              ]
+            },
+            "parser_tcam_entry" : {
+              "current_state" : 0,
+              "entry" : 0,
+              "mask" : 0
+            }
+          }
+        ],
+        [
+          {
+            "parser_sram_entry" : {
+              "accept_drop" : 2,
+              "header_id" : 4,
+              "header_length" : 160,
+              "next_state" : 3,
+              "transition_field_num" : 1,
+              "transition_fields" : [
+                {
+                  "field_internal_offset" : 72,
+                  "field_length" : 8,
+                  "header_id" : 4,
+                  "type" : "FIELD"
+                }
+              ]
+            },
+            "parser_tcam_entry" : {
+              "current_state" : 1,
+              "entry" : 2048,
+              "mask" : -1
+            }
+          },
+          {
+            "parser_sram_entry" : {
+              "accept_drop" : 2,
+              "header_id" : 5,
+              "header_length" : 320,
+              "next_state" : 4,
+              "transition_field_num" : 1,
+              "transition_fields" : [
+                {
+                  "field_internal_offset" : 48,
+                  "field_length" : 8,
+                  "header_id" : 5,
+                  "type" : "FIELD"
+                }
+              ]
+            },
+            "parser_tcam_entry" : {
+              "current_state" : 1,
+              "entry" : 34525,
+              "mask" : -1
+            }
+          },
+          {
+            "parser_sram_entry" : {
+              "accept_drop" : 2,
+              "header_id" : 3,
+              "header_length" : 32,
+              "next_state" : 2,
+              "transition_field_num" : 1,
+              "transition_fields" : [
+                {
+                  "field_internal_offset" : 16,
+                  "field_length" : 16,
+                  "header_id" : 3,
+                  "type" : "FIELD"
+                }
+              ]
+            },
+            "parser_tcam_entry" : {
+              "current_state" : 1,
+              "entry" : 33024,
+              "mask" : -1
+            }
+          },
+          {
+            "parser_sram_entry" : {
+              "accept_drop" : 0,
+              "header_id" : 0,
+              "header_length" : 0,
+              "next_state" : 0,
+              "transition_field_num" : 0,
+              "transition_fields" : []
+            },
+            "parser_tcam_entry" : {
+              "current_state" : 1,
+              "entry" : 0,
+              "mask" : 0
+            }
+          }
+        ],
+        [
+          {
+            "parser_sram_entry" : {
+              "accept_drop" : 2,
+              "header_id" : 4,
+              "header_length" : 160,
+              "next_state" : 3,
+              "transition_field_num" : 1,
+              "transition_fields" : [
+                {
+                  "field_internal_offset" : 72,
+                  "field_length" : 8,
+                  "header_id" : 4,
+                  "type" : "FIELD"
+                }
+              ]
+            },
+            "parser_tcam_entry" : {
+              "current_state" : 2,
+              "entry" : 2048,
+              "mask" : -1
+            }
+          },
+          {
+            "parser_sram_entry" : {
+              "accept_drop" : 2,
+              "header_id" : 5,
+              "header_length" : 320,
+              "next_state" : 4,
+              "transition_field_num" : 1,
+              "transition_fields" : [
+                {
+                  "field_internal_offset" : 48,
+                  "field_length" : 8,
+                  "header_id" : 5,
+                  "type" : "FIELD"
+                }
+              ]
+            },
+            "parser_tcam_entry" : {
+              "current_state" : 2,
+              "entry" : 34525,
+              "mask" : -1
+            }
+          },
+          {
+            "parser_sram_entry" : {
+              "accept_drop" : 0,
+              "header_id" : 0,
+              "header_length" : 0,
+              "next_state" : 0,
+              "transition_field_num" : 0,
+              "transition_fields" : []
+            },
+            "parser_tcam_entry" : {
+              "current_state" : 2,
+              "entry" : 0,
+              "mask" : 0
+            }
+          }
+        ]
+      ],
+      "parser_level" : 3
+    }
+  },
+  "processor_5" : {
+    "executor" : [
+      {
+        "action_parameters_lengths" : [],
+        "id" : 32,
+        "parameter_num" : 0,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 83,
+              "field_length" : 8,
+              "header_id" : 1,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "CONST",
+              "value" : 0
+            }
+          }
+        ]
+      },
+      {
+        "action_parameters_lengths" : [],
+        "id" : 8,
+        "parameter_num" : 0,
+        "primitives" : []
+      }
+    ],
+    "gateway" : {
+      "expressions" : [
+        {
+          "type" : "EXPR",
+          "value" : {
+            "left" : {
+              "type" : "CONST",
+              "value" : 1
+            },
+            "op" : "==",
+            "right" : {
+              "type" : "CONST",
+              "value" : 1
+            }
+          }
+        }
+      ],
+      "next_table" : {
+        "default" : {
+          "type" : "TABLE",
+          "value" : 0
+        },
+        "entries" : [
+          {
+            "bitmap" : 1,
+            "value" : {
+              "type" : "TABLE",
+              "value" : 0
+            }
+          }
+        ]
+      }
+    },
+    "id" : 3,
+    "matcher" : [
+      {
+        "action_to_proc" : [
+          {
+            "action_id" : 32,
+            "proc_id" : 6
+          },
+          {
+            "action_id" : 8,
+            "proc_id" : 14
+          }
+        ],
+        "field_infos" : [
+          {
+            "field_internal_offset" : 48,
+            "field_length" : 48,
+            "header_id" : 0,
+            "type" : "FIELD"
+          }
+        ],
+        "id" : 0,
+        "key_memory" : {
+          "config" : [
+            0
+          ],
+          "depth" : 1,
+          "type" : "SRAM",
+          "width" : 1
+        },
+        "match_type" : "EXACT",
+        "miss_action_id" : 8,
+        "no_table" : 0,
+        "value_memory" : {
+          "config" : [
+            1
+          ],
+          "width" : 1
+        }
+      }
+    ],
+    "parser" : {
+      "levels" : [],
+      "parser_level" : 0
+    }
+  },
+  "processor_6" : {
+    "executor" : [
+      {
+        "action_parameters_lengths" : [],
+        "id" : 35,
+        "parameter_num" : 0,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 35,
+              "field_length" : 16,
+              "header_id" : 1,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "CONST",
+              "value" : 0
+            }
+          }
+        ]
+      },
+      {
+        "action_parameters_lengths" : [],
+        "id" : 38,
+        "parameter_num" : 0,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 35,
+              "field_length" : 16,
+              "header_id" : 1,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "CONST",
+              "value" : 0
+            }
+          }
+        ]
+      }
+    ],
+    "gateway" : {
+      "expressions" : [
+        {
+          "type" : "EXPR",
+          "value" : {
+            "left" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 112,
+                "field_length" : 4,
+                "header_id" : 0,
+                "type" : "FIELD"
+              }
+            },
+            "op" : "==",
+            "right" : {
+              "type" : "CONST",
+              "value" : 4
+            }
+          }
+        }
+      ],
+      "next_table" : {
+        "default" : {
+          "type" : "TABLE",
+          "value" : 1
+        },
+        "entries" : [
+          {
+            "bitmap" : 1,
+            "value" : {
+              "type" : "TABLE",
+              "value" : 0
+            }
+          }
+        ]
+      }
+    },
+    "id" : 11,
+    "matcher" : [
+      {
+        "action_to_proc" : [
+          {
+            "action_id" : 35,
+            "proc_id" : 7
+          },
+          {
+            "action_id" : 38,
+            "proc_id" : 8
+          }
+        ],
+        "field_infos" : [],
+        "id" : 0,
+        "key_memory" : {
+          "config" : [
+            5
+          ],
+          "depth" : 1,
+          "type" : "SRAM",
+          "width" : 1
+        },
+        "match_type" : "EXACT",
+        "miss_action_id" : 35,
+        "no_table" : 1,
+        "value_memory" : {
+          "config" : [
+            6
+          ],
+          "width" : 1
+        }
+      },
+      {
+        "action_to_proc" : [
+          {
+            "action_id" : 35,
+            "proc_id" : 7
+          },
+          {
+            "action_id" : 38,
+            "proc_id" : 8
+          }
+        ],
+        "field_infos" : [],
+        "id" : 1,
+        "key_memory" : {
+          "config" : [
+            7
+          ],
+          "depth" : 1,
+          "type" : "SRAM",
+          "width" : 1
+        },
+        "match_type" : "EXACT",
+        "miss_action_id" : 38,
+        "no_table" : 1,
+        "value_memory" : {
+          "config" : [
+            8
+          ],
+          "width" : 1
+        }
+      }
+    ],
+    "parser" : {
+      "levels" : [],
+      "parser_level" : 0
+    }
+  },
+  "processor_7" : {
+    "executor" : [
+      {
+        "action_parameters_lengths" : [],
+        "id" : 41,
+        "parameter_num" : 0,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 0,
+              "field_length" : 1,
+              "header_id" : 1,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "CONST",
+              "value" : 1
+            }
+          }
+        ]
+      },
+      {
+        "action_parameters_lengths" : [],
+        "id" : 42,
+        "parameter_num" : 0,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 0,
+              "field_length" : 1,
+              "header_id" : 1,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "CONST",
+              "value" : 0
+            }
+          }
+        ]
+      }
+    ],
+    "gateway" : {
+      "expressions" : [
+        {
+          "type" : "EXPR",
+          "value" : {
+            "left" : {
+              "type" : "CONST",
+              "value" : 1
+            },
+            "op" : "==",
+            "right" : {
+              "type" : "CONST",
+              "value" : 1
+            }
+          }
+        }
+      ],
+      "next_table" : {
+        "default" : {
+          "type" : "TABLE",
+          "value" : 0
+        },
+        "entries" : [
+          {
+            "bitmap" : 1,
+            "value" : {
+              "type" : "TABLE",
+              "value" : 0
+            }
+          }
+        ]
+      }
+    },
+    "id" : 4,
+    "matcher" : [
+      {
+        "action_to_proc" : [
+          {
+            "action_id" : 41,
+            "proc_id" : 9
+          },
+          {
+            "action_id" : 42,
+            "proc_id" : 9
+          }
+        ],
+        "field_infos" : [
+          {
+            "field_internal_offset" : 19,
+            "field_length" : 16,
+            "header_id" : 1,
+            "type" : "FIELD"
+          },
+          {
+            "field_internal_offset" : 192,
+            "field_length" : 32,
+            "header_id" : 0,
+            "type" : "FIELD"
+          }
+        ],
+        "id" : 0,
+        "key_memory" : {
+          "config" : [
+            2
+          ],
+          "depth" : 1,
+          "type" : "SRAM",
+          "width" : 1
+        },
+        "match_type" : "EXACT",
+        "miss_action_id" : 42,
+        "no_table" : 0,
+        "value_memory" : {
+          "config" : [
+            3
+          ],
+          "width" : 1
+        }
+      }
+    ],
+    "parser" : {
+      "levels" : [],
+      "parser_level" : 0
+    }
+  },
+  "processor_8" : {
+    "executor" : [
+      {
+        "action_parameters_lengths" : [],
+        "id" : 43,
+        "parameter_num" : 0,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 1,
+              "field_length" : 1,
+              "header_id" : 1,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "CONST",
+              "value" : 1
+            }
+          }
+        ]
+      },
+      {
+        "action_parameters_lengths" : [],
+        "id" : 44,
+        "parameter_num" : 0,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 1,
+              "field_length" : 1,
+              "header_id" : 1,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "CONST",
+              "value" : 0
+            }
+          }
+        ]
+      }
+    ],
+    "gateway" : {
+      "expressions" : [
+        {
+          "type" : "EXPR",
+          "value" : {
+            "left" : {
+              "type" : "CONST",
+              "value" : 1
+            },
+            "op" : "==",
+            "right" : {
+              "type" : "CONST",
+              "value" : 1
+            }
+          }
+        }
+      ],
+      "next_table" : {
+        "default" : {
+          "type" : "TABLE",
+          "value" : 0
+        },
+        "entries" : [
+          {
+            "bitmap" : 1,
+            "value" : {
+              "type" : "TABLE",
+              "value" : 0
+            }
+          }
+        ]
+      }
+    },
+    "id" : 5,
+    "matcher" : [
+      {
+        "action_to_proc" : [
+          {
+            "action_id" : 43,
+            "proc_id" : 10
+          },
+          {
+            "action_id" : 44,
+            "proc_id" : 10
+          }
+        ],
+        "field_infos" : [
+          {
+            "field_internal_offset" : 19,
+            "field_length" : 16,
+            "header_id" : 1,
+            "type" : "FIELD"
+          },
+          {
+            "field_internal_offset" : 352,
+            "field_length" : 128,
+            "header_id" : 0,
+            "type" : "FIELD"
+          }
+        ],
+        "id" : 0,
+        "key_memory" : {
+          "config" : [
+            0,
+            1
+          ],
+          "depth" : 1,
+          "type" : "SRAM",
+          "width" : 2
+        },
+        "match_type" : "EXACT",
+        "miss_action_id" : 44,
+        "no_table" : 0,
+        "value_memory" : {
+          "config" : [
+            2
+          ],
+          "width" : 1
+        }
+      }
+    ],
+    "parser" : {
+      "levels" : [],
+      "parser_level" : 0
+    }
+  },
+  "processor_9" : {
+    "executor" : [
+      {
+        "action_parameters_lengths" : [
+          16
+        ],
+        "id" : 21,
+        "parameter_num" : 1,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 35,
+              "field_length" : 16,
+              "header_id" : 1,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "PARAM",
+              "value" : 0
+            }
+          },
+          {
+            "lvalue" : {
+              "field_internal_offset" : 2,
+              "field_length" : 1,
+              "header_id" : 1,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "CONST",
+              "value" : 0
+            }
+          }
+        ]
+      },
+      {
+        "action_parameters_lengths" : [],
+        "id" : 23,
+        "parameter_num" : 0,
+        "primitives" : [
+          {
+            "lvalue" : {
+              "field_internal_offset" : 2,
+              "field_length" : 1,
+              "header_id" : 1,
+              "type" : "FIELD"
+            },
+            "rvalue" : {
+              "type" : "CONST",
+              "value" : 0
+            }
+          }
+        ]
+      }
+    ],
+    "gateway" : {
+      "expressions" : [
+        {
+          "type" : "EXPR",
+          "value" : {
+            "left" : {
+              "type" : "CONST",
+              "value" : 1
+            },
+            "op" : "==",
+            "right" : {
+              "type" : "FIELD",
+              "value" : {
+                "field_internal_offset" : 0,
+                "field_length" : 1,
+                "header_id" : 1,
+                "type" : "FIELD"
+              }
+            }
+          }
+        }
+      ],
+      "next_table" : {
+        "default" : {
+          "type" : "STAGE",
+          "value" : 11
+        },
+        "entries" : [
+          {
+            "bitmap" : 0,
+            "value" : {
+              "type" : "TABLE",
+              "value" : 0
+            }
+          }
+        ]
+      }
+    },
+    "id" : 12,
+    "matcher" : [
+      {
+        "action_to_proc" : [
+          {
+            "action_id" : 21,
+            "proc_id" : 11
+          },
+          {
+            "action_id" : 23,
+            "proc_id" : 11
+          }
+        ],
+        "field_infos" : [
+          {
+            "field_internal_offset" : 19,
+            "field_length" : 16,
+            "header_id" : 1,
+            "type" : "FIELD"
+          },
+          {
+            "field_internal_offset" : 192,
+            "field_length" : 32,
+            "header_id" : 0,
+            "type" : "FIELD"
+          }
+        ],
+        "id" : 0,
+        "key_memory" : {
+          "config" : [
+            0
+          ],
+          "depth" : 1,
+          "type" : "TCAM",
+          "width" : 1
+        },
+        "match_type" : "TERNARY",
+        "miss_action_id" : 23,
+        "no_table" : 0,
+        "value_memory" : {
+          "config" : [
+            7
+          ],
+          "width" : 1
+        }
+      }
+    ],
+    "parser" : {
+      "levels" : [],
+      "parser_level" : 0
+    }
+  }
+}

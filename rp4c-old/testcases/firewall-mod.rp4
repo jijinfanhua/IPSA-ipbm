@@ -1,0 +1,247 @@
+
+#include <core.rp4>
+#include <v1model.rp4>
+
+headers {
+    hdr ethernet_t {
+        bit<48> dstAddr;
+        bit<48> srcAddr;
+        bit<16> etherType;
+        implicit parser(etherType) {
+            0x0800:    ipv4_t;
+            default: accept;
+        }
+    }
+
+    hdr ipv4_t {
+        bit<4>    version;
+        bit<4>    ihl;
+        bit<8>    diffserv;
+        bit<16>   totalLen;
+        bit<16>   identification;
+        bit<3>    flags;
+        bit<13>   fragOffset;
+        bit<8>    ttl;
+        bit<8>    protocol;
+        bit<16>   hdrChecksum;
+        bit<32> srcAddr;
+        bit<32> dstAddr;
+        implicit parser(protocol) {
+            6: tcp_t;
+            default: accept;
+        }
+    }
+
+    hdr tcp_t {
+        bit<16> srcPort;
+        bit<16> dstPort;
+        bit<32> seqNo;
+        bit<32> ackNo;
+        bit<4>  dataOffset;
+        bit<4>  res;
+        bit<1>  cwr;
+        bit<1>  ece;
+        bit<1>  urg;
+        bit<1>  ack;
+        bit<1>  psh;
+        bit<1>  rst;
+        bit<1>  syn;
+        bit<1>  fin;
+        bit<16> window;
+        bit<16> checksum;
+        bit<16> urgentPtr;
+        implicit parser() {
+            default: accept;
+        }
+    }
+}
+
+structs {
+    struct metadata {
+
+    } meta;
+
+    struct ingress_variable {
+        register<bit<1>>(4096) bloom_filter_1;
+        register<bit<1>>(4096) bloom_filter_2;
+        bit<32> reg_pos_one;
+        bit<32> reg_pos_two;
+        bit<1> reg_val_one; 
+        bit<1> reg_val_two;
+        bit<1> direction;
+    }iv;
+}
+
+header_sequence {
+    ethernet_t   ethernet;
+    ipv4_t       ipv4;
+    tcp_t        tcp;
+}hs;
+
+actions {
+    action ipv4_forward(bit<48> dstAddr, bit<9> port) {
+        copy_field(port, standard_metadata.egress_spec);
+        copy_field(hs.ethernet_t.dstAddr, hs.ethermet_t.srcAddr);
+        copy_field(dstAddr, hs.ethernet.dstAddr);
+        decrement(hs.ipv4.ttl);
+        goto tcp_valid_s;
+    }
+
+    action direction_init() {
+        iv.direction = 0;
+        goto check_ports_s;
+    }
+    
+    action set_direction(bit<1> dir) {
+        copy_field(dir, iv.direction);
+        goto compute_hash_s;
+    }
+    
+    action compute_hash_1() {
+        hash(iv.reg_pos_one, HashAlgorithm.crc16, /*(bit<32>)*/0, hs.ipv4.srcAddr,
+                                                                   hs.ipv4.dstAddr,
+                                                                   hs.tcp.srcPort, 
+                                                                   hs.tcp.dstPort,
+                                                                   hs.ipv4.protocol,
+                                                                   /*(bit<32>)*/4096);
+        hash(iv.reg_pos_one, HashAlgorithm.crc16, /*(bit<32>)*/0, hs.ipv4.srcAddr,
+                                                                   hs.ipv4.dstAddr,
+                                                                   hs.tcp.srcPort, 
+                                                                   hs.tcp.dstPort,
+                                                                   hs.ipv4.protocol,
+                                                                   /*(bit<32>)*/4096);
+        goto bloom_filter_set_s;
+    }
+    
+    action compute_hash_0() {
+        hash(iv.reg_pos_one, HashAlgorithm.crc16, /*(bit<32>)*/0, hs.ipv4.dstAddr,
+                                                                   hs.ipv4.srcAddr,
+                                                                   hs.tcp.dstPort, 
+                                                                   hs.tcp.srcPort,
+                                                                   hs.ipv4.protocol,
+                                                                   /*(bit<32>)*/4096);
+        hash(iv.reg_pos_one, HashAlgorithm.crc16, /*(bit<32>)*/0, hs.ipv4.dstAddr,
+                                                                   hs.ipv4.srcAddr,
+                                                                   hs.tcp.dstPort, 
+                                                                   hs.tcp.srcPort,
+                                                                   hs.ipv4.protocol,
+                                                                   /*(bit<32>)*/4096);
+        goto bloom_filter_set_s;
+    }
+    
+    action bloom_filter_write_0(){
+        iv.bloom_filter_1.write(iv.reg_pos_one, 1);
+        iv.bloom_filter_2.write(iv.reg_pos_two, 1);
+    }
+    
+    action bloom_filter_write_1() {
+        iv.bloom_filter_1.read(iv.reg_val_one, iv.reg_pos_one);
+        iv.bloom_filter_2.read(iv.reg_val_two, iv.reg_pos_two);
+        mark_to_drop();
+    }
+    
+    action bloom_filter_write_2() {
+        iv.bloom_filter_1.read(iv.reg_val_one, iv.reg_pos_one);
+        iv.bloom_filter_2.read(iv.reg_val_two, iv.reg_pos_two);
+    }
+    
+    action drop() {
+        mark_to_drop(standard_metadata);
+    }
+}
+
+tables {
+    table ipv4_lpm {
+        key = {
+            hs.ipv4.dstAddr: lpm;
+        }
+        size = 1024;
+    }
+    
+    table check_ports {
+        key = {
+            standard_metadata.ingress_port: exact;
+            standard_metadata.egress_spec: exact;
+        }
+        size = 1024;
+    }
+}
+
+control rP4_Ingress {
+    stage ipv4_lpm_s {
+        parser: ipv4_t;
+        matcher: ipv4_lpm;
+        executor {
+            0b00: ipv4_forward;
+            0b01: drop;
+            default: drop;
+        }
+    }
+    
+    stage tcp_valid_s {
+        parser: tcp_t;
+        matcher: no_table;
+        executor {
+            default: direction_init;
+        }
+    }
+    
+    stage check_ports_s {
+        parser: no_header;
+        matcher: check_ports;
+        executor {
+            0b0: set_direction;
+            default: no_action;
+        }
+    }
+    
+    stage compute_hash_s {
+        parser: no_header;
+        matcher: {iv.direction == 0};
+        executor {
+            0b0: compute_hash_1;
+            0b1: compute_hash_0;
+        }
+    }
+    
+    stage bloom_filter_set_s {
+        parser: tcp_t;
+        matcher: {iv.direction == 0, hs.tcp.syn==1, iv.reg_val_one != 1, iv.reg_val_two != 1};
+        executor {
+            0b1111: bloom_filter_write_0;
+            0b0111: bloom_filter_write_1;
+            0b0101: bloom_filter_write_2;
+            // ...
+        }
+    }
+}
+
+control rP4_Egress {
+
+}
+
+/*
+user_funcs {
+    func ipv4_forward {
+        rP4_Ingress.ipv4_lpm_s;
+    }
+    
+    func tcp_firewall {
+        rP4_Ingress.tcp_valid_s;
+        rP4_Ingress.check_ports_s;
+        rP4_Ingress.compute_hash_s;
+        rP4_Ingress.bloom_filter_set_s;
+    }
+    ingress entry: rP4_Ingress.ipv4_lpm_s; // which stage the packet should pass first
+}
+*/
+/*
+pipelines{
+    pipeline p0{
+        rP4_Ingress.ipv4_lpm_s,
+        rP4_Ingress.check_ports_s,
+        rP4_Ingress.compute_hash_s,
+        rP4_Ingress.bloom_filter_set_s,
+        rP4_Egress
+    }
+}*/

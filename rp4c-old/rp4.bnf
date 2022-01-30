@@ -1,0 +1,89 @@
+
+<rp4_declaration> ::= <headers_declaration> <structs_declaration> <header_sequence_declaration> 
+                     <actions_declaration> <tables_declaration> {<control_declaration>} 
+                     <ingress_pipeline> <egress_pipeline> <user_funcs>
+<headers_declaration> ::= 'headers {' {<header_definition>} '}'
+<header_definition> ::= 'header' <header_name> '{' {<field_definition>} {<func_definition> ';'} '}'
+<field_definition> ::= <bit_def> <field_name>
+<func_definition> ::= <parser_definition>
+                    | <built-in_func_definition>
+                    | <atom_definition>
+<parser_definition> ::= 'implicit parser(' {<header_field_name>} ') {' {<header_tag> ':' <header_name>} '}'
+<header_field_name> ::= <header_name>'.'<field_name>
+                    | <struct_name>'.'<field_name>
+                    | <alias_name>'.'<field_name>
+<built-in_func_definition> ::= 'implicit' 'func' <func_name> '(' {<bit_def> <header_field_name>} ')' '{' {<statement>} '}'
+<atom_definition> ::= 'atoms {' {<statement>} '}'
+<structs_declaration> ::= 'structs' '{' {<struct_declaration>} '}'
+<header_sequence_declaration> ::= 'struct header_sequence' '{' 
+                                        {<header_name> <instance_name> ';' } 
+                                    '}' [<alias_name>';']
+<actions_declaration> ::= 'action' <action_name>'('{<field_definition> [',']}')' '{' 
+                                {<statement>} 
+                            '}'
+<struct_declaration> ::= 'struct' <struct_name> '{' 
+                            {<member_type> <member_name>} 
+                        '}' [<alias_name>';']
+<tables_declaration> ::= 'tables{' {<table_declaration>} '}'
+<table_declaration> ::= P4_table_declaration
+                     | <rP4_table_declaration>
+<rP4_table_declaration> ::= 'table' <table_name> '{' 'key={' {<match_field> ':' <match_type>} '}' ['size='<integer>] '}'
+<match_field> ::= <struct_name>'.'<member_name> 
+                | 'hs.'<header_name>'.'<field_name>
+<control_declaration> ::= P4_control_declaration
+<ingress_pipeline> ::= 'control rP4_Ingress {' {<stage_declaration>} '}'
+<egress_pipeline> ::= 'control rP4_Egress {' {<stage_declaration>} '}'
+<stage_declaration> ::= 'stage' <stage_name> '{' 
+                        'parser:' {<parser_module>}
+                        'matcher:' [<matcher_module>]
+                        'executer:' <executer_module>
+                     '}'
+<parser_module> ::= 'hs.'<instance_name> '=' 'packet_seg.extract(' <header_name> ')'
+<matcher_module> ::= 'action, para=' <match_expr> 
+                    | 'action, para=' <logic_expr>
+<match_expr> ::= <table_name>'.'<match_type>'(['{<match_field>}'])'
+<executer_module> ::= 'switch action:' {<switch_expr> ';'}
+<switch_expr> ::= 'case' <switch_tag>  | 'default' 
+                    ':' { <action_name> '(' {<para_name>} ');' }
+<para_name> ::= 'para.'<member_name>
+<user_funcs> ::= 'user_funcs {' 
+                        {<user_func_declaration>} 
+                        <ingress_entry>
+                        <egress_entry>
+                  '}'
+<user_func_declaration> ::= 'func' <func_name> '{' 
+                                 {<pipeline_name>'.'<stage_name>';'}
+                            '}'
+<pipeline_name> ::= 'rP4_Ingress'
+                  | 'rP4_Egress'
+<ingress_entry> ::= 'ingress_entry: rP4_Ingress.'<stage_name>
+<egress_entry> ::= 'egress_entry: rP4_Egress.'<stage_name>
+<match_expr> ::= <table_name>'.'<match_type>'(['{<match_field>}'])'
+<match_type> ::= 'lpm'
+                | 'exact'
+                | 'ternary'
+<member_type> ::= <bit_def>
+                | 'register'[<bit_def>] ['('<integer>')']
+<pipeline_name> ::= 'rP4_Ingress'
+                  | 'rP4_Egress'
+<field_definition> ::= <bit_def> <field_name>
+<bit_def> = 'bit' '<' <bit_width> '>'
+<struct_name> ::= 'ingress_variable'
+                | 'egress_variable'
+                | 'metadata'
+                | <other_struct_name>
+<header_name> ::= ''
+<instance_name> ::= ''
+<field_name> ::= ''
+<member_name> ::= ''
+<header_tag> ::= ''
+<func_name> ::= ''
+<table_name> ::= ''
+<other_struct_name> ::= ''
+<stage_name> ::= ''
+<integer> ::= ''
+<switch_tag> ::= ''
+<action_name> ::= ''
+<alias_name> ::= ''
+<logic_expr> :: P4_expression
+<statement> ::= P4_statement
