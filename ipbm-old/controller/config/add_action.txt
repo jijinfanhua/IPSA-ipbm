@@ -1,5 +1,0 @@
-e my_proto_forward
-a feng_forward 1 2
-l 32
-p copy_field metadata.a my_proto.feng
-p copy_field metadata.egress_port p.1

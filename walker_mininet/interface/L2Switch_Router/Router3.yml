@@ -1,0 +1,5 @@
+interfaces:
+  - name: s3-eth1
+    ip: 0.0.0.0
+  - name: s3-eth2
+    ip: 0.0.0.0

@@ -1,0 +1,1119 @@
+{
+  "header_types" : [
+    {
+      "name" : "scalars_0",
+      "id" : 0,
+      "fields" : [
+        ["tmp", 1, false],
+        ["_padding_0", 7, false]
+      ]
+    },
+    {
+      "name" : "standard_metadata",
+      "id" : 1,
+      "fields" : [
+        ["ingress_port", 9, false],
+        ["egress_spec", 9, false],
+        ["egress_port", 9, false],
+        ["clone_spec", 32, false],
+        ["instance_type", 32, false],
+        ["drop", 1, false],
+        ["recirculate_port", 16, false],
+        ["packet_length", 32, false],
+        ["enq_timestamp", 32, false],
+        ["enq_qdepth", 19, false],
+        ["deq_timedelta", 32, false],
+        ["deq_qdepth", 19, false],
+        ["ingress_global_timestamp", 48, false],
+        ["egress_global_timestamp", 48, false],
+        ["lf_field_list", 32, false],
+        ["mcast_grp", 16, false],
+        ["resubmit_flag", 32, false],
+        ["egress_rid", 16, false],
+        ["checksum_error", 1, false],
+        ["recirculate_flag", 32, false],
+        ["parser_error", 32, false],
+        ["_padding", 5, false]
+      ]
+    },
+    {
+      "name" : "ethernet_t",
+      "id" : 2,
+      "fields" : [
+        ["dst_address", 48, false],
+        ["src_address", 48, false],
+        ["ether_type", 16, false]
+      ]
+    },
+    {
+      "name" : "vlan_t",
+      "id" : 3,
+      "fields" : [
+        ["pri", 3, false],
+        ["cfi", 1, false],
+        ["vid", 12, false],
+        ["vlan_type", 16, false]
+      ]
+    },
+    {
+      "name" : "ipv4_t",
+      "id" : 4,
+      "fields" : [
+        ["version", 4, false],
+        ["ihl", 4, false],
+        ["type_service", 8, false],
+        ["total_length", 16, false],
+        ["identification", 16, false],
+        ["flags", 3, false],
+        ["fragment_offset", 13, false],
+        ["ttl", 8, false],
+        ["protocol", 8, false],
+        ["header_checksum", 16, false],
+        ["src_address", 32, false],
+        ["dst_address", 32, false]
+      ]
+    }
+  ],
+  "headers" : [
+    {
+      "name" : "scalars",
+      "id" : 0,
+      "header_type" : "scalars_0",
+      "metadata" : true,
+      "pi_omit" : true
+    },
+    {
+      "name" : "standard_metadata",
+      "id" : 1,
+      "header_type" : "standard_metadata",
+      "metadata" : true,
+      "pi_omit" : true
+    },
+    {
+      "name" : "ethernet",
+      "id" : 2,
+      "header_type" : "ethernet_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "vlan",
+      "id" : 3,
+      "header_type" : "vlan_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "ipv4",
+      "id" : 4,
+      "header_type" : "ipv4_t",
+      "metadata" : false,
+      "pi_omit" : true
+    }
+  ],
+  "header_stacks" : [],
+  "header_union_types" : [],
+  "header_unions" : [],
+  "header_union_stacks" : [],
+  "field_lists" : [],
+  "errors" : [
+    ["NoError", 1],
+    ["PacketTooShort", 2],
+    ["NoMatch", 3],
+    ["StackOutOfBounds", 4],
+    ["HeaderTooShort", 5],
+    ["ParserTimeout", 6],
+    ["ParserInvalidArgument", 7]
+  ],
+  "enums" : [],
+  "parsers" : [
+    {
+      "name" : "parser",
+      "id" : 0,
+      "init_state" : "start",
+      "parse_states" : [
+        {
+          "name" : "start",
+          "id" : 0,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "ethernet"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x0800",
+              "mask" : null,
+              "next_state" : "parse_ipv4"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x8100",
+              "mask" : null,
+              "next_state" : "parse_vlan"
+            }
+          ],
+          "transition_key" : [
+            {
+              "type" : "field",
+              "value" : ["ethernet", "ether_type"]
+            }
+          ]
+        },
+        {
+          "name" : "parse_ipv4",
+          "id" : 1,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "ipv4"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "value" : "default",
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : []
+        },
+        {
+          "name" : "parse_vlan",
+          "id" : 2,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "vlan"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x0800",
+              "mask" : null,
+              "next_state" : "parse_ipv4"
+            },
+            {
+              "value" : "default",
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : [
+            {
+              "type" : "field",
+              "value" : ["vlan", "vlan_type"]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "parse_vsets" : [],
+  "deparsers" : [
+    {
+      "name" : "deparser",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "VlanSwitch.p4",
+        "line" : 243,
+        "column" : 8,
+        "source_fragment" : "VlanSwitchDeparser"
+      },
+      "order" : ["ethernet", "vlan", "ipv4"]
+    }
+  ],
+  "meter_arrays" : [],
+  "counter_arrays" : [],
+  "register_arrays" : [],
+  "calculations" : [],
+  "learn_lists" : [],
+  "actions" : [
+    {
+      "name" : "NoAction",
+      "id" : 0,
+      "runtime_data" : [],
+      "primitives" : []
+    },
+    {
+      "name" : "NoAction",
+      "id" : 1,
+      "runtime_data" : [],
+      "primitives" : []
+    },
+    {
+      "name" : "NoAction",
+      "id" : 2,
+      "runtime_data" : [],
+      "primitives" : []
+    },
+    {
+      "name" : "VlanSwitchIngress.drop",
+      "id" : 3,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "mark_to_drop",
+          "parameters" : [
+            {
+              "type" : "header",
+              "value" : "standard_metadata"
+            }
+          ],
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 108,
+            "column" : 8,
+            "source_fragment" : "mark_to_drop(standard_metadata)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "VlanSwitchIngress.drop",
+      "id" : 4,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "mark_to_drop",
+          "parameters" : [
+            {
+              "type" : "header",
+              "value" : "standard_metadata"
+            }
+          ],
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 108,
+            "column" : 8,
+            "source_fragment" : "mark_to_drop(standard_metadata)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "VlanSwitchIngress.drop",
+      "id" : 5,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "mark_to_drop",
+          "parameters" : [
+            {
+              "type" : "header",
+              "value" : "standard_metadata"
+            }
+          ],
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 108,
+            "column" : 8,
+            "source_fragment" : "mark_to_drop(standard_metadata)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "VlanSwitchIngress.drop",
+      "id" : 6,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "mark_to_drop",
+          "parameters" : [
+            {
+              "type" : "header",
+              "value" : "standard_metadata"
+            }
+          ],
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 108,
+            "column" : 8,
+            "source_fragment" : "mark_to_drop(standard_metadata)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "VlanSwitchIngress.add_tag",
+      "id" : 7,
+      "runtime_data" : [
+        {
+          "name" : "vid",
+          "bitwidth" : 12
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["vlan", "vid"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 0
+            }
+          ],
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 113,
+            "column" : 8,
+            "source_fragment" : "hdr.vlan.vid = vid"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["vlan", "pri"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00"
+            }
+          ],
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 114,
+            "column" : 8,
+            "source_fragment" : "hdr.vlan.pri = 0"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["vlan", "cfi"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00"
+            }
+          ],
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 115,
+            "column" : 8,
+            "source_fragment" : "hdr.vlan.cfi = 0"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["vlan", "vlan_type"]
+            },
+            {
+              "type" : "field",
+              "value" : ["ethernet", "ether_type"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 116,
+            "column" : 8,
+            "source_fragment" : "hdr.vlan.vlan_type = hdr.ethernet.ether_type"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["ethernet", "ether_type"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x8100"
+            }
+          ],
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 11,
+            "column" : 26,
+            "source_fragment" : "0x8100; ..."
+          }
+        }
+      ]
+    },
+    {
+      "name" : "VlanSwitchIngress.forward",
+      "id" : 8,
+      "runtime_data" : [
+        {
+          "name" : "src_address",
+          "bitwidth" : 48
+        },
+        {
+          "name" : "dst_address",
+          "bitwidth" : 48
+        },
+        {
+          "name" : "port",
+          "bitwidth" : 9
+        },
+        {
+          "name" : "vid",
+          "bitwidth" : 12
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["standard_metadata", "egress_spec"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 2
+            }
+          ],
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 146,
+            "column" : 8,
+            "source_fragment" : "standard_metadata.egress_spec = port"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["ethernet", "dst_address"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 1
+            }
+          ],
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 147,
+            "column" : 8,
+            "source_fragment" : "hdr.ethernet.dst_address = dst_address"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["ethernet", "src_address"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 0
+            }
+          ],
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 148,
+            "column" : 8,
+            "source_fragment" : "hdr.ethernet.src_address = src_address"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["vlan", "vid"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 3
+            }
+          ],
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 149,
+            "column" : 8,
+            "source_fragment" : "hdr.vlan.vid = vid"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "VlanSwitchIngress.vlan_switch",
+      "id" : 9,
+      "runtime_data" : [
+        {
+          "name" : "port",
+          "bitwidth" : 9
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["standard_metadata", "egress_spec"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 0
+            }
+          ],
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 166,
+            "column" : 8,
+            "source_fragment" : "standard_metadata.egress_spec = port"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "VlanSwitchIngress.del_tag",
+      "id" : 10,
+      "runtime_data" : [],
+      "primitives" : []
+    },
+    {
+      "name" : "act",
+      "id" : 11,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "bool",
+                    "value" : true
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name" : "act_0",
+      "id" : 12,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "b2d",
+                  "left" : null,
+                  "right" : {
+                    "type" : "bool",
+                    "value" : false
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "pipelines" : [
+    {
+      "name" : "ingress",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "VlanSwitch.p4",
+        "line" : 103,
+        "column" : 8,
+        "source_fragment" : "VlanSwitchIngress"
+      },
+      "init_table" : "node_2",
+      "tables" : [
+        {
+          "name" : "tbl_drop",
+          "id" : 0,
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 204,
+            "column" : 12,
+            "source_fragment" : "drop()"
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [5],
+          "actions" : ["VlanSwitchIngress.drop"],
+          "base_default_next" : null,
+          "next_tables" : {
+            "VlanSwitchIngress.drop" : null
+          },
+          "default_entry" : {
+            "action_id" : 5,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "VlanSwitchIngress.access_in_check",
+          "id" : 1,
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 120,
+            "column" : 10,
+            "source_fragment" : "access_in_check"
+          },
+          "key" : [
+            {
+              "match_type" : "exact",
+              "name" : "standard_metadata.ingress_port",
+              "target" : ["standard_metadata", "ingress_port"],
+              "mask" : null
+            }
+          ],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [7, 0],
+          "actions" : ["VlanSwitchIngress.add_tag", "NoAction"],
+          "base_default_next" : "node_5",
+          "next_tables" : {
+            "VlanSwitchIngress.add_tag" : "node_5",
+            "NoAction" : "node_5"
+          },
+          "default_entry" : {
+            "action_id" : 0,
+            "action_const" : false,
+            "action_data" : [],
+            "action_entry_const" : false
+          }
+        },
+        {
+          "name" : "tbl_drop_0",
+          "id" : 2,
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 208,
+            "column" : 16,
+            "source_fragment" : "drop()"
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [6],
+          "actions" : ["VlanSwitchIngress.drop"],
+          "base_default_next" : "VlanSwitchIngress.access_out_check",
+          "next_tables" : {
+            "VlanSwitchIngress.drop" : "VlanSwitchIngress.access_out_check"
+          },
+          "default_entry" : {
+            "action_id" : 6,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "VlanSwitchIngress.dest_mac_check",
+          "id" : 3,
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 133,
+            "column" : 10,
+            "source_fragment" : "dest_mac_check"
+          },
+          "key" : [
+            {
+              "match_type" : "exact",
+              "name" : "hdr.ethernet.dst_address",
+              "target" : ["ethernet", "dst_address"],
+              "mask" : null
+            }
+          ],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [1],
+          "actions" : ["NoAction"],
+          "base_default_next" : null,
+          "next_tables" : {
+            "__HIT__" : "tbl_act",
+            "__MISS__" : "tbl_act_0"
+          },
+          "default_entry" : {
+            "action_id" : 1,
+            "action_const" : false,
+            "action_data" : [],
+            "action_entry_const" : false
+          }
+        },
+        {
+          "name" : "tbl_act",
+          "id" : 4,
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [11],
+          "actions" : ["act"],
+          "base_default_next" : "node_10",
+          "next_tables" : {
+            "act" : "node_10"
+          },
+          "default_entry" : {
+            "action_id" : 11,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_act_0",
+          "id" : 5,
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [12],
+          "actions" : ["act_0"],
+          "base_default_next" : "node_10",
+          "next_tables" : {
+            "act_0" : "node_10"
+          },
+          "default_entry" : {
+            "action_id" : 12,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "VlanSwitchIngress.ipv4_forward",
+          "id" : 6,
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 152,
+            "column" : 10,
+            "source_fragment" : "ipv4_forward"
+          },
+          "key" : [
+            {
+              "match_type" : "exact",
+              "name" : "hdr.ipv4.dst_address",
+              "target" : ["ipv4", "dst_address"],
+              "mask" : null
+            }
+          ],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [8, 3],
+          "actions" : ["VlanSwitchIngress.forward", "VlanSwitchIngress.drop"],
+          "base_default_next" : "VlanSwitchIngress.access_out_check",
+          "next_tables" : {
+            "VlanSwitchIngress.forward" : "VlanSwitchIngress.access_out_check",
+            "VlanSwitchIngress.drop" : "VlanSwitchIngress.access_out_check"
+          },
+          "default_entry" : {
+            "action_id" : 3,
+            "action_const" : false,
+            "action_data" : [],
+            "action_entry_const" : false
+          }
+        },
+        {
+          "name" : "VlanSwitchIngress.vlan_forward",
+          "id" : 7,
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 171,
+            "column" : 10,
+            "source_fragment" : "vlan_forward"
+          },
+          "key" : [
+            {
+              "match_type" : "exact",
+              "name" : "hdr.vlan.vid",
+              "target" : ["vlan", "vid"],
+              "mask" : null
+            },
+            {
+              "match_type" : "exact",
+              "name" : "hdr.ethernet.dst_address",
+              "target" : ["ethernet", "dst_address"],
+              "mask" : null
+            }
+          ],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [9, 4],
+          "actions" : ["VlanSwitchIngress.vlan_switch", "VlanSwitchIngress.drop"],
+          "base_default_next" : "VlanSwitchIngress.access_out_check",
+          "next_tables" : {
+            "VlanSwitchIngress.vlan_switch" : "VlanSwitchIngress.access_out_check",
+            "VlanSwitchIngress.drop" : "VlanSwitchIngress.access_out_check"
+          },
+          "default_entry" : {
+            "action_id" : 4,
+            "action_const" : false,
+            "action_data" : [],
+            "action_entry_const" : false
+          }
+        },
+        {
+          "name" : "VlanSwitchIngress.access_out_check",
+          "id" : 8,
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 189,
+            "column" : 10,
+            "source_fragment" : "access_out_check"
+          },
+          "key" : [
+            {
+              "match_type" : "exact",
+              "name" : "standard_metadata.egress_spec",
+              "target" : ["standard_metadata", "egress_spec"],
+              "mask" : null
+            }
+          ],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [10, 2],
+          "actions" : ["VlanSwitchIngress.del_tag", "NoAction"],
+          "base_default_next" : null,
+          "next_tables" : {
+            "VlanSwitchIngress.del_tag" : null,
+            "NoAction" : null
+          },
+          "default_entry" : {
+            "action_id" : 2,
+            "action_const" : false,
+            "action_data" : [],
+            "action_entry_const" : false
+          }
+        }
+      ],
+      "action_profiles" : [],
+      "conditionals" : [
+        {
+          "name" : "node_2",
+          "id" : 0,
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 203,
+            "column" : 12,
+            "source_fragment" : "!hdr.ipv4.isValid()"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "not",
+              "left" : null,
+              "right" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "d2b",
+                  "left" : null,
+                  "right" : {
+                    "type" : "field",
+                    "value" : ["ipv4", "$valid$"]
+                  }
+                }
+              }
+            }
+          },
+          "true_next" : "tbl_drop",
+          "false_next" : "VlanSwitchIngress.access_in_check"
+        },
+        {
+          "name" : "node_5",
+          "id" : 1,
+          "source_info" : {
+            "filename" : "VlanSwitch.p4",
+            "line" : 207,
+            "column" : 16,
+            "source_fragment" : "!hdr.vlan.isValid()"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "not",
+              "left" : null,
+              "right" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "d2b",
+                  "left" : null,
+                  "right" : {
+                    "type" : "field",
+                    "value" : ["vlan", "$valid$"]
+                  }
+                }
+              }
+            }
+          },
+          "true_next" : "tbl_drop_0",
+          "false_next" : "VlanSwitchIngress.dest_mac_check"
+        },
+        {
+          "name" : "node_10",
+          "id" : 2,
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "d2b",
+              "left" : null,
+              "right" : {
+                "type" : "field",
+                "value" : ["scalars", "tmp"]
+              }
+            }
+          },
+          "true_next" : "VlanSwitchIngress.ipv4_forward",
+          "false_next" : "VlanSwitchIngress.vlan_forward"
+        }
+      ]
+    },
+    {
+      "name" : "egress",
+      "id" : 1,
+      "source_info" : {
+        "filename" : "VlanSwitch.p4",
+        "line" : 225,
+        "column" : 8,
+        "source_fragment" : "VlanSwitchEgress"
+      },
+      "init_table" : null,
+      "tables" : [],
+      "action_profiles" : [],
+      "conditionals" : []
+    }
+  ],
+  "checksums" : [],
+  "force_arith" : [],
+  "extern_instances" : [],
+  "field_aliases" : [
+    [
+      "queueing_metadata.enq_timestamp",
+      ["standard_metadata", "enq_timestamp"]
+    ],
+    [
+      "queueing_metadata.enq_qdepth",
+      ["standard_metadata", "enq_qdepth"]
+    ],
+    [
+      "queueing_metadata.deq_timedelta",
+      ["standard_metadata", "deq_timedelta"]
+    ],
+    [
+      "queueing_metadata.deq_qdepth",
+      ["standard_metadata", "deq_qdepth"]
+    ],
+    [
+      "intrinsic_metadata.ingress_global_timestamp",
+      ["standard_metadata", "ingress_global_timestamp"]
+    ],
+    [
+      "intrinsic_metadata.egress_global_timestamp",
+      ["standard_metadata", "egress_global_timestamp"]
+    ],
+    [
+      "intrinsic_metadata.lf_field_list",
+      ["standard_metadata", "lf_field_list"]
+    ],
+    [
+      "intrinsic_metadata.mcast_grp",
+      ["standard_metadata", "mcast_grp"]
+    ],
+    [
+      "intrinsic_metadata.resubmit_flag",
+      ["standard_metadata", "resubmit_flag"]
+    ],
+    [
+      "intrinsic_metadata.egress_rid",
+      ["standard_metadata", "egress_rid"]
+    ],
+    [
+      "intrinsic_metadata.recirculate_flag",
+      ["standard_metadata", "recirculate_flag"]
+    ]
+  ],
+  "program" : "./VlanSwitch.p4i",
+  "__meta__" : {
+    "version" : [2, 18],
+    "compiler" : "https://github.com/p4lang/p4c"
+  }
+}

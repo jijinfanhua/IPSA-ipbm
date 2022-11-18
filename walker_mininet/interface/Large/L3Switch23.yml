@@ -1,0 +1,7 @@
+interfaces:
+  - name: s23-eth1
+    ip: 0.0.0.0
+  - name: s23-eth2
+    ip: 0.0.0.0
+  - name: s23-eth3
+    ip: 0.0.0.0
