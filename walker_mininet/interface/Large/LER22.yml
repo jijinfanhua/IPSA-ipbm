@@ -1,0 +1,5 @@
+interfaces:
+  - name: s52-eth1
+    ip: 0.0.0.0
+  - name: s52-eth2
+    ip: 0.0.0.0

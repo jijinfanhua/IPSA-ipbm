@@ -1,0 +1,3098 @@
+{
+    "initial_processor" : 0,
+    "metadata" : [
+        {
+            "id" : 31,
+            "length" : 20,
+            "offset" : 0
+        },
+        {
+            "id" : 0,
+            "length" : 120,
+            "offset" : 20
+        },
+        {
+            "id" : 1,
+            "length" : 24,
+            "offset" : 140
+        }
+    ],
+    "processor_0" : {
+        "next_processor" : 1,
+        "stage_list" : [
+            {
+                "executor" : [],
+                "gateway" : {
+                    "expressions" : [],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "STAGE",
+                            "value" : 22
+                        },
+                        "entries" : []
+                    }
+                },
+                "id" : 0,
+                "matcher" : [],
+                "name" : "",
+                "parser" : {
+                    "levels" : [
+                        [
+                            {
+                                "parser_sram_entry" : {
+                                    "accept_drop" : 2,
+                                    "header_id" : 2,
+                                    "header_length" : 112,
+                                    "next_state" : 1,
+                                    "transition_field_num" : 1,
+                                    "transition_fields" : [
+                                        {
+                                            "field_internal_offset" : 96,
+                                            "field_length" : 16,
+                                            "header_id" : 2,
+                                            "type" : "FIELD"
+                                        }
+                                    ]
+                                },
+                                "parser_tcam_entry" : {
+                                    "current_state" : 0,
+                                    "entry" : 0,
+                                    "mask" : 0
+                                }
+                            }
+                        ]
+                    ],
+                    "parser_level" : 1
+                }
+            }
+        ]
+    },
+    "processor_1" : {
+        "next_processor" : 2,
+        "stage_list" : [
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [
+                            16,
+                            16
+                        ],
+                        "id" : 10,
+                        "parameter_num" : 2,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 3,
+                                    "field_length" : 16,
+                                    "header_id" : 1,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "PARAM",
+                                    "value" : 0
+                                }
+                            },
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 19,
+                                    "field_length" : 16,
+                                    "header_id" : 1,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "PARAM",
+                                    "value" : 1
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 1,
+                        "parameter_num" : 0,
+                        "primitives" : []
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "TABLE",
+                            "value" : 0
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 128,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 1,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 10,
+                                "stage_id" : 2
+                            },
+                            {
+                                "action_id" : 1,
+                                "stage_id" : 2
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [
+                            {
+                                "field_internal_offset" : 51,
+                                "field_length" : 16,
+                                "header_id" : 1,
+                                "type" : "FIELD"
+                            },
+                            {
+                                "field_internal_offset" : 0,
+                                "field_length" : 0,
+                                "header_id" : 3,
+                                "type" : "VALID"
+                            },
+                            {
+                                "field_internal_offset" : 4,
+                                "field_length" : 12,
+                                "header_id" : 3,
+                                "type" : "FIELD"
+                            }
+                        ],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [
+                                7
+                            ],
+                            "depth" : 1,
+                            "type" : "TCAM",
+                            "width" : 1
+                        },
+                        "match_type" : "TERNARY",
+                        "miss_action_id" : 1,
+                        "no_table" : 0,
+                        "value_memory" : {
+                            "config" : [
+                                9
+                            ],
+                            "width" : 1
+                        }
+                    }
+                ],
+                "name" : "port_vlan_to_bd_mapping_s",
+                "parser" : {
+                    "levels" : [],
+                    "parser_level" : 0
+                }
+            }
+        ]
+    },
+    "processor_10" : {
+        "next_processor" : 7,
+        "stage_list" : [
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 33,
+                        "parameter_num" : 0,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 0,
+                                    "field_length" : 1,
+                                    "header_id" : 1,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "TABLE",
+                            "value" : 0
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 128,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 6,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 33,
+                                "stage_id" : 18
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [],
+                            "depth" : 0,
+                            "type" : "SRAM",
+                            "width" : 0
+                        },
+                        "match_type" : "EXACT",
+                        "miss_action_id" : 33,
+                        "no_table" : 1,
+                        "value_memory" : {
+                            "config" : [],
+                            "width" : 0
+                        }
+                    }
+                ],
+                "name" : "tbl_act_1_s",
+                "parser" : {
+                    "levels" : [],
+                    "parser_level" : 0
+                }
+            },
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 34,
+                        "parameter_num" : 0,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 0,
+                                    "field_length" : 1,
+                                    "header_id" : 1,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "CONST",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "TABLE",
+                            "value" : 0
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 128,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 7,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 34,
+                                "stage_id" : 18
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [],
+                            "depth" : 0,
+                            "type" : "SRAM",
+                            "width" : 0
+                        },
+                        "match_type" : "EXACT",
+                        "miss_action_id" : 34,
+                        "no_table" : 1,
+                        "value_memory" : {
+                            "config" : [],
+                            "width" : 0
+                        }
+                    }
+                ],
+                "name" : "tbl_act_2_s",
+                "parser" : {
+                    "levels" : [],
+                    "parser_level" : 0
+                }
+            },
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 36,
+                        "parameter_num" : 0,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 1,
+                                    "field_length" : 1,
+                                    "header_id" : 1,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "TABLE",
+                            "value" : 0
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 128,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 9,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 36,
+                                "stage_id" : 19
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [],
+                            "depth" : 0,
+                            "type" : "SRAM",
+                            "width" : 0
+                        },
+                        "match_type" : "EXACT",
+                        "miss_action_id" : 36,
+                        "no_table" : 1,
+                        "value_memory" : {
+                            "config" : [],
+                            "width" : 0
+                        }
+                    }
+                ],
+                "name" : "tbl_act_4_s",
+                "parser" : {
+                    "levels" : [],
+                    "parser_level" : 0
+                }
+            },
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 37,
+                        "parameter_num" : 0,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 1,
+                                    "field_length" : 1,
+                                    "header_id" : 1,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "CONST",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "TABLE",
+                            "value" : 0
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 128,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 10,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 37,
+                                "stage_id" : 19
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [],
+                            "depth" : 0,
+                            "type" : "SRAM",
+                            "width" : 0
+                        },
+                        "match_type" : "EXACT",
+                        "miss_action_id" : 37,
+                        "no_table" : 1,
+                        "value_memory" : {
+                            "config" : [],
+                            "width" : 0
+                        }
+                    }
+                ],
+                "name" : "tbl_act_5_s",
+                "parser" : {
+                    "levels" : [],
+                    "parser_level" : 0
+                }
+            }
+        ]
+    },
+    "processor_11" : {
+        "next_processor" : 12,
+        "stage_list" : [
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 40,
+                        "parameter_num" : 0,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 2,
+                                    "field_length" : 1,
+                                    "header_id" : 1,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "CONST",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "TABLE",
+                            "value" : 0
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 128,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 11,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 40,
+                                "stage_id" : 12
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [],
+                            "depth" : 0,
+                            "type" : "SRAM",
+                            "width" : 0
+                        },
+                        "match_type" : "EXACT",
+                        "miss_action_id" : 40,
+                        "no_table" : 1,
+                        "value_memory" : {
+                            "config" : [],
+                            "width" : 0
+                        }
+                    }
+                ],
+                "name" : "tbl_act_6_s",
+                "parser" : {
+                    "levels" : [],
+                    "parser_level" : 0
+                }
+            }
+        ]
+    },
+    "processor_12" : {
+        "next_processor" : 13,
+        "stage_list" : [
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [
+                            16,
+                            48
+                        ],
+                        "id" : 28,
+                        "parameter_num" : 2,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 2,
+                                    "field_length" : 1,
+                                    "header_id" : 1,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                }
+                            },
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 3,
+                                    "field_length" : 16,
+                                    "header_id" : 1,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "PARAM",
+                                    "value" : 0
+                                }
+                            },
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 0,
+                                    "field_length" : 48,
+                                    "header_id" : 2,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "PARAM",
+                                    "value" : 1
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 5,
+                        "parameter_num" : 0,
+                        "primitives" : []
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "TABLE",
+                            "value" : 0
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 128,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 12,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 28,
+                                "stage_id" : 20
+                            },
+                            {
+                                "action_id" : 5,
+                                "stage_id" : 20
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [
+                            {
+                                "field_internal_offset" : 35,
+                                "field_length" : 16,
+                                "header_id" : 1,
+                                "type" : "FIELD"
+                            },
+                            {
+                                "field_internal_offset" : 224,
+                                "field_length" : 128,
+                                "header_id" : 0,
+                                "type" : "FIELD"
+                            },
+                            {
+                                "field_internal_offset" : 352,
+                                "field_length" : 128,
+                                "header_id" : 0,
+                                "type" : "FIELD"
+                            },
+                            {
+                                "field_internal_offset" : 140,
+                                "field_length" : 20,
+                                "header_id" : 0,
+                                "type" : "FIELD"
+                            },
+                            {
+                                "field_internal_offset" : 160,
+                                "field_length" : 32,
+                                "header_id" : 0,
+                                "type" : "FIELD"
+                            },
+                            {
+                                "field_internal_offset" : 192,
+                                "field_length" : 32,
+                                "header_id" : 0,
+                                "type" : "FIELD"
+                            }
+                        ],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [
+                                0,
+                                1,
+                                2
+                            ],
+                            "depth" : 1,
+                            "type" : "SRAM",
+                            "width" : 3
+                        },
+                        "match_type" : "EXACT",
+                        "miss_action_id" : 5,
+                        "no_table" : 0,
+                        "value_memory" : {
+                            "config" : [
+                                3
+                            ],
+                            "width" : 1
+                        }
+                    }
+                ],
+                "name" : "ecmp_s",
+                "parser" : {
+                    "levels" : [],
+                    "parser_level" : 0
+                }
+            }
+        ]
+    },
+    "processor_13" : {
+        "next_processor" : 14,
+        "stage_list" : [
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 29,
+                        "parameter_num" : 0,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 64,
+                                    "field_length" : 8,
+                                    "header_id" : 4,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "EXPR",
+                                    "value" : {
+                                        "left" : {
+                                            "type" : "EXPR",
+                                            "value" : {
+                                                "left" : {
+                                                    "type" : "FIELD",
+                                                    "value" : {
+                                                        "field_internal_offset" : 64,
+                                                        "field_length" : 8,
+                                                        "header_id" : 4,
+                                                        "type" : "FIELD"
+                                                    }
+                                                },
+                                                "op" : "+",
+                                                "right" : {
+                                                    "type" : "CONST",
+                                                    "value" : 255
+                                                }
+                                            }
+                                        },
+                                        "op" : "&",
+                                        "right" : {
+                                            "type" : "CONST",
+                                            "value" : 255
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 30,
+                        "parameter_num" : 0,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 56,
+                                    "field_length" : 8,
+                                    "header_id" : 5,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "EXPR",
+                                    "value" : {
+                                        "left" : {
+                                            "type" : "EXPR",
+                                            "value" : {
+                                                "left" : {
+                                                    "type" : "FIELD",
+                                                    "value" : {
+                                                        "field_internal_offset" : 56,
+                                                        "field_length" : 8,
+                                                        "header_id" : 5,
+                                                        "type" : "FIELD"
+                                                    }
+                                                },
+                                                "op" : "+",
+                                                "right" : {
+                                                    "type" : "CONST",
+                                                    "value" : 255
+                                                }
+                                            }
+                                        },
+                                        "op" : "&",
+                                        "right" : {
+                                            "type" : "CONST",
+                                            "value" : 255
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 6,
+                        "parameter_num" : 0,
+                        "primitives" : []
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 2,
+                                        "field_length" : 1,
+                                        "header_id" : 1,
+                                        "type" : "FIELD"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "STAGE",
+                            "value" : 14
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 128,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 20,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 29,
+                                "stage_id" : 21
+                            },
+                            {
+                                "action_id" : 30,
+                                "stage_id" : 21
+                            },
+                            {
+                                "action_id" : 6,
+                                "stage_id" : 21
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [
+                            {
+                                "field_internal_offset" : 0,
+                                "field_length" : 0,
+                                "header_id" : 4,
+                                "type" : "VALID"
+                            },
+                            {
+                                "field_internal_offset" : 0,
+                                "field_length" : 0,
+                                "header_id" : 5,
+                                "type" : "VALID"
+                            }
+                        ],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [],
+                            "depth" : 1,
+                            "type" : "SRAM",
+                            "width" : 0
+                        },
+                        "match_type" : "EXACT",
+                        "miss_action_id" : 6,
+                        "no_table" : 0,
+                        "value_memory" : {
+                            "config" : [
+                                9
+                            ],
+                            "width" : 1
+                        }
+                    }
+                ],
+                "name" : "node_26",
+                "parser" : {
+                    "levels" : [],
+                    "parser_level" : 0
+                }
+            }
+        ]
+    },
+    "processor_14" : {
+        "next_processor" : 15,
+        "stage_list" : [
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [
+                            48
+                        ],
+                        "id" : 31,
+                        "parameter_num" : 1,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 48,
+                                    "field_length" : 48,
+                                    "header_id" : 2,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "PARAM",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 7,
+                        "parameter_num" : 0,
+                        "primitives" : []
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "TABLE",
+                            "value" : 0
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 128,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 21,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 31,
+                                "stage_id" : 14
+                            },
+                            {
+                                "action_id" : 7,
+                                "stage_id" : 14
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [
+                            {
+                                "field_internal_offset" : 3,
+                                "field_length" : 16,
+                                "header_id" : 1,
+                                "type" : "FIELD"
+                            }
+                        ],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [
+                                10
+                            ],
+                            "depth" : 1,
+                            "type" : "SRAM",
+                            "width" : 1
+                        },
+                        "match_type" : "EXACT",
+                        "miss_action_id" : 7,
+                        "no_table" : 0,
+                        "value_memory" : {
+                            "config" : [
+                                11
+                            ],
+                            "width" : 1
+                        }
+                    }
+                ],
+                "name" : "smac_rewrite_s",
+                "parser" : {
+                    "levels" : [],
+                    "parser_level" : 0
+                }
+            }
+        ]
+    },
+    "processor_15" : {
+        "next_processor" : 0,
+        "stage_list" : [
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [
+                            16
+                        ],
+                        "id" : 19,
+                        "parameter_num" : 1,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 67,
+                                    "field_length" : 16,
+                                    "header_id" : 1,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "PARAM",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 18,
+                        "parameter_num" : 0,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 67,
+                                    "field_length" : 16,
+                                    "header_id" : 1,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "CONST",
+                                    "value" : 65535
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "TABLE",
+                            "value" : 0
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 128,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 14,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 19,
+                                "stage_id" : -1
+                            },
+                            {
+                                "action_id" : 18,
+                                "stage_id" : -1
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [
+                            {
+                                "field_internal_offset" : 3,
+                                "field_length" : 16,
+                                "header_id" : 1,
+                                "type" : "FIELD"
+                            },
+                            {
+                                "field_internal_offset" : 0,
+                                "field_length" : 48,
+                                "header_id" : 2,
+                                "type" : "FIELD"
+                            }
+                        ],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [
+                                0
+                            ],
+                            "depth" : 1,
+                            "type" : "SRAM",
+                            "width" : 1
+                        },
+                        "match_type" : "EXACT",
+                        "miss_action_id" : 18,
+                        "no_table" : 0,
+                        "value_memory" : {
+                            "config" : [
+                                1
+                            ],
+                            "width" : 1
+                        }
+                    }
+                ],
+                "name" : "dmac_s",
+                "parser" : {
+                    "levels" : [],
+                    "parser_level" : 0
+                }
+            }
+        ]
+    },
+    "processor_16" : null,
+    "processor_17" : null,
+    "processor_18" : null,
+    "processor_19" : null,
+    "processor_2" : {
+        "next_processor" : 3,
+        "stage_list" : [
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 11,
+                        "parameter_num" : 0,
+                        "primitives" : []
+                    },
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 15,
+                        "parameter_num" : 0,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 0,
+                                    "field_length" : 48,
+                                    "header_id" : 0,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 48,
+                                        "field_length" : 48,
+                                        "header_id" : 2,
+                                        "type" : "FIELD"
+                                    }
+                                }
+                            },
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 48,
+                                    "field_length" : 48,
+                                    "header_id" : 0,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 0,
+                                        "field_length" : 48,
+                                        "header_id" : 2,
+                                        "type" : "FIELD"
+                                    }
+                                }
+                            },
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 96,
+                                    "field_length" : 16,
+                                    "header_id" : 0,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 16,
+                                        "field_length" : 16,
+                                        "header_id" : 3,
+                                        "type" : "FIELD"
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 14,
+                        "parameter_num" : 0,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 0,
+                                    "field_length" : 48,
+                                    "header_id" : 0,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 48,
+                                        "field_length" : 48,
+                                        "header_id" : 2,
+                                        "type" : "FIELD"
+                                    }
+                                }
+                            },
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 48,
+                                    "field_length" : 48,
+                                    "header_id" : 0,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 0,
+                                        "field_length" : 48,
+                                        "header_id" : 2,
+                                        "type" : "FIELD"
+                                    }
+                                }
+                            },
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 96,
+                                    "field_length" : 16,
+                                    "header_id" : 0,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 96,
+                                        "field_length" : 16,
+                                        "header_id" : 2,
+                                        "type" : "FIELD"
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 2,
+                        "parameter_num" : 0,
+                        "primitives" : []
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "TABLE",
+                            "value" : 0
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 128,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 2,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 11,
+                                "stage_id" : 15
+                            },
+                            {
+                                "action_id" : 15,
+                                "stage_id" : 15
+                            },
+                            {
+                                "action_id" : 14,
+                                "stage_id" : 15
+                            },
+                            {
+                                "action_id" : 2,
+                                "stage_id" : 15
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [
+                            {
+                                "field_internal_offset" : 48,
+                                "field_length" : 48,
+                                "header_id" : 2,
+                                "type" : "FIELD"
+                            },
+                            {
+                                "field_internal_offset" : 0,
+                                "field_length" : 48,
+                                "header_id" : 2,
+                                "type" : "FIELD"
+                            },
+                            {
+                                "field_internal_offset" : 0,
+                                "field_length" : 0,
+                                "header_id" : 3,
+                                "type" : "VALID"
+                            }
+                        ],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [
+                                0,
+                                1
+                            ],
+                            "depth" : 1,
+                            "type" : "TCAM",
+                            "width" : 2
+                        },
+                        "match_type" : "TERNARY",
+                        "miss_action_id" : 2,
+                        "no_table" : 0,
+                        "value_memory" : {
+                            "config" : [
+                                12
+                            ],
+                            "width" : 1
+                        }
+                    }
+                ],
+                "name" : "validate_ethernet_s",
+                "parser" : {
+                    "levels" : [],
+                    "parser_level" : 0
+                }
+            },
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [
+                            16
+                        ],
+                        "id" : 9,
+                        "parameter_num" : 1,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 51,
+                                    "field_length" : 16,
+                                    "header_id" : 1,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "PARAM",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 0,
+                        "parameter_num" : 0,
+                        "primitives" : []
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "TABLE",
+                            "value" : 0
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 128,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 0,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 9,
+                                "stage_id" : 1
+                            },
+                            {
+                                "action_id" : 0,
+                                "stage_id" : 1
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [
+                            {
+                                "field_internal_offset" : 0,
+                                "field_length" : 9,
+                                "header_id" : 31,
+                                "type" : "FIELD"
+                            }
+                        ],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [
+                                7
+                            ],
+                            "depth" : 1,
+                            "type" : "SRAM",
+                            "width" : 1
+                        },
+                        "match_type" : "EXACT",
+                        "miss_action_id" : 0,
+                        "no_table" : 0,
+                        "value_memory" : {
+                            "config" : [
+                                8
+                            ],
+                            "width" : 1
+                        }
+                    }
+                ],
+                "name" : "port_mapping_s",
+                "parser" : {
+                    "levels" : [
+                        [
+                            {
+                                "parser_sram_entry" : {
+                                    "accept_drop" : 2,
+                                    "header_id" : 4,
+                                    "header_length" : 160,
+                                    "next_state" : 3,
+                                    "transition_field_num" : 1,
+                                    "transition_fields" : [
+                                        {
+                                            "field_internal_offset" : 72,
+                                            "field_length" : 8,
+                                            "header_id" : 4,
+                                            "type" : "FIELD"
+                                        }
+                                    ]
+                                },
+                                "parser_tcam_entry" : {
+                                    "current_state" : 1,
+                                    "entry" : 2048,
+                                    "mask" : -1
+                                }
+                            },
+                            {
+                                "parser_sram_entry" : {
+                                    "accept_drop" : 2,
+                                    "header_id" : 5,
+                                    "header_length" : 320,
+                                    "next_state" : 4,
+                                    "transition_field_num" : 1,
+                                    "transition_fields" : [
+                                        {
+                                            "field_internal_offset" : 48,
+                                            "field_length" : 8,
+                                            "header_id" : 5,
+                                            "type" : "FIELD"
+                                        }
+                                    ]
+                                },
+                                "parser_tcam_entry" : {
+                                    "current_state" : 1,
+                                    "entry" : 34525,
+                                    "mask" : -1
+                                }
+                            },
+                            {
+                                "parser_sram_entry" : {
+                                    "accept_drop" : 2,
+                                    "header_id" : 3,
+                                    "header_length" : 32,
+                                    "next_state" : 2,
+                                    "transition_field_num" : 1,
+                                    "transition_fields" : [
+                                        {
+                                            "field_internal_offset" : 16,
+                                            "field_length" : 16,
+                                            "header_id" : 3,
+                                            "type" : "FIELD"
+                                        }
+                                    ]
+                                },
+                                "parser_tcam_entry" : {
+                                    "current_state" : 1,
+                                    "entry" : 33024,
+                                    "mask" : -1
+                                }
+                            },
+                            {
+                                "parser_sram_entry" : {
+                                    "accept_drop" : 0,
+                                    "header_id" : 0,
+                                    "header_length" : 0,
+                                    "next_state" : 0,
+                                    "transition_field_num" : 0,
+                                    "transition_fields" : []
+                                },
+                                "parser_tcam_entry" : {
+                                    "current_state" : 1,
+                                    "entry" : 0,
+                                    "mask" : 0
+                                }
+                            }
+                        ]
+                    ],
+                    "parser_level" : 1
+                }
+            }
+        ]
+    },
+    "processor_20" : null,
+    "processor_21" : null,
+    "processor_22" : null,
+    "processor_23" : null,
+    "processor_24" : null,
+    "processor_25" : null,
+    "processor_26" : null,
+    "processor_27" : null,
+    "processor_28" : null,
+    "processor_29" : null,
+    "processor_3" : {
+        "next_processor" : 4,
+        "stage_list" : [
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 12,
+                        "parameter_num" : 0,
+                        "primitives" : []
+                    },
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 16,
+                        "parameter_num" : 0,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 112,
+                                    "field_length" : 4,
+                                    "header_id" : 0,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "CONST",
+                                    "value" : 4
+                                }
+                            },
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 132,
+                                    "field_length" : 8,
+                                    "header_id" : 0,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 8,
+                                        "field_length" : 8,
+                                        "header_id" : 4,
+                                        "type" : "FIELD"
+                                    }
+                                }
+                            },
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 116,
+                                    "field_length" : 8,
+                                    "header_id" : 0,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 72,
+                                        "field_length" : 8,
+                                        "header_id" : 4,
+                                        "type" : "FIELD"
+                                    }
+                                }
+                            },
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 124,
+                                    "field_length" : 8,
+                                    "header_id" : 0,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 64,
+                                        "field_length" : 8,
+                                        "header_id" : 4,
+                                        "type" : "FIELD"
+                                    }
+                                }
+                            },
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 160,
+                                    "field_length" : 32,
+                                    "header_id" : 0,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 96,
+                                        "field_length" : 32,
+                                        "header_id" : 4,
+                                        "type" : "FIELD"
+                                    }
+                                }
+                            },
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 192,
+                                    "field_length" : 32,
+                                    "header_id" : 0,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 128,
+                                        "field_length" : 32,
+                                        "header_id" : 4,
+                                        "type" : "FIELD"
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 3,
+                        "parameter_num" : 0,
+                        "primitives" : []
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 0,
+                                        "field_length" : 0,
+                                        "header_id" : 4,
+                                        "type" : "VALID"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "STAGE",
+                            "value" : 16
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 0,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            },
+                            {
+                                "bitmap" : 128,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 1
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 15,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 12,
+                                "stage_id" : 3
+                            },
+                            {
+                                "action_id" : 16,
+                                "stage_id" : 16
+                            },
+                            {
+                                "action_id" : 3,
+                                "stage_id" : 3
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [
+                            {
+                                "field_internal_offset" : 0,
+                                "field_length" : 4,
+                                "header_id" : 5,
+                                "type" : "FIELD"
+                            },
+                            {
+                                "field_internal_offset" : 56,
+                                "field_length" : 8,
+                                "header_id" : 5,
+                                "type" : "FIELD"
+                            }
+                        ],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [
+                                4
+                            ],
+                            "depth" : 1,
+                            "type" : "TCAM",
+                            "width" : 1
+                        },
+                        "match_type" : "TERNARY",
+                        "miss_action_id" : 4,
+                        "no_table" : 0,
+                        "value_memory" : {
+                            "config" : [
+                                4
+                            ],
+                            "width" : 1
+                        }
+                    },
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 12,
+                                "stage_id" : 3
+                            },
+                            {
+                                "action_id" : 16,
+                                "stage_id" : 16
+                            },
+                            {
+                                "action_id" : 3,
+                                "stage_id" : 3
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [
+                            {
+                                "field_internal_offset" : 0,
+                                "field_length" : 4,
+                                "header_id" : 4,
+                                "type" : "FIELD"
+                            },
+                            {
+                                "field_internal_offset" : 4,
+                                "field_length" : 4,
+                                "header_id" : 4,
+                                "type" : "FIELD"
+                            },
+                            {
+                                "field_internal_offset" : 64,
+                                "field_length" : 8,
+                                "header_id" : 4,
+                                "type" : "FIELD"
+                            }
+                        ],
+                        "id" : 1,
+                        "key_memory" : {
+                            "config" : [
+                                5
+                            ],
+                            "depth" : 1,
+                            "type" : "TCAM",
+                            "width" : 1
+                        },
+                        "match_type" : "TERNARY",
+                        "miss_action_id" : 3,
+                        "no_table" : 0,
+                        "value_memory" : {
+                            "config" : [
+                                5
+                            ],
+                            "width" : 1
+                        }
+                    }
+                ],
+                "name" : "node_5",
+                "parser" : {
+                    "levels" : [
+                        [
+                            {
+                                "parser_sram_entry" : {
+                                    "accept_drop" : 2,
+                                    "header_id" : 4,
+                                    "header_length" : 160,
+                                    "next_state" : 3,
+                                    "transition_field_num" : 1,
+                                    "transition_fields" : [
+                                        {
+                                            "field_internal_offset" : 72,
+                                            "field_length" : 8,
+                                            "header_id" : 4,
+                                            "type" : "FIELD"
+                                        }
+                                    ]
+                                },
+                                "parser_tcam_entry" : {
+                                    "current_state" : 2,
+                                    "entry" : 2048,
+                                    "mask" : -1
+                                }
+                            },
+                            {
+                                "parser_sram_entry" : {
+                                    "accept_drop" : 2,
+                                    "header_id" : 5,
+                                    "header_length" : 320,
+                                    "next_state" : 4,
+                                    "transition_field_num" : 1,
+                                    "transition_fields" : [
+                                        {
+                                            "field_internal_offset" : 48,
+                                            "field_length" : 8,
+                                            "header_id" : 5,
+                                            "type" : "FIELD"
+                                        }
+                                    ]
+                                },
+                                "parser_tcam_entry" : {
+                                    "current_state" : 2,
+                                    "entry" : 34525,
+                                    "mask" : -1
+                                }
+                            },
+                            {
+                                "parser_sram_entry" : {
+                                    "accept_drop" : 0,
+                                    "header_id" : 0,
+                                    "header_length" : 0,
+                                    "next_state" : 0,
+                                    "transition_field_num" : 0,
+                                    "transition_fields" : []
+                                },
+                                "parser_tcam_entry" : {
+                                    "current_state" : 2,
+                                    "entry" : 0,
+                                    "mask" : 0
+                                }
+                            }
+                        ]
+                    ],
+                    "parser_level" : 1
+                }
+            }
+        ]
+    },
+    "processor_30" : null,
+    "processor_31" : null,
+    "processor_4" : {
+        "next_processor" : 5,
+        "stage_list" : [
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 13,
+                        "parameter_num" : 0,
+                        "primitives" : []
+                    },
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 17,
+                        "parameter_num" : 0,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 112,
+                                    "field_length" : 4,
+                                    "header_id" : 0,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "CONST",
+                                    "value" : 6
+                                }
+                            },
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 132,
+                                    "field_length" : 8,
+                                    "header_id" : 0,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 4,
+                                        "field_length" : 8,
+                                        "header_id" : 5,
+                                        "type" : "FIELD"
+                                    }
+                                }
+                            },
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 116,
+                                    "field_length" : 8,
+                                    "header_id" : 0,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 48,
+                                        "field_length" : 8,
+                                        "header_id" : 5,
+                                        "type" : "FIELD"
+                                    }
+                                }
+                            },
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 124,
+                                    "field_length" : 8,
+                                    "header_id" : 0,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 56,
+                                        "field_length" : 8,
+                                        "header_id" : 5,
+                                        "type" : "FIELD"
+                                    }
+                                }
+                            },
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 224,
+                                    "field_length" : 128,
+                                    "header_id" : 0,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 64,
+                                        "field_length" : 128,
+                                        "header_id" : 5,
+                                        "type" : "FIELD"
+                                    }
+                                }
+                            },
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 352,
+                                    "field_length" : 128,
+                                    "header_id" : 0,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 192,
+                                        "field_length" : 128,
+                                        "header_id" : 5,
+                                        "type" : "FIELD"
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 4,
+                        "parameter_num" : 0,
+                        "primitives" : []
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 0,
+                                        "field_length" : 0,
+                                        "header_id" : 5,
+                                        "type" : "VALID"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "STAGE",
+                            "value" : 3
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 128,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 16,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 13,
+                                "stage_id" : 3
+                            },
+                            {
+                                "action_id" : 17,
+                                "stage_id" : 3
+                            },
+                            {
+                                "action_id" : 4,
+                                "stage_id" : 3
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [
+                            {
+                                "field_internal_offset" : 0,
+                                "field_length" : 4,
+                                "header_id" : 5,
+                                "type" : "FIELD"
+                            },
+                            {
+                                "field_internal_offset" : 56,
+                                "field_length" : 8,
+                                "header_id" : 5,
+                                "type" : "FIELD"
+                            }
+                        ],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [
+                                6
+                            ],
+                            "depth" : 1,
+                            "type" : "TCAM",
+                            "width" : 1
+                        },
+                        "match_type" : "TERNARY",
+                        "miss_action_id" : 4,
+                        "no_table" : 0,
+                        "value_memory" : {
+                            "config" : [
+                                6
+                            ],
+                            "width" : 1
+                        }
+                    }
+                ],
+                "name" : "node_7",
+                "parser" : {
+                    "levels" : [],
+                    "parser_level" : 0
+                }
+            }
+        ]
+    },
+    "processor_5" : {
+        "next_processor" : 8,
+        "stage_list" : [
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 32,
+                        "parameter_num" : 0,
+                        "primitives" : []
+                    },
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 8,
+                        "parameter_num" : 0,
+                        "primitives" : []
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "TABLE",
+                            "value" : 0
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 128,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 3,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 32,
+                                "stage_id" : 4
+                            },
+                            {
+                                "action_id" : 8,
+                                "stage_id" : 14
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [
+                            {
+                                "field_internal_offset" : 48,
+                                "field_length" : 48,
+                                "header_id" : 0,
+                                "type" : "FIELD"
+                            }
+                        ],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [
+                                10
+                            ],
+                            "depth" : 1,
+                            "type" : "SRAM",
+                            "width" : 1
+                        },
+                        "match_type" : "EXACT",
+                        "miss_action_id" : 8,
+                        "no_table" : 0,
+                        "value_memory" : {
+                            "config" : [
+                                11
+                            ],
+                            "width" : 1
+                        }
+                    }
+                ],
+                "name" : "rmac_s",
+                "parser" : {
+                    "levels" : [],
+                    "parser_level" : 0
+                }
+            }
+        ]
+    },
+    "processor_6" : {
+        "next_processor" : 10,
+        "stage_list" : [
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 41,
+                        "parameter_num" : 0,
+                        "primitives" : []
+                    },
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 42,
+                        "parameter_num" : 0,
+                        "primitives" : []
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "TABLE",
+                            "value" : 0
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 128,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 5,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 41,
+                                "stage_id" : 6
+                            },
+                            {
+                                "action_id" : 42,
+                                "stage_id" : 7
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [
+                            {
+                                "field_internal_offset" : 19,
+                                "field_length" : 16,
+                                "header_id" : 1,
+                                "type" : "FIELD"
+                            },
+                            {
+                                "field_internal_offset" : 192,
+                                "field_length" : 32,
+                                "header_id" : 0,
+                                "type" : "FIELD"
+                            }
+                        ],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [
+                                4
+                            ],
+                            "depth" : 1,
+                            "type" : "SRAM",
+                            "width" : 1
+                        },
+                        "match_type" : "EXACT",
+                        "miss_action_id" : 42,
+                        "no_table" : 0,
+                        "value_memory" : {
+                            "config" : [
+                                5
+                            ],
+                            "width" : 1
+                        }
+                    }
+                ],
+                "name" : "fib_fib_s",
+                "parser" : {
+                    "levels" : [],
+                    "parser_level" : 0
+                }
+            },
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 43,
+                        "parameter_num" : 0,
+                        "primitives" : []
+                    },
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 44,
+                        "parameter_num" : 0,
+                        "primitives" : []
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "TABLE",
+                            "value" : 0
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 128,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 8,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 43,
+                                "stage_id" : 9
+                            },
+                            {
+                                "action_id" : 44,
+                                "stage_id" : 10
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [
+                            {
+                                "field_internal_offset" : 19,
+                                "field_length" : 16,
+                                "header_id" : 1,
+                                "type" : "FIELD"
+                            },
+                            {
+                                "field_internal_offset" : 352,
+                                "field_length" : 128,
+                                "header_id" : 0,
+                                "type" : "FIELD"
+                            }
+                        ],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [
+                                6,
+                                7
+                            ],
+                            "depth" : 1,
+                            "type" : "SRAM",
+                            "width" : 2
+                        },
+                        "match_type" : "EXACT",
+                        "miss_action_id" : 44,
+                        "no_table" : 0,
+                        "value_memory" : {
+                            "config" : [
+                                8
+                            ],
+                            "width" : 1
+                        }
+                    }
+                ],
+                "name" : "fibv6_fib_s",
+                "parser" : {
+                    "levels" : [],
+                    "parser_level" : 0
+                }
+            }
+        ]
+    },
+    "processor_7" : {
+        "next_processor" : 11,
+        "stage_list" : [
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [
+                            16
+                        ],
+                        "id" : 21,
+                        "parameter_num" : 1,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 35,
+                                    "field_length" : 16,
+                                    "header_id" : 1,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "PARAM",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 23,
+                        "parameter_num" : 0,
+                        "primitives" : []
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 0,
+                                        "field_length" : 1,
+                                        "header_id" : 1,
+                                        "type" : "FIELD"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "STAGE",
+                            "value" : 11
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 0,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 18,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 21,
+                                "stage_id" : 11
+                            },
+                            {
+                                "action_id" : 23,
+                                "stage_id" : 11
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [
+                            {
+                                "field_internal_offset" : 19,
+                                "field_length" : 16,
+                                "header_id" : 1,
+                                "type" : "FIELD"
+                            },
+                            {
+                                "field_internal_offset" : 192,
+                                "field_length" : 32,
+                                "header_id" : 0,
+                                "type" : "FIELD"
+                            }
+                        ],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [
+                                0
+                            ],
+                            "depth" : 1,
+                            "type" : "TCAM",
+                            "width" : 1
+                        },
+                        "match_type" : "TERNARY",
+                        "miss_action_id" : 23,
+                        "no_table" : 0,
+                        "value_memory" : {
+                            "config" : [
+                                2
+                            ],
+                            "width" : 1
+                        }
+                    }
+                ],
+                "name" : "node_16",
+                "parser" : {
+                    "levels" : [],
+                    "parser_level" : 0
+                }
+            },
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [
+                            16
+                        ],
+                        "id" : 25,
+                        "parameter_num" : 1,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 35,
+                                    "field_length" : 16,
+                                    "header_id" : 1,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "PARAM",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 27,
+                        "parameter_num" : 0,
+                        "primitives" : []
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 1,
+                                        "field_length" : 1,
+                                        "header_id" : 1,
+                                        "type" : "FIELD"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "STAGE",
+                            "value" : 11
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 0,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 19,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 25,
+                                "stage_id" : 11
+                            },
+                            {
+                                "action_id" : 27,
+                                "stage_id" : 11
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [
+                            {
+                                "field_internal_offset" : 19,
+                                "field_length" : 16,
+                                "header_id" : 1,
+                                "type" : "FIELD"
+                            },
+                            {
+                                "field_internal_offset" : 352,
+                                "field_length" : 128,
+                                "header_id" : 0,
+                                "type" : "FIELD"
+                            }
+                        ],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [
+                                1,
+                                2,
+                                3
+                            ],
+                            "depth" : 1,
+                            "type" : "TCAM",
+                            "width" : 3
+                        },
+                        "match_type" : "TERNARY",
+                        "miss_action_id" : 27,
+                        "no_table" : 0,
+                        "value_memory" : {
+                            "config" : [
+                                3
+                            ],
+                            "width" : 1
+                        }
+                    }
+                ],
+                "name" : "node_22",
+                "parser" : {
+                    "levels" : [],
+                    "parser_level" : 0
+                }
+            }
+        ]
+    },
+    "processor_8" : {
+        "next_processor" : 9,
+        "stage_list" : [
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 39,
+                        "parameter_num" : 0,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 83,
+                                    "field_length" : 8,
+                                    "header_id" : 1,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "CONST",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "CONST",
+                                    "value" : 1
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "TABLE",
+                            "value" : 0
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 128,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 4,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 39,
+                                "stage_id" : 17
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [],
+                            "depth" : 0,
+                            "type" : "SRAM",
+                            "width" : 0
+                        },
+                        "match_type" : "EXACT",
+                        "miss_action_id" : 39,
+                        "no_table" : 1,
+                        "value_memory" : {
+                            "config" : [],
+                            "width" : 0
+                        }
+                    }
+                ],
+                "name" : "tbl_act_s",
+                "parser" : {
+                    "levels" : [],
+                    "parser_level" : 0
+                }
+            }
+        ]
+    },
+    "processor_9" : {
+        "next_processor" : 6,
+        "stage_list" : [
+            {
+                "executor" : [
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 35,
+                        "parameter_num" : 0,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 35,
+                                    "field_length" : 16,
+                                    "header_id" : 1,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "CONST",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "action_parameters_lengths" : [],
+                        "id" : 38,
+                        "parameter_num" : 0,
+                        "primitives" : [
+                            {
+                                "lvalue" : {
+                                    "field_internal_offset" : 35,
+                                    "field_length" : 16,
+                                    "header_id" : 1,
+                                    "type" : "FIELD"
+                                },
+                                "rvalue" : {
+                                    "type" : "CONST",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "gateway" : {
+                    "expressions" : [
+                        {
+                            "type" : "EXPR",
+                            "value" : {
+                                "left" : {
+                                    "type" : "FIELD",
+                                    "value" : {
+                                        "field_internal_offset" : 112,
+                                        "field_length" : 4,
+                                        "header_id" : 0,
+                                        "type" : "FIELD"
+                                    }
+                                },
+                                "op" : "==",
+                                "right" : {
+                                    "type" : "CONST",
+                                    "value" : 4
+                                }
+                            }
+                        }
+                    ],
+                    "next_table" : {
+                        "default" : {
+                            "type" : "TABLE",
+                            "value" : 1
+                        },
+                        "entries" : [
+                            {
+                                "bitmap" : 128,
+                                "value" : {
+                                    "type" : "TABLE",
+                                    "value" : 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                "id" : 17,
+                "matcher" : [
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 35,
+                                "stage_id" : 5
+                            },
+                            {
+                                "action_id" : 38,
+                                "stage_id" : 8
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [],
+                        "id" : 0,
+                        "key_memory" : {
+                            "config" : [],
+                            "depth" : 0,
+                            "type" : "SRAM",
+                            "width" : 0
+                        },
+                        "match_type" : "EXACT",
+                        "miss_action_id" : 35,
+                        "no_table" : 1,
+                        "value_memory" : {
+                            "config" : [],
+                            "width" : 0
+                        }
+                    },
+                    {
+                        "action_to_proc" : [
+                            {
+                                "action_id" : 35,
+                                "stage_id" : 5
+                            },
+                            {
+                                "action_id" : 38,
+                                "stage_id" : 8
+                            }
+                        ],
+                        "changed" : 0,
+                        "field_infos" : [],
+                        "id" : 1,
+                        "key_memory" : {
+                            "config" : [],
+                            "depth" : 0,
+                            "type" : "SRAM",
+                            "width" : 0
+                        },
+                        "match_type" : "EXACT",
+                        "miss_action_id" : 38,
+                        "no_table" : 1,
+                        "value_memory" : {
+                            "config" : [],
+                            "width" : 0
+                        }
+                    }
+                ],
+                "name" : "node_11",
+                "parser" : {
+                    "levels" : [],
+                    "parser_level" : 0
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,38 @@
+{
+   "tcam_num": 8,
+   "tcam_bit": 16777216,
+   "tcams": {
+      "tcam0": {
+         "entry_length": 36,
+         "entry_num": 466033
+      },
+      "tcam1": {
+         "entry_length": 72,
+         "entry_num": 233016
+      },
+      "tcam2": {
+         "entry_length": 72,
+         "entry_num": 233016
+      },
+      "tcam3": {
+         "entry_length": 144,
+         "entry_num": 116508
+      },
+      "tcam4": {
+         "entry_length": 144,
+         "entry_num": 116508
+      },
+      "tcam5": {
+         "entry_length": 144,
+         "entry_num": 116508
+      },
+      "tcam6": {
+         "entry_length": 288,
+         "entry_num": 58254
+      },
+      "tcam7": {
+         "entry_length": 288,
+         "entry_num": 58254
+      }
+   }
+}

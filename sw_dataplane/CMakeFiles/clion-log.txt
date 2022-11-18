@@ -1,0 +1,35 @@
+/home/xilinx_0/fengyong/clion-2022.1/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/xilinx_0/fengyong/clion-2022.1/bin/ninja/linux/ninja -G Ninja -S /home/xilinx_0/walker/sw -B /home/xilinx_0/walker/sw
+-- The C compiler identification is GNU 7.5.0
+-- The CXX compiler identification is GNU 7.5.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE  
+-- Found Protobuf: /home/xilinx_0/fengyong/local/bin/protoc-3.18.1.0 (found version "3.18.1.0") 
+-- Using protobuf 3.18.1.0
+-- Protobuf include path : /home/xilinx_0/fengyong/local/include
+-- Protobuf libraries : /home/xilinx_0/fengyong/local/lib/libprotobuf.a
+-- Using gRPC 1.42.0
+-- Using protobuf 3.18.1.0
+-- Protobuf include path : /home/xilinx_0/fengyong/local/include
+-- Protobuf libraries : /home/xilinx_0/fengyong/local/lib/libprotobuf.a
+-- Using gRPC 1.42.0
+-- DIR : /home/xilinx_0/walker/sw/sw-src
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/xilinx_0/walker/sw

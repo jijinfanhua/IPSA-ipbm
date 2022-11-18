@@ -1,0 +1,8 @@
+/home/xilinx_0/walker/look/sw-src/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/xilinx_0/walker/look/sw-src/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/xilinx_0/walker/look/sw-src/cmake-build-debug/dataplane/CMakeFiles/rebuild_cache.dir
+/home/xilinx_0/walker/look/sw-src/cmake-build-debug/dataplane/CMakeFiles/edit_cache.dir
+/home/xilinx_0/walker/look/sw-src/cmake-build-debug/dataplane/CMakeFiles/rp4.dir
+/home/xilinx_0/walker/look/sw-src/cmake-build-debug/test/CMakeFiles/rebuild_cache.dir
+/home/xilinx_0/walker/look/sw-src/cmake-build-debug/test/CMakeFiles/edit_cache.dir
+/home/xilinx_0/walker/look/sw-src/cmake-build-debug/test/CMakeFiles/test_parser.dir

@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package rp4;
+
+service ModService {
+  rpc handleMatchTable(FlowEntryModRequest) returns (FlowEntryModResponse);
+}
+
+enum ModRes
+{
+  ADD_OK = 0;
+  DELETE_OK = 1;
+  MOD_OK = 2;
+  NO_ENTRY = 3; // modify or delete with no such entry
+  TABLE_OVERFLOW = 4; // flow entry num exceeds max
+}
+
+message FlowEntryModResponse { // to response the result of modification
+  ModRes res = 1;
+}
+
+message FlowEntry
+{
+  string key = 1; // because of match_key is variable length, define it as string
+  int32 action_id = 2; // the action is implemented in device as built-in, search by id;
+  repeated int32 action_data = 3; // define parameters as Array
+}
+
+enum MemType
+{
+  SRAM = 0;
+  TCAM = 1;
+}
+
+enum ModType
+{
+  INSERT = 0;
+  DELETE = 1;
+  MODIFY = 2;
+}
+
+message FlowEntryModRequest { // add, delete or modify flow entry in data plane
+  MemType mem_type = 1;
+  int32 table_id = 2; // table flag, find table
+
+  FlowEntry srcFlow = 3; // the original flow in device flow match table(modify, delete); new flow(add)
+
+  ModType mod_type = 4; // tell device the modification type
+  FlowEntry modFlow = 5; // if mod_type=2, modFlow is useful
+}

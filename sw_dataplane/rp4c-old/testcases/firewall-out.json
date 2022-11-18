@@ -1,0 +1,1352 @@
+{
+    "actions": [
+        {
+            "args": [
+                {
+                    "length": 48,
+                    "name": "dstAddr",
+                    "offset": 0,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 9,
+                    "name": "port",
+                    "offset": 48,
+                    "size": -1,
+                    "type": "bit"
+                }
+            ],
+            "name": "ipv4_forward",
+            "ops": [
+                {
+                    "args": [
+                        {
+                            "name": "port",
+                            "recv": null,
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "egress_spec",
+                            "recv": {
+                                "name": "standard_metadata",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        }
+                    ],
+                    "op": "copy_field"
+                },
+                {
+                    "args": [
+                        {
+                            "name": "dstAddr",
+                            "recv": {
+                                "name": "ethernet_t",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "srcAddr",
+                            "recv": {
+                                "name": "ethermet_t",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        }
+                    ],
+                    "op": "copy_field"
+                },
+                {
+                    "args": [
+                        {
+                            "name": "dstAddr",
+                            "recv": null,
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "dstAddr",
+                            "recv": {
+                                "name": "ethernet",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        }
+                    ],
+                    "op": "copy_field"
+                },
+                {
+                    "args": [
+                        {
+                            "name": "ttl",
+                            "recv": {
+                                "name": "ipv4",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        }
+                    ],
+                    "op": "decrement"
+                },
+                {
+                    "op": "goto",
+                    "tag": "tcp_valid_s"
+                }
+            ]
+        },
+        {
+            "args": [],
+            "name": "direction_init",
+            "ops": [
+                {
+                    "lhs": {
+                        "name": "direction",
+                        "recv": {
+                            "name": "iv",
+                            "recv": null,
+                            "type": "member_of"
+                        },
+                        "type": "member_of"
+                    },
+                    "rhs": {
+                        "type": "int",
+                        "val": 0
+                    },
+                    "type": "assign"
+                },
+                {
+                    "op": "goto",
+                    "tag": "check_ports_s"
+                }
+            ]
+        },
+        {
+            "args": [
+                {
+                    "length": 1,
+                    "name": "dir",
+                    "offset": 57,
+                    "size": -1,
+                    "type": "bit"
+                }
+            ],
+            "name": "set_direction",
+            "ops": [
+                {
+                    "args": [
+                        {
+                            "name": "dir",
+                            "recv": null,
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "direction",
+                            "recv": {
+                                "name": "iv",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        }
+                    ],
+                    "op": "copy_field"
+                },
+                {
+                    "op": "goto",
+                    "tag": "compute_hash_s"
+                }
+            ]
+        },
+        {
+            "args": [],
+            "name": "compute_hash_1",
+            "ops": [
+                {
+                    "args": [
+                        {
+                            "name": "reg_pos_one",
+                            "recv": {
+                                "name": "iv",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "crc16",
+                            "recv": {
+                                "name": "HashAlgorithm",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "type": "int",
+                            "val": 0
+                        },
+                        {
+                            "name": "srcAddr",
+                            "recv": {
+                                "name": "ipv4",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "dstAddr",
+                            "recv": {
+                                "name": "ipv4",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "srcPort",
+                            "recv": {
+                                "name": "tcp",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "dstPort",
+                            "recv": {
+                                "name": "tcp",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "protocol",
+                            "recv": {
+                                "name": "ipv4",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "type": "int",
+                            "val": 4096
+                        }
+                    ],
+                    "op": "hash"
+                },
+                {
+                    "args": [
+                        {
+                            "name": "reg_pos_one",
+                            "recv": {
+                                "name": "iv",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "crc16",
+                            "recv": {
+                                "name": "HashAlgorithm",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "type": "int",
+                            "val": 0
+                        },
+                        {
+                            "name": "srcAddr",
+                            "recv": {
+                                "name": "ipv4",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "dstAddr",
+                            "recv": {
+                                "name": "ipv4",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "srcPort",
+                            "recv": {
+                                "name": "tcp",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "dstPort",
+                            "recv": {
+                                "name": "tcp",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "protocol",
+                            "recv": {
+                                "name": "ipv4",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "type": "int",
+                            "val": 4096
+                        }
+                    ],
+                    "op": "hash"
+                },
+                {
+                    "op": "goto",
+                    "tag": "bloom_filter_set_s"
+                }
+            ]
+        },
+        {
+            "args": [],
+            "name": "compute_hash_0",
+            "ops": [
+                {
+                    "args": [
+                        {
+                            "name": "reg_pos_one",
+                            "recv": {
+                                "name": "iv",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "crc16",
+                            "recv": {
+                                "name": "HashAlgorithm",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "type": "int",
+                            "val": 0
+                        },
+                        {
+                            "name": "dstAddr",
+                            "recv": {
+                                "name": "ipv4",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "srcAddr",
+                            "recv": {
+                                "name": "ipv4",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "dstPort",
+                            "recv": {
+                                "name": "tcp",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "srcPort",
+                            "recv": {
+                                "name": "tcp",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "protocol",
+                            "recv": {
+                                "name": "ipv4",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "type": "int",
+                            "val": 4096
+                        }
+                    ],
+                    "op": "hash"
+                },
+                {
+                    "args": [
+                        {
+                            "name": "reg_pos_one",
+                            "recv": {
+                                "name": "iv",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "crc16",
+                            "recv": {
+                                "name": "HashAlgorithm",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "type": "int",
+                            "val": 0
+                        },
+                        {
+                            "name": "dstAddr",
+                            "recv": {
+                                "name": "ipv4",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "srcAddr",
+                            "recv": {
+                                "name": "ipv4",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "dstPort",
+                            "recv": {
+                                "name": "tcp",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "srcPort",
+                            "recv": {
+                                "name": "tcp",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "protocol",
+                            "recv": {
+                                "name": "ipv4",
+                                "recv": {
+                                    "name": "hs",
+                                    "recv": null,
+                                    "type": "member_of"
+                                },
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "type": "int",
+                            "val": 4096
+                        }
+                    ],
+                    "op": "hash"
+                },
+                {
+                    "op": "goto",
+                    "tag": "bloom_filter_set_s"
+                }
+            ]
+        },
+        {
+            "args": [],
+            "name": "bloom_filter_write_0",
+            "ops": [
+                {
+                    "args": [
+                        {
+                            "name": "reg_pos_one",
+                            "recv": {
+                                "name": "iv",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "type": "int",
+                            "val": 1
+                        }
+                    ],
+                    "op": "write"
+                },
+                {
+                    "args": [
+                        {
+                            "name": "reg_pos_two",
+                            "recv": {
+                                "name": "iv",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "type": "int",
+                            "val": 1
+                        }
+                    ],
+                    "op": "write"
+                }
+            ]
+        },
+        {
+            "args": [],
+            "name": "bloom_filter_write_1",
+            "ops": [
+                {
+                    "args": [
+                        {
+                            "name": "reg_val_one",
+                            "recv": {
+                                "name": "iv",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "reg_pos_one",
+                            "recv": {
+                                "name": "iv",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        }
+                    ],
+                    "op": "read"
+                },
+                {
+                    "args": [
+                        {
+                            "name": "reg_val_two",
+                            "recv": {
+                                "name": "iv",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "reg_pos_two",
+                            "recv": {
+                                "name": "iv",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        }
+                    ],
+                    "op": "read"
+                },
+                {
+                    "args": [],
+                    "op": "mark_to_drop"
+                }
+            ]
+        },
+        {
+            "args": [],
+            "name": "bloom_filter_write_2",
+            "ops": [
+                {
+                    "args": [
+                        {
+                            "name": "reg_val_one",
+                            "recv": {
+                                "name": "iv",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "reg_pos_one",
+                            "recv": {
+                                "name": "iv",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        }
+                    ],
+                    "op": "read"
+                },
+                {
+                    "args": [
+                        {
+                            "name": "reg_val_two",
+                            "recv": {
+                                "name": "iv",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        {
+                            "name": "reg_pos_two",
+                            "recv": {
+                                "name": "iv",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        }
+                    ],
+                    "op": "read"
+                }
+            ]
+        },
+        {
+            "args": [],
+            "name": "drop",
+            "ops": [
+                {
+                    "args": [
+                        {
+                            "name": "standard_metadata",
+                            "recv": null,
+                            "type": "member_of"
+                        }
+                    ],
+                    "op": "mark_to_drop"
+                }
+            ]
+        }
+    ],
+    "controls": [
+        {
+            "name": "rP4_Ingress",
+            "stages": [
+                {
+                    "executor": [
+                        [
+                            [
+                                0,
+                                "ipv4_forward"
+                            ]
+                        ],
+                        [
+                            [
+                                1,
+                                "drop"
+                            ]
+                        ],
+                        [
+                            [
+                                -1,
+                                "drop"
+                            ]
+                        ]
+                    ],
+                    "matcher": {
+                        "name": "ipv4_lpm",
+                        "type": "table"
+                    },
+                    "name": "ipv4_lpm_s",
+                    "parser": "ipv4_t"
+                },
+                {
+                    "executor": [
+                        [
+                            [
+                                -1,
+                                "direction_init"
+                            ]
+                        ]
+                    ],
+                    "matcher": {
+                        "name": "no_table",
+                        "type": "table"
+                    },
+                    "name": "tcp_valid_s",
+                    "parser": "tcp_t"
+                },
+                {
+                    "executor": [
+                        [
+                            [
+                                0,
+                                "set_direction"
+                            ]
+                        ],
+                        [
+                            [
+                                -1,
+                                "no_action"
+                            ]
+                        ]
+                    ],
+                    "matcher": {
+                        "name": "check_ports",
+                        "type": "table"
+                    },
+                    "name": "check_ports_s",
+                    "parser": "no_header"
+                },
+                {
+                    "executor": [
+                        [
+                            [
+                                0,
+                                "compute_hash_1"
+                            ]
+                        ],
+                        [
+                            [
+                                1,
+                                "compute_hash_0"
+                            ]
+                        ]
+                    ],
+                    "matcher": {
+                        "conds": [
+                            {
+                                "lhs": {
+                                    "name": "direction",
+                                    "recv": {
+                                        "name": "iv",
+                                        "recv": null,
+                                        "type": "member_of"
+                                    },
+                                    "type": "member_of"
+                                },
+                                "op": "==",
+                                "rhs": {
+                                    "type": "int",
+                                    "val": 0
+                                }
+                            }
+                        ],
+                        "type": "condition"
+                    },
+                    "name": "compute_hash_s",
+                    "parser": "no_header"
+                },
+                {
+                    "executor": [
+                        [
+                            [
+                                15,
+                                "bloom_filter_write_0"
+                            ]
+                        ],
+                        [
+                            [
+                                7,
+                                "bloom_filter_write_1"
+                            ]
+                        ],
+                        [
+                            [
+                                5,
+                                "bloom_filter_write_2"
+                            ]
+                        ]
+                    ],
+                    "matcher": {
+                        "conds": [
+                            {
+                                "lhs": {
+                                    "name": "direction",
+                                    "recv": {
+                                        "name": "iv",
+                                        "recv": null,
+                                        "type": "member_of"
+                                    },
+                                    "type": "member_of"
+                                },
+                                "op": "==",
+                                "rhs": {
+                                    "type": "int",
+                                    "val": 0
+                                }
+                            },
+                            {
+                                "lhs": {
+                                    "name": "syn",
+                                    "recv": {
+                                        "name": "tcp",
+                                        "recv": {
+                                            "name": "hs",
+                                            "recv": null,
+                                            "type": "member_of"
+                                        },
+                                        "type": "member_of"
+                                    },
+                                    "type": "member_of"
+                                },
+                                "op": "==",
+                                "rhs": {
+                                    "type": "int",
+                                    "val": 1
+                                }
+                            },
+                            {
+                                "lhs": {
+                                    "name": "reg_val_one",
+                                    "recv": {
+                                        "name": "iv",
+                                        "recv": null,
+                                        "type": "member_of"
+                                    },
+                                    "type": "member_of"
+                                },
+                                "op": "!=",
+                                "rhs": {
+                                    "type": "int",
+                                    "val": 1
+                                }
+                            },
+                            {
+                                "lhs": {
+                                    "name": "reg_val_two",
+                                    "recv": {
+                                        "name": "iv",
+                                        "recv": null,
+                                        "type": "member_of"
+                                    },
+                                    "type": "member_of"
+                                },
+                                "op": "!=",
+                                "rhs": {
+                                    "type": "int",
+                                    "val": 1
+                                }
+                            }
+                        ],
+                        "type": "condition"
+                    },
+                    "name": "bloom_filter_set_s",
+                    "parser": "tcp_t"
+                }
+            ]
+        },
+        {
+            "name": "rP4_Egress",
+            "stages": []
+        }
+    ],
+    "headers": [
+        {
+            "fields": [
+                {
+                    "length": 48,
+                    "name": "dstAddr",
+                    "offset": 0,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 48,
+                    "name": "srcAddr",
+                    "offset": 48,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 16,
+                    "name": "etherType",
+                    "offset": 96,
+                    "size": -1,
+                    "type": "bit"
+                }
+            ],
+            "id": 0,
+            "name": "ethernet_t",
+            "parser": {
+                "field": "etherType",
+                "transition": [
+                    {
+                        "next_header": "ipv4_t",
+                        "next_header_id": 1,
+                        "tag": 2048
+                    }
+                ]
+            }
+        },
+        {
+            "fields": [
+                {
+                    "length": 4,
+                    "name": "version",
+                    "offset": 0,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 4,
+                    "name": "ihl",
+                    "offset": 4,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 8,
+                    "name": "diffserv",
+                    "offset": 8,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 16,
+                    "name": "totalLen",
+                    "offset": 16,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 16,
+                    "name": "identification",
+                    "offset": 32,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 3,
+                    "name": "flags",
+                    "offset": 48,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 13,
+                    "name": "fragOffset",
+                    "offset": 51,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 8,
+                    "name": "ttl",
+                    "offset": 64,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 8,
+                    "name": "protocol",
+                    "offset": 72,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 16,
+                    "name": "hdrChecksum",
+                    "offset": 80,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 32,
+                    "name": "srcAddr",
+                    "offset": 96,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 32,
+                    "name": "dstAddr",
+                    "offset": 128,
+                    "size": -1,
+                    "type": "bit"
+                }
+            ],
+            "id": 1,
+            "name": "ipv4_t",
+            "parser": {
+                "field": "protocol",
+                "transition": [
+                    {
+                        "next_header": "tcp_t",
+                        "next_header_id": 2,
+                        "tag": 6
+                    }
+                ]
+            }
+        },
+        {
+            "fields": [
+                {
+                    "length": 16,
+                    "name": "srcPort",
+                    "offset": 0,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 16,
+                    "name": "dstPort",
+                    "offset": 16,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 32,
+                    "name": "seqNo",
+                    "offset": 32,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 32,
+                    "name": "ackNo",
+                    "offset": 64,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 4,
+                    "name": "dataOffset",
+                    "offset": 96,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 4,
+                    "name": "res",
+                    "offset": 100,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 1,
+                    "name": "cwr",
+                    "offset": 104,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 1,
+                    "name": "ece",
+                    "offset": 105,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 1,
+                    "name": "urg",
+                    "offset": 106,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 1,
+                    "name": "ack",
+                    "offset": 107,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 1,
+                    "name": "psh",
+                    "offset": 108,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 1,
+                    "name": "rst",
+                    "offset": 109,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 1,
+                    "name": "syn",
+                    "offset": 110,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 1,
+                    "name": "fin",
+                    "offset": 111,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 16,
+                    "name": "window",
+                    "offset": 112,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 16,
+                    "name": "checksum",
+                    "offset": 128,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 16,
+                    "name": "urgentPtr",
+                    "offset": 144,
+                    "size": -1,
+                    "type": "bit"
+                }
+            ],
+            "id": 2,
+            "name": "tcp_t",
+            "parser": {
+                "field": "",
+                "transition": []
+            }
+        }
+    ],
+    "structs": [
+        {
+            "alias": "meta",
+            "fields": [],
+            "id": 3,
+            "name": "metadata"
+        },
+        {
+            "alias": "iv",
+            "fields": [
+                {
+                    "length": 1,
+                    "name": "bloom_filter_1",
+                    "offset": 0,
+                    "size": 4096,
+                    "type": "register"
+                },
+                {
+                    "length": 1,
+                    "name": "bloom_filter_2",
+                    "offset": 1,
+                    "size": 4096,
+                    "type": "register"
+                },
+                {
+                    "length": 32,
+                    "name": "reg_pos_one",
+                    "offset": 2,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 32,
+                    "name": "reg_pos_two",
+                    "offset": 34,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 1,
+                    "name": "reg_val_one",
+                    "offset": 66,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 1,
+                    "name": "reg_val_two",
+                    "offset": 67,
+                    "size": -1,
+                    "type": "bit"
+                },
+                {
+                    "length": 1,
+                    "name": "direction",
+                    "offset": 68,
+                    "size": -1,
+                    "type": "bit"
+                }
+            ],
+            "id": 4,
+            "name": "ingress_variable"
+        }
+    ],
+    "tables": [
+        {
+            "keys": [
+                {
+                    "match_type": "LPM",
+                    "name": {
+                        "name": "dstAddr",
+                        "recv": {
+                            "name": "ipv4",
+                            "recv": {
+                                "name": "hs",
+                                "recv": null,
+                                "type": "member_of"
+                            },
+                            "type": "member_of"
+                        },
+                        "type": "member_of"
+                    }
+                }
+            ],
+            "name": "ipv4_lpm",
+            "size": 1024
+        },
+        {
+            "keys": [
+                {
+                    "match_type": "EXACT",
+                    "name": {
+                        "name": "ingress_port",
+                        "recv": {
+                            "name": "standard_metadata",
+                            "recv": null,
+                            "type": "member_of"
+                        },
+                        "type": "member_of"
+                    }
+                },
+                {
+                    "match_type": "EXACT",
+                    "name": {
+                        "name": "egress_spec",
+                        "recv": {
+                            "name": "standard_metadata",
+                            "recv": null,
+                            "type": "member_of"
+                        },
+                        "type": "member_of"
+                    }
+                }
+            ],
+            "name": "check_ports",
+            "size": 1024
+        }
+    ]
+}

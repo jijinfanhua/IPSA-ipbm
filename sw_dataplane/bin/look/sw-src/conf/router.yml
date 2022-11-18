@@ -1,0 +1,5 @@
+interfaces:
+    - name: r2r1
+      ip: 10.0.1.1
+    - name: r2r3
+      ip: 10.0.2.1

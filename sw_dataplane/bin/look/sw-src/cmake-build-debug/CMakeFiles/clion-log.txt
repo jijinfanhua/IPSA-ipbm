@@ -1,0 +1,9 @@
+/snap/clion/180/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/180/bin/ninja/linux/ninja -G Ninja /home/xilinx_0/walker/look/sw-src
+-- DIR : /home/xilinx_0/walker/look/sw-src
+-- Using protobuf 3.18.1.0
+-- Protobuf include path : /home/xilinx_0/fengyong/local/include
+-- Protobuf libraries : /home/xilinx_0/fengyong/local/lib/libprotobuf.a
+-- Using gRPC 1.42.0
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/xilinx_0/walker/look/sw-src/cmake-build-debug

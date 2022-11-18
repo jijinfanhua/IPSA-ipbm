@@ -1,0 +1,78 @@
+{
+   "sram_num": 8,
+   "sram_bit": 16777216,
+   "srams": {
+      "sram0": {
+         "120": {
+            "entry_width": 120,
+            "entry_num": 59918
+         },
+         "160": {
+            "entry_width": 160,
+            "entry_num": 59918
+         }
+      },
+      "sram1": {
+         "80": {
+            "entry_width": 80,
+            "entry_num": 41943
+         },
+         "120": {
+            "entry_width": 120,
+            "entry_num": 41943
+         },
+         "200": {
+            "entry_width": 200,
+            "entry_num": 41943
+         }
+      },
+      "sram2": {
+         "160": {
+            "entry_width": 160,
+            "entry_num": 34952
+         },
+         "320": {
+            "entry_width": 320,
+            "entry_num": 34952
+         }
+      },
+      "sram3": {
+         "200": {
+            "entry_width": 200,
+            "entry_num": 38130
+         },
+         "240": {
+            "entry_width": 240,
+            "entry_num": 38130
+         }
+      },
+      "sram4": {
+         "80": {
+            "entry_width": 80,
+            "entry_num": 46603
+         },
+         "280": {
+            "entry_width": 280,
+            "entry_num": 46603
+         }
+      },
+      "sram5": {
+         "360": {
+            "entry_width": 360,
+            "entry_num": 46603
+         }
+      },
+      "sram6": {
+         "400": {
+            "entry_width": 400,
+            "entry_num": 41943
+         }
+      },
+      "sram7": {
+         "440": {
+            "entry_width": 440,
+            "entry_num": 38130
+         }
+      }
+   }
+}

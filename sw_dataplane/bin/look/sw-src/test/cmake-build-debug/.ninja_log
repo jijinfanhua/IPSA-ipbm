@@ -1,0 +1,4 @@
+# ninja log v5
+0	459	1644919557715542019	CMakeFiles/test_parser.dir/test_parser.cpp.o	ac5c2da489d7a625
+1	30	1644919917577868572	build.ninja	20ed5560d90db786
+1	963	1644919698193059196	CMakeFiles/test_parser.dir/home/xilinx_0/walker/look/sw-src/dataplane/global.cpp.o	c0b7a8324b70a3a8

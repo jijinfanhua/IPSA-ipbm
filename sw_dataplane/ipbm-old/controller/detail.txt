@@ -1,0 +1,7 @@
+l2_switching
+    1. search in CAM table (mac_address, ingress_port, time) using source MAC
+        -- if in, update time
+        -- if not in, create entry in CAM table, i.e, do source mac learning
+    2. search in CAM table using destination Mac
+        -- if in, forward to result port    /* l2 switching */
+        -- if not in, broadcast

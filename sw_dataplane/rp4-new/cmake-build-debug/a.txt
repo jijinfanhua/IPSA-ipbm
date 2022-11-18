@@ -1,0 +1,17 @@
+add table
+table validate_ipv6_2 {
+    key = {
+        hdr.ipv6.version: ternary;
+        hdr.ipv6.hop_limit: ternary;
+    }
+    size = 512;
+    value_width = 16;
+    default_action = NoAction_4;
+}
+add matcher in stage node_5
+0b0: table(validate_ipv6_2);
+add action
+action NoAction_3() {
+}
+add executor in stage node_5
+NoAction_3: rmac_s;

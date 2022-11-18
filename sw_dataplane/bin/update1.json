@@ -1,0 +1,24 @@
+{
+  "initial_processor" : 0,
+  "initial_stage" : 0,
+  "metadata" : [
+    {
+      "id" : 31,
+      "length" : 20,
+      "offset" : 0
+    },
+    {
+      "id" : 0,
+      "length" : 8,
+      "offset" : 20
+    }
+  ],
+  "processor_0" : null,
+  "processor_1" : null,
+  "processor_2" : null,
+  "processor_3" : null,
+  "processor_4" : null,
+  "processor_5" : null,
+  "processor_6" : null,
+  "processor_7" : null
+}

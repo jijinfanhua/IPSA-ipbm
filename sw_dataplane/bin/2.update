@@ -1,0 +1,179 @@
+header ethernet_t {
+	bit<48>	dst_address;
+	bit<48>	src_address;
+	bit<16>	ether_type;
+}
+header mpls_t {
+	bit<20>	label;
+	bit<3>	exp;
+	bit<1>	bos;
+	bit<8>	ttl;
+}
+header ipv4_t {
+	bit<4>	version;
+	bit<4>	ihl;
+	bit<8>	type_service;
+	bit<16>	total_length;
+	bit<16>	identification;
+	bit<3>	flags;
+	bit<13>	fragment_offset;
+	bit<8>	ttl;
+	bit<8>	protocol;
+	bit<16>	header_checksum;
+	bit<32>	src_address;
+	bit<32>	dst_address;
+}
+struct metadata {
+} meta;
+struct headers {
+	ethernet_t	ethernet;
+	mpls_t	mpls;
+	ipv4_t	ipv4;
+} hdr;
+
+struct standard_metadata_t {
+    bit<9> ingress_port;
+    bit<9> egress_spec;
+    bit<9> egress_port;
+    bit<32> clone_spec;
+    bit<32> instance_type;
+    bit<1> drop;
+    bit<16> recirculate_port;
+    bit<32> packet_length;
+} standard_metadata;
+
+parser MyParser(packet_in packet) {
+	state start {
+		packet.extract(hdr.ethernet);
+		transition select(hdr.ethernet.ether_type) {
+			0x0800: parse_ipv4;
+			0x8847: parse_mpls;
+			default: accept;
+		}
+	}
+	state parse_mpls {
+		packet.extract(hdr.mpls);
+		transition select(hdr.ethernet.ether_type) {
+			0x0800: parse_ipv4;
+			default: accept;
+		}
+	}
+	state parse_ipv4 {
+		packet.extract(hdr.ipv4);
+		transition accept;
+	}
+}
+
+del action drop_1 in stage node_6
+del action drop_3 in stage node_2
+del action forward in stage node_6
+del action act in stage tbl_act_s
+del action act_0 in stage tbl_act_0_s
+del action dest_check__HIT__ in stage node_2
+del action dest_check__MISS__ in stage node_2
+
+del table dest_check in stage node_2
+del table tbl_act in stage tbl_act_s
+del table tbl_act_0 in stage tbl_act_0_s
+del table ip_forward in stage node_6
+del table tbl_drop in stage node_2
+
+del stage node_2
+del stage node_6
+del stage tbl_act_s
+del stage tbl_act_0_s
+
+add action
+	action drop_0() {
+		standard_metadata.drop = 1;
+	}
+add action
+    action drop_1() {
+		standard_metadata.drop = 1;
+	}
+add action
+	action push_label(bit<20> label) {
+		hdr.ethernet.isValid() = hdr.mpls.isValid();
+		hdr.mpls.label = label;
+		hdr.mpls.bos = 0x01;
+		hdr.mpls.exp = 0x00;
+		hdr.mpls.ttl = 0x40;
+		hdr.ethernet.ether_type = 0x8847;
+	}
+add action
+	action mpls_pop() {
+		hdr.mpls.isValid() = false;
+		hdr.ethernet.ether_type = 0x0800;
+	}
+
+add table
+	table mpls_push {
+		key = {
+			hdr.ipv4.dst_address: exact;
+		}
+		size = 1024;
+		value_width = 36;
+		default_action = drop_0;
+	}
+add table
+	table tbl_mpls_pop {
+		key = {
+		}
+		size = 1024;
+		value_width = 16;
+		default_action = mpls_pop;
+	}
+add table
+	table tbl_drop {
+		key = {
+		}
+		size = 1024;
+		value_width = 16;
+		default_action = drop_1;
+	}
+
+add stage
+	stage node_2 {
+		parser {
+		};
+		matcher {
+			switch ((standard_metadata.ingress_port == 0x0000)) {
+				0b1: stage(node_3);
+				*: stage(node_5);
+			}
+		};
+		executor {
+		};
+	}
+add stage
+	stage node_3 {
+		parser {
+			ipv4;
+		};
+		matcher {
+			switch (hdr.ipv4.isValid()) {
+				0b1: table(mpls_push);
+				*: None;
+			}
+		};
+		executor {
+			drop_0: None;
+			push_label: None;
+		};
+	}
+add stage
+	stage node_5 {
+		parser {
+			mpls;
+		};
+		matcher {
+			switch (hdr.mpls.isValid()) {
+				0b1: table(tbl_mpls_pop);
+				*: table(tbl_drop);
+			}
+		};
+		executor {
+			mpls_pop: None;
+			drop_1: None;
+		};
+	}

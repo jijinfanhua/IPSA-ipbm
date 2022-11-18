@@ -1,0 +1,15 @@
+# ninja log v5
+1	4403	1644920319357374281	api/CMakeFiles/dataplane_server.dir/dataplane_server.cpp.o	669400bf79d713de
+4740	8835	1644920323785331134	api/dataplane_server	60b37c12ab07484e
+4661	4740	1644920319697370965	dataplane/librp4.a	7de82f5b1ef5e983
+1	4661	1644920319613371784	dataplane/CMakeFiles/rp4.dir/__/api_pb/controller_to_dataplane.grpc.pb.cc.o	b3d55c15259543c4
+1	59	1644922053951737993	build.ninja	c3cc78793162cd01
+0	2746	1644920317701390444	dataplane/CMakeFiles/rp4.dir/__/api_pb/controller_to_dataplane.pb.cc.o	3713992ad794580
+0	454	1644920201202567639	test/CMakeFiles/test_parser.dir/test_parser.cpp.o	ec45613308e371b
+2	943	1644920520443508333	test/CMakeFiles/test_parser.dir/__/dataplane/global.cpp.o	b9b58a0e68af5357
+0	978	1644920315933407716	dataplane/CMakeFiles/rp4.dir/global.cpp.o	c9afcd1469dce11f
+4	467	1644922057371732827	test/CMakeFiles/test_parser.dir/test_parser.cpp.o	d31682ec9d5d5c10
+4	972	1644922057875732060	test/CMakeFiles/test_parser.dir/__/dataplane/global.cpp.o	335b7eb21a94a3d9
+972	1174	1644922058079731748	test/test_parser	bb746213762e003b
+3	463	1644922704125712342	test/CMakeFiles/test_parser.dir/test_parser.cpp.o	d31682ec9d5d5c10
+463	656	1644922704317711539	test/test_parser	bb746213762e003b

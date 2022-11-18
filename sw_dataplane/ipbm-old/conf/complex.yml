@@ -1,0 +1,11 @@
+interfaces:
+  - name: veth12
+    ip: 0.0.0.0
+  - name: veth13
+    ip: 0.0.0.0
+  - name: veth14
+    ip: 0.0.0.0
+  - name: veth15
+    ip: 0.0.0.0
+  - name: veth21
+    ip: 10.0.2.1

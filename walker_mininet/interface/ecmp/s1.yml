@@ -1,0 +1,14 @@
+interfaces:
+  - name: s1-eth1
+    ip: 0.0.0.0
+  - name: s1-eth2
+    ip: 0.0.0.0
+  - name: s1-eth3
+    ip: 0.0.0.0
+  - name: s1-eth4
+    ip: 0.0.0.0
+  - name: s1-eth5
+    ip: 0.0.0.0
+  - name: s1-eth6
+    ip: 0.0.0.0
+

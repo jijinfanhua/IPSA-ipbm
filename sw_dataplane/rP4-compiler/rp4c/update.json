@@ -1,0 +1,44 @@
+{
+  "action_id" : 2,
+  "action_para" : [
+    {
+      "value" : [
+        0,
+        0,
+        0,
+        0,
+        255,
+        0
+      ],
+      "width" : 48
+    },
+    {
+      "value" : [
+        0,
+        1
+      ],
+      "width" : 9
+    }
+  ],
+  "keys" : [
+    {
+      "mask" : [
+        255,
+        255,
+        255,
+        0
+      ],
+      "value" : [
+        192,
+        168,
+        3,
+        1
+      ],
+      "width" : 32
+    }
+  ],
+  "matcher_id" : 0,
+  "match_type" : "TERNARY",
+  "proc_id" : 0,
+  "type" : "ADD"
+}

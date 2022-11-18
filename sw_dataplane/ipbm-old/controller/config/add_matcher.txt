@@ -1,0 +1,5 @@
+m my_proto_forward
+t proto_table
+f Ethernet.smac 48 exact
+f my_proto.feng 8 exact
+f my_proto.yong 8 exact

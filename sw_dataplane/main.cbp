@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="main"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\sw-src\;CMake Files\sw-src\dataplane\;CMake Files\sw-src\test\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\local\;CMake Files\..\..\..\..\usr\local\lib\;CMake Files\..\..\..\..\usr\local\lib\cmake\;CMake Files\..\..\..\..\usr\local\lib\cmake\yaml-cpp\;CMake Files\..\..\..\..\usr\local\lib\cmake\gflags\;CMake Files\..\..\fengyong\;CMake Files\..\..\fengyong\local\;CMake Files\..\..\fengyong\local\lib\;CMake Files\..\..\fengyong\local\lib\cmake\;CMake Files\..\..\fengyong\local\lib\cmake\protobuf\;CMake Files\..\..\fengyong\local\lib\cmake\grpc\;CMake Files\..\..\fengyong\local\lib\cmake\absl\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/xilinx_0/walker/sw"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/xilinx_0/walker/sw"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/xilinx_0/walker/sw"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rp4">
+				<Option output="/home/xilinx_0/walker/sw/lib/librp4.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/xilinx_0/walker/sw/sw-src/dataplane"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DGFLAGS_IS_A_DLL=0"/>
+					<Add option="-DCARES_STATICLIB"/>
+					<Add directory="/home/xilinx_0/walker/sw/sw-src"/>
+					<Add directory="/home/xilinx_0/fengyong/local/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/sw-src/dataplane/Makefile&quot;  VERBOSE=1 rp4"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/sw-src/dataplane/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/sw-src/dataplane/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/sw-src/dataplane/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rp4/fast">
+				<Option output="/home/xilinx_0/walker/sw/lib/librp4.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/xilinx_0/walker/sw/sw-src/dataplane"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DGFLAGS_IS_A_DLL=0"/>
+					<Add option="-DCARES_STATICLIB"/>
+					<Add directory="/home/xilinx_0/walker/sw/sw-src"/>
+					<Add directory="/home/xilinx_0/fengyong/local/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/sw-src/dataplane/Makefile&quot;  VERBOSE=1 rp4/fast"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/sw-src/dataplane/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/sw-src/dataplane/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/sw-src/dataplane/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="test_parser">
+				<Option output="/home/xilinx_0/walker/sw/bin/test_parser" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/xilinx_0/walker/sw/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DGFLAGS_IS_A_DLL=0"/>
+					<Add option="-DCARES_STATICLIB"/>
+					<Add directory="/home/xilinx_0/walker/sw/sw-src"/>
+					<Add directory="/home/xilinx_0/fengyong/local/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/sw-src/test/Makefile&quot;  VERBOSE=1 test_parser"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/sw-src/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/sw-src/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/sw-src/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="test_parser/fast">
+				<Option output="/home/xilinx_0/walker/sw/bin/test_parser" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/xilinx_0/walker/sw/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DGFLAGS_IS_A_DLL=0"/>
+					<Add option="-DCARES_STATICLIB"/>
+					<Add directory="/home/xilinx_0/walker/sw/sw-src"/>
+					<Add directory="/home/xilinx_0/fengyong/local/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/sw-src/test/Makefile&quot;  VERBOSE=1 test_parser/fast"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/sw-src/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/sw-src/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/xilinx_0/walker/sw/sw-src/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/xilinx_0/walker/sw/sw-src/dataplane/defs.h">
+			<Option target="rp4"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/sw-src/dataplane/global.cpp">
+			<Option target="rp4"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/sw-src/dataplane/global.h">
+			<Option target="rp4"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/sw-src/dataplane/parser.h">
+			<Option target="rp4"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/sw-src/test/test_parser.cpp">
+			<Option target="test_parser"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/sw-src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\sw-src\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/sw-src/dataplane/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\sw-src\dataplane\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/sw-src/test/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\sw-src\test\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../../../usr/local/lib/cmake/yaml-cpp/yaml-cpp-config-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\yaml-cpp\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../../../usr/local/lib/cmake/yaml-cpp/yaml-cpp-config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\yaml-cpp\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../../../usr/local/lib/cmake/yaml-cpp/yaml-cpp-targets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\yaml-cpp\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../../../usr/local/lib/cmake/yaml-cpp/yaml-cpp-targets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\yaml-cpp\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../../../usr/local/lib/cmake/gflags/gflags-config-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\gflags\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../../../usr/local/lib/cmake/gflags/gflags-config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\gflags\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../../../usr/local/lib/cmake/gflags/gflags-nonamespace-targets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\gflags\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../../../usr/local/lib/cmake/gflags/gflags-nonamespace-targets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\gflags\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../fengyong/local/lib/cmake/protobuf/protobuf-config-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\fengyong\local\lib\cmake\protobuf\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../fengyong/local/lib/cmake/protobuf/protobuf-config.cmake">
+			<Option virtualFolder="CMake Files\..\..\fengyong\local\lib\cmake\protobuf\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../fengyong/local/lib/cmake/protobuf/protobuf-module.cmake">
+			<Option virtualFolder="CMake Files\..\..\fengyong\local\lib\cmake\protobuf\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../fengyong/local/lib/cmake/protobuf/protobuf-options.cmake">
+			<Option virtualFolder="CMake Files\..\..\fengyong\local\lib\cmake\protobuf\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../fengyong/local/lib/cmake/protobuf/protobuf-targets-noconfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\fengyong\local\lib\cmake\protobuf\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../fengyong/local/lib/cmake/protobuf/protobuf-targets.cmake">
+			<Option virtualFolder="CMake Files\..\..\fengyong\local\lib\cmake\protobuf\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../fengyong/local/lib/cmake/grpc/gRPCConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\fengyong\local\lib\cmake\grpc\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../fengyong/local/lib/cmake/grpc/gRPCConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\fengyong\local\lib\cmake\grpc\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../fengyong/local/lib/cmake/grpc/gRPCTargets-noconfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\fengyong\local\lib\cmake\grpc\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../fengyong/local/lib/cmake/grpc/gRPCTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\fengyong\local\lib\cmake\grpc\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../fengyong/local/lib/cmake/absl/abslConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\fengyong\local\lib\cmake\absl\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../fengyong/local/lib/cmake/absl/abslConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\fengyong\local\lib\cmake\absl\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../fengyong/local/lib/cmake/absl/abslTargets-noconfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\fengyong\local\lib\cmake\absl\"/>
+		</Unit>
+		<Unit filename="/home/xilinx_0/walker/sw/../../fengyong/local/lib/cmake/absl/abslTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\fengyong\local\lib\cmake\absl\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,261 @@
+syntax = "proto3";
+package rp4;
+
+service CfgService {
+  /***** parser *****/
+  rpc initParserLevel (ParserLevelReq) returns (ParserLevelResp);
+  rpc modParserEntry (ModParserEntryReq) returns (ModParserEntryResp);
+  rpc ClearParser (ClearParserReq) returns (ClearParserResp);
+
+  /***** gateway *****/
+  rpc insertRelationExp (InsertRelationExpReq) returns (InsertRelationExpResp);
+  rpc clearResMap (ClearResMapReq) returns (ClearResMapResp);
+  rpc modResMap (ModResMapReq) returns (ModResMapResp);
+
+  /****** matcher *******/
+  rpc setMemConfig (SetMemConfigReq) returns (SetMemConfigResp);
+  rpc setFieldInfo (SetFieldInfoReq) returns (SetFieldInfoResp);
+  rpc setMissActBitmap (SetMissActBitmapReq) returns (SetMissActBitmapResp);
+
+  // table entry
+  rpc insertSramEntry (InsertSramEntryReq) returns (InsertSramEntryResp);
+  rpc insertTcamEntry (InsertTcamEntryReq) returns (InsertTcamEntryResp);
+
+  /****** executor *******/
+  rpc insertAction (InsertActionReq) returns (InsertActionResp);
+  
+}
+
+message ClearStageReq {
+  int32 procId = 1;
+}
+
+/************** parser start *****************/
+message ParserLevelReq {
+  int32 procId = 1;
+  int32 parserLevel = 2;
+}
+
+enum Res {
+  OK = 0;
+  FAIL = 1;
+}
+
+message ParserLevelResp {
+  Res res = 1;
+}
+/************** parser end *****************/
+
+/************** gateway start *****************/
+message FieldInfo {
+  int32 hdrId = 1;
+  int32 internalOffset = 2;
+  int32 fieldLen = 3;
+}
+
+message ModParserEntryReq {
+  int32 procId = 1;
+  int32 parserLevel = 2;
+  int32 state = 3;
+  uint32 key = 4;
+  int32 hdrId = 5;
+  int32 hdrLen = 6;
+  int32 nextState = 7;
+  int32 transFieldNum = 8;
+  repeated FieldInfo transFds = 9;
+}
+
+message ModParserEntryResp {
+  Res res = 1;
+}
+
+message ClearParserReq {
+  int32 procId = 1;
+//  repeated int32 parserLevels = 2;
+}
+
+message ClearParserResp {
+  Res res = 1;
+}
+
+enum ParameterType {
+  CONSTANT = 0;
+  HEADER = 1;
+  FIELD = 2;
+  PARAM = 3;
+}
+
+enum RelationCode {
+  GT = 0;
+  GTE = 1;
+  LT = 2;
+  LTE = 3;
+  EQ = 4;
+  NEQ = 5;
+}
+
+message Field {
+  int32 hdrId = 1;
+  int32 internalOffset = 2;
+  int32 fdLen = 3;
+}
+
+message Data {
+  int32 len = 1;
+  bytes val = 2;
+}
+
+message GatewayParam {
+  ParameterType paramType = 1;
+  oneof value{
+    Field field = 2;
+    Data data = 3;
+  }
+}
+
+message RelationExp {
+  GatewayParam param1 = 1;
+  GatewayParam param2 = 2;
+  RelationCode relation = 3;
+}
+
+message InsertRelationExpReq {
+  int32 procId = 1;
+  GatewayParam param1 = 2;
+  GatewayParam param2 = 3;
+  RelationCode relation = 4;
+}
+
+message InsertRelationExpResp {
+  Res res = 1;
+}
+
+message ClearResMapReq {
+  int32 procTd = 1;
+  int32 clear = 2;
+}
+
+message ClearResMapResp {
+  Res res = 1;
+}
+
+message ModResMapReq {
+  int32 procId = 1;
+  int32 key = 2;
+  int32 procValue = 3;
+  int32 matcherValue = 4;
+}
+
+message ModResMapResp {
+  Res res = 1;
+}
+/************** gateway end *****************/
+
+/************** matcher start *****************/
+message SetMemConfigReq {
+  int32 procId = 1;
+  int32 matcherId = 2;
+  int32 keyWidth = 3;
+  int32 valueWidth = 4;
+  bytes keyConfig = 5;
+  bytes valueConfig = 6;
+}
+
+message SetMemConfigResp {
+  Res res = 1;
+}
+
+message SetFieldInfoReq {
+  int32 procId = 1;
+  int32 matcherId = 2;
+  repeated Field fdInfos = 3;
+}
+
+message SetFieldInfoResp {
+  Res res = 1;
+}
+
+message InsertSramEntryReq {
+  int32 procId = 1;
+  int32 matcherId = 2;
+  bytes key = 3;
+  bytes value = 4;
+  int32 key_byte_len = 5;
+  int32 value_byte_len = 6;
+}
+
+message InsertSramEntryResp {
+  Res res = 1;
+}
+
+message InsertTcamEntryReq {
+  int32 procId = 1;
+  int32 matcherId = 2;
+  bytes key = 3;
+  bytes mask = 4;
+  bytes value = 5;
+  int32 key_byte_len = 6;
+  int32 value_byte_len = 7;
+}
+
+message InsertTcamEntryResp {
+  Res res = 1;
+}
+
+message SetMissActBitmapReq {
+  int32 procId = 1;
+  int32 matcherId = 2;
+  int32 value = 3;
+}
+
+message SetMissActBitmapResp {
+  Res res = 1;
+}
+/************** matcher end *****************/
+
+/************** executor start *****************/
+enum OpCode {
+  ADD = 0;
+  SUB = 1;
+  SET_FIELD = 2;
+  COPY_FIELD = 3;
+}
+
+message Parameter {
+  ParameterType type = 1;
+  oneof val {
+    int32 hdrId = 2;
+    Field field = 3;
+    Data constantData = 4;
+    int32 actionParaId = 5;
+  }
+}
+
+message Primitive {
+  OpCode op = 1;
+  int32 paraNum = 2;
+  repeated Parameter params = 3;
+}
+
+message ActionParam {
+  int32 actionParamLen = 1;
+  bytes val = 2;
+}
+
+message Action {
+  int32 paraNum = 1;
+  repeated Primitive prims = 2;
+  repeated ActionParam actionParas = 3;
+  repeated int32 actionParaLens = 4;
+  int32 nextProcId = 5;
+}
+
+message InsertActionReq {
+  int32 procId = 1;
+  Action action = 2;
+}
+
+message InsertActionResp {
+  Res res = 1;
+}
+/************** executor start *****************/

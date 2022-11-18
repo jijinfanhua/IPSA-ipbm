@@ -1,0 +1,3 @@
+ToolSet: 1.0 (local)Options: 
+
+Options:-DCMAKE_MAKE_PROGRAM=/home/xilinx_0/fengyong/clion-2022.1/bin/ninja/linux/ninja

@@ -1,0 +1,152 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						3
+					],
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "sw-src",
+					"childIndexes" : 
+					[
+						2
+					],
+					"jsonFile" : "directory-sw-src-Debug-56692efdf263dc9348e5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "sw-src"
+				},
+				{
+					"build" : "sw-src/controller",
+					"jsonFile" : "directory-sw-src.controller-Debug-1e374a7dc20bb55e8e67.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "sw-src/controller",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "rp4-new",
+					"jsonFile" : "directory-rp4-new-Debug-f9ce7c5c3813af2b9c8c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "rp4-new",
+					"targetIndexes" : 
+					[
+						2,
+						3
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2
+					],
+					"name" : "rp4",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						3
+					],
+					"name" : "rp4.3.24",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 2,
+					"id" : "controller::@4d87248250c1d4eba780",
+					"jsonFile" : "target-controller-Debug-eb7c80c782e4da58cb44.json",
+					"name" : "controller",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "main::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-main-Debug-6f6be865250b56a032c9.json",
+					"name" : "main",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "rp4_3_24::@3be96b871aa27da74faa",
+					"jsonFile" : "target-rp4_3_24-Debug-f862478d5d233c84ae21.json",
+					"name" : "rp4_3_24",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "rp4_run_by_web::@3be96b871aa27da74faa",
+					"jsonFile" : "target-rp4_run_by_web-Debug-0fa215835501b52bdef6.json",
+					"name" : "rp4_run_by_web",
+					"projectIndex" : 1
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/xilinx_0/walker/sw",
+		"source" : "/home/xilinx_0/walker/sw"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

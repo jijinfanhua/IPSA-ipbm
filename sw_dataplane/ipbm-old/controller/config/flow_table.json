@@ -1,0 +1,29 @@
+{
+   "mac_table": {
+      "flow_table_name": "mac_table",
+      "match_type": "exact",
+      "mem_type": "SRAM",
+      "key_length": 72,
+      "value_length": 64,
+      "action_data_num": 1,
+      "possible_entry_num": 100
+   },
+   "ipv4_lpm": {
+      "flow_table_name": "ipv4_lpm",
+      "match_type": "lpm",
+      "mem_type": "TCAM",
+      "key_length": 72,
+      "value_length": 96,
+      "action_data_num": 2,
+      "possible_entry_num": 100
+   },
+   "arp_table": {
+      "flow_table_name": "arp_table",
+      "match_type": "exact",
+      "mem_type": "SRAM",
+      "key_length": 40,
+      "value_length": 112,
+      "action_data_num": 2,
+      "possible_entry_num": 100
+   }
+}

@@ -1,0 +1,5 @@
+interfaces:
+  - name: s41-eth1
+    ip: 0.0.0.0
+  - name: s41-eth2
+    ip: 0.0.0.0

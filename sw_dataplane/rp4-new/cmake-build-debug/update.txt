@@ -1,0 +1,6 @@
+del table validate_ipv6_2 in stage node_5
+del action NoAction_3 in stage node_5
+rebuild default_action malformed_pkt_12 in table validate_ipv4 in stage node_5
+rebuild action_to_stage valid_ipv4_pkt in stage node_5 next_stage rmac_s
+rebuild operation in stage node_5
+1

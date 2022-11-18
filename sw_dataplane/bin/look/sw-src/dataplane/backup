@@ -1,0 +1,27 @@
+//            field_c = (uint8_t*) malloc(sizeof(uint8_t) * real_len);
+//            memcpy(field_c, field, real_len);
+//            tail_mod = fd->fd_len % 8;
+
+//            if(head_mod + 8 - tail_mod >= 8) {
+//                real_len -= 1;
+//                field_c = (uint8_t*) malloc(sizeof(uint8_t) * real_len);
+//                memcpy(field_c, field, real_len);
+//                tail_mod = 8 - (head_mod - tail_mod);
+//            } else {
+//                field[real_len-1] <<= head_mod;
+//                field_c = (uint8_t*) malloc(sizeof(uint8_t) * real_len);
+//                memcpy(field_c, field, real_len);
+//                tail_mod = tail_mod - head_mod;
+//            }
+
+in parser.h
+//        for(int i = 0; i < _trans_fd_num; i++) {
+//            uint8_t hdr_id = sram_entry->trans_fds[i]->hdr_id;
+//            auto header = phv->parsed_headers[hdr_id];
+//            int begin = (header->hdr_offset + sram_entry->trans_fds[i]->internal_offset) / 8;
+//            int end = begin + sram_entry->trans_fds[i]->fd_len / 8;
+//            for(int j = begin; j < end; j++) {
+//                _trans_key = (_trans_key << 8) + phv->packet[j];
+//            }
+//        }
+//        phv->cur_trans_key = _trans_key;

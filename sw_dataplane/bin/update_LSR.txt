@@ -1,0 +1,116 @@
+header ethernet_t {
+	bit<48>	dst_address;
+	bit<48>	src_address;
+	bit<16>	ether_type;
+}
+header ipv4_t {
+	bit<4>	version;
+	bit<4>	ihl;
+	bit<8>	type_service;
+	bit<16>	total_length;
+	bit<16>	identification;
+	bit<3>	flags;
+	bit<13>	fragment_offset;
+	bit<8>	ttl;
+	bit<8>	protocol;
+	bit<16>	header_checksum;
+	bit<32>	src_address;
+	bit<32>	dst_address;
+}
+header mpls_t {
+	bit<20>	label;
+	bit<3>	exp;
+	bit<1>	bos;
+	bit<8>	ttl;
+}
+struct metadata {
+	bit<1>	tmp;
+} meta;
+struct headers {
+	ethernet_t	ethernet;
+	ipv4_t	ipv4;
+	mpls_t	mpls;
+} hdr;
+
+struct standard_metadata_t {
+    bit<9> ingress_port;
+    bit<9> egress_spec;
+    bit<9> egress_port;
+    bit<32> clone_spec;
+    bit<32> instance_type;
+    bit<1> drop;
+    bit<16> recirculate_port;
+    bit<32> packet_length;
+} standard_metadata;
+
+parser MyParser(packet_in packet) {
+	state start {
+		packet.extract(hdr.ethernet);
+		transition select(hdr.ethernet.ether_type) {
+			0x8847: parse_mpls;
+			default: accept;
+		}
+	}
+	state parse_mpls {
+		packet.extract(hdr.mpls);
+		transition accept;
+	}
+}
+
+del action forward in stage node_6
+del action drop_3 in stage node_2
+del action drop_1 in stage node_6
+del table tbl_drop in stage node_2
+add table
+	table mpls_forward {
+		key = {
+			hdr.mpls.label: exact;
+		}
+		size = 1024;
+		value_width = 45;
+		default_action = drop_1;
+	}
+add table
+	table tbl_drop {
+		key = {
+		}
+		size = 1024;
+		value_width = 16;
+		default_action = drop_4;
+	}
+add action
+	action forward(bit<9> port, bit<20> next_label) {
+		standard_metadata.egress_spec = port;
+		hdr.mpls.label = next_label;
+	}
+add action
+	action drop_4() {
+		standard_metadata.drop = 1;
+	}
+add action
+	action drop_1() {
+		standard_metadata.drop = 1;
+	}
+add matcher in stage node_2
+*: stage(node_8);
+add executor in stage node_6
+drop_2: None;
+add stage
+stage node_8 {
+    parser {
+        mpls;
+    };
+    matcher {
+        switch (hdr.mpls.isValid()) {
+            0b1: table(mpls_forward);
+            *: table(tbl_drop);
+        }
+    };
+    executor {
+        drop_1: None;
+        forward: None;
+        drop_4: None;
+    };
+}
+
+rebuild default_action drop_2 in table ip_forward in stage node_6

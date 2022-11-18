@@ -1,0 +1,122 @@
+header ethernet_t {
+	bit<48>	dst_address;
+	bit<48>	src_address;
+	bit<16>	ether_type;
+}
+header ipv4_t {
+	bit<4>	version;
+	bit<4>	ihl;
+	bit<8>	type_service;
+	bit<16>	total_length;
+	bit<16>	identification;
+	bit<3>	flags;
+	bit<13>	fragment_offset;
+	bit<8>	ttl;
+	bit<8>	protocol;
+	bit<16>	header_checksum;
+	bit<32>	src_address;
+	bit<32>	dst_address;
+}
+header calculate_t {
+	bit<32>	a0;
+	bit<32>	a1;
+	bit<32>	a2;
+	bit<32>	a3;
+	bit<32>	a4;
+	bit<32>	a5;
+	bit<32>	a6;
+	bit<32>	a7;
+}
+struct metadata {
+	bit<1>	tmp;
+} meta;
+struct headers {
+	ethernet_t	ethernet;
+	ipv4_t	ipv4;
+	calculate_t	calculate;
+} hdr;
+
+struct standard_metadata_t {
+    bit<9> ingress_port;
+    bit<9> egress_spec;
+    bit<9> egress_port;
+    bit<32> clone_spec;
+    bit<32> instance_type;
+    bit<1> drop;
+    bit<16> recirculate_port;
+    bit<32> packet_length;
+} standard_metadata;
+
+parser MyParser(packet_in packet) {
+	state start {
+		packet.extract(hdr.ethernet);
+		transition select(hdr.ethernet.ether_type) {
+			0x0800: parse_ipv4;
+			default: accept;
+		}
+	}
+	state parse_ipv4 {
+		packet.extract(hdr.ipv4);
+		transition select(hdr.ipv4.protocol) {
+			0xc8: parse_calculate;
+			0xc9: parse_calculate;
+			0xca: parse_calculate;
+			default: accept;
+		}
+	}
+	state parse_calculate {
+		packet.extract(hdr.calculate);
+		transition accept;
+	}
+}
+
+del table tbl_drop_2 in stage node_10
+
+add action
+	action or_action() {
+		hdr.calculate.a0 = (hdr.calculate.a0 | hdr.calculate.a1);
+	}
+
+add action
+    action drop_5() {
+        standard_metadata.drop = 1;
+    }
+
+add table
+	table tbl_or_action {
+		key = {
+		}
+		size = 1024;
+		value_width = 16;
+		default_action = or_action;
+	}
+
+add table
+    table tbl_drop_3 {
+        key = {
+        }
+        size = 1024;
+        value_width = 16;
+        default_action = drop_5;
+    }
+
+add stage
+	stage node_12 {
+		parser {
+			ipv4;
+			calculate;
+		};
+		matcher {
+			switch ((hdr.ipv4.protocol == 0xca)) {
+				0b1: table(tbl_or_action);
+				*: table(tbl_drop_3);
+			}
+		};
+		executor {
+			or_action: None;
+			drop_5: None;
+		};
+	}
+
+add matcher in stage node_10
+*: stage(node_12);

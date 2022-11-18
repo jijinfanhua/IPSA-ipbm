@@ -1,0 +1,107 @@
+
+#include <core.rp4>
+#include <ipsa.rp4>
+
+header ethernet_t {
+    bit<48> dstAddr;
+    bit<48> srcAddr;
+    bit<16> etherType;
+}
+
+header ipv4_t {
+    bit<4>    version;
+    bit<4>    ihl;
+    bit<8>    diffserv;
+    bit<16>   totalLen;
+    bit<16>   identification;
+    bit<3>    flags;
+    bit<13>   fragOffset;
+    bit<8>    ttl;
+    bit<8>    protocol;
+    bit<16>   hdrChecksum;
+    bit<32>  srcAddr;
+   
+    bit<32>  dstAddr;
+}
+
+struct standard_metadata_t {
+    bit<9> ingress_port;
+    bit<9> egress_spec;
+    bit<9> egress_port;
+    bit<32> clone_spec;
+    bit<32> instance_type;
+    bit<1> drop;
+    bit<16> recirculate_port;
+    bit<32> packet_length;
+}
+
+struct header {
+    ethernet_t ethernet;
+    ipv4_t ipv4;
+} hdr;
+
+parser MyParser(packet_in packet) {
+    state start {
+        transition parse_ethernet;
+    }
+
+    state parse_ethernet {
+        packet.extract(hdr.ethernet);
+        transition select(hdr.ethernet.etherType) {
+            TYPE_IPV4: parse_ipv4;
+            default: accept;
+        }
+    }
+
+    state parse_ipv4 {
+        packet.extract(hdr.ipv4);
+        transition accept;
+    }
+}
+
+actions {
+    action drop() {
+        standard_metadata.drop = 1;
+    }
+
+    action ipv4_forward(bit<48> dstAddr, bit<9> port) {
+        standard_metadata.egress_spec = port;
+        hdr.ethernet.srcAddr = hdr.ethernet.dstAddr;
+        hdr.ethernet.dstAddr = dstAddr;
+        hdr.ipv4.ttl = hdr.ipv4.ttl - 1;
+    }
+}
+
+tables {
+    table ipv4_lpm {
+        key = {
+            hdr.ipv4.dstAddr: lpm;
+        }
+        size = 1024;
+        default_action = drop();
+    }
+}
+
+control MyIngress {
+
+    stage ipv4_lpm_s {
+        parser {ipv4_t};
+
+        matcher {
+            switch(hdr.ipv4.isValid()) {
+                0b1: table(ipv4_lpm);
+                *: None;
+            }
+        };
+        
+        executor {
+            ipv4_forward: None;
+            drop: None;
+            NoAction: None;
+        };
+    }
+}
+
+control MyEgress {
+
+}

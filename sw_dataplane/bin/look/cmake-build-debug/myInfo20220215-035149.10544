@@ -1,0 +1,4 @@
+Log file created at: 2022/02/15 03:51:49
+Running on machine: xilinx_0
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0215 03:51:49.465255 10544 main.cpp:8] Hello World

@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package rp4;
+
+service ModService {
+  rpc addActionInfo(ModActionInfo) returns (ModActionInfoResponse);
+}
+
+message ModActionInfo {
+  /**
+      ipv4.ttl = ipv4.ttl - 1;
+      standard_metadata.egress_spec = parameter.port;
+   */
+
+  int32 processor_id = 1;
+  int32 action_id = 2;
+  repeated int32 instruction_sets = 3;
+
+  message ParameterElement
+  {
+    message Parameter
+    {
+      int32 prefix_id = 1;// ipv4.ttl : 2(prefix).18(suffix)
+      int32 suffix_id = 2;
+    }
+    repeated Parameter parameters = 1; // a = b + c, three parameters
+  }
+
+  repeated ParameterElement parameter_elements = 4; // corresponding to the number of instruction set
+}
+
+message ModActionInfoResponse{
+  enum ModRes
+  {
+    OK = 0;
+    FAIL = 1;
+  }
+  ModRes action_add_res = 1;
+}

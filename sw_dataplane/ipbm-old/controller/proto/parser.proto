@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package rp4;
+
+service ModService {
+  rpc addParserInfo(ModParserInfo) returns (ModParserInfoResponse);
+}
+
+enum ParserModRes
+{
+  OK = 0;
+  ALREADYIN = 1;
+  IDWRONG = 2;
+  FAILWITHNOREASON = 3;
+}
+
+message Header {
+  int32 header_id = 1; // define header id
+
+  repeated int32 previous_header_id = 2; // the info of its previous protocol should be modified
+  string header_tag = 3; // like 0x0800
+
+  sint32 header_length = 4; // "+" is length, "-" is the value of the field
+  int32 next_header_type_internal_offset = 5; // tell the place where next_header_type start
+  int32 next_header_type_length = 6;
+}
+
+message Field { // field in header
+  int32 field_id = 1;
+  int32 field_length = 2;
+  int32 internal_offset = 3;
+}
+
+message NextHeader {
+  int32 header_id = 1;
+  string tag = 2;
+}
+
+message ModParserInfo { // we only consider header adding by now, improvement will be done later
+  // int32 processor_id = 1; // modifying which processor's parser
+  Header header = 1; //
+  repeated Field fields = 2; // list field in the header
+  repeated NextHeader next_headers = 3; // list next_headers in current header
+}
+
+message ModParserInfoResponse {
+  ParserModRes parser_mod_res = 1;
+}
