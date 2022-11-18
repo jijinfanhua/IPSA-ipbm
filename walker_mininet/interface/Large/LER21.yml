@@ -1,5 +1,0 @@
-interfaces:
-  - name: s51-eth1
-    ip: 0.0.0.0
-  - name: s51-eth2
-    ip: 0.0.0.0

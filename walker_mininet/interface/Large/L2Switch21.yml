@@ -1,9 +1,0 @@
-interfaces:
-  - name: s21-eth1
-    ip: 0.0.0.0
-  - name: s21-eth2
-    ip: 0.0.0.0
-  - name: s21-eth3
-    ip: 0.0.0.0
-  - name: s21-eth4
-    ip: 0.0.0.0

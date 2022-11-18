@@ -1,9 +1,0 @@
-interfaces:
-  - name: s33-eth1
-    ip: 0.0.0.0
-  - name: s33-eth2
-    ip: 0.0.0.0
-  - name: s33-eth3
-    ip: 0.0.0.0
-  - name: s33-eth4
-    ip: 0.0.0.0

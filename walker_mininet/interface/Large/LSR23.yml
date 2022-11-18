@@ -1,7 +1,0 @@
-interfaces:
-  - name: s53-eth1
-    ip: 0.0.0.0
-  - name: s53-eth2
-    ip: 0.0.0.0
-  - name: s53-eth3
-    ip: 0.0.0.0
