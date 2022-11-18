@@ -1,0 +1,59 @@
+{
+    "hosts": [
+			{
+				"name" : "h11",
+				"ip"   : "10.0.1.11/24",
+				"mac"  : "00:00:00:00:01:11",
+				"cmd"  : ["ip route add 10.0.2.0/24 via 10.0.1.1"]
+			}, 
+			{
+				"name" : "h12", 
+				"ip"   : "10.0.1.22/24",
+				"mac"  : "00:00:00:00:01:22",
+				"cmd"  : ["ip route add 10.0.2.0/24 via 10.0.1.1"]
+			},
+			{
+				"name" : "h21",
+				"ip"   : "10.0.2.11/24",
+				"mac"  : "00:00:00:00:02:11",
+				"cmd"  : ["ip route add 10.0.1.0/24 via 10.0.2.1"]
+			},
+			{
+				"name" : "h22",
+				"ip"   : "10.0.2.22/24",
+				"mac"  : "00:00:00:00:02:22",
+				"cmd"  : ["ip route add 10.0.1.0/24 via 10.0.2.1"]
+			}
+	],
+    "switches": [
+			{
+				"name"           : "s1",
+				"interface_file" : "interface/L2Switch_Router/L2Switch1.yml",
+				"rpc_port"       : 50052,
+				"config"         : "config/L2Switch.json",
+				"entry_table"    : "entry/L2Switch1Entry.json",
+				"cmd"            : []
+			},
+			{  
+				"name"           : "s2",
+				"interface_file" : "interface/L2Switch_Router/L2Switch2.yml",
+				"rpc_port"       : 50053,
+				"config"         : "config/L2Switch.json",
+				"entry_table"    : "entry/L2Switch2Entry.json",
+				"cmd"            : []
+			},
+			{
+				"name"           : "s3",
+				"interface_file" : "interface/L2Switch_Router/Router3.yml",
+				"rpc_port"       : 50054,
+				"config"         : "config/Router.json",
+				"entry_table"    : "entry/RouterEntry.json",
+				"cmd"            : []
+			}
+    ],
+    "links": [
+        ["h11", "s1"], ["h12", "s1"],
+		["h21", "s2"], ["h22", "s2"],
+		["s1" , "s3"], ["s2" , "s3"]
+    ]
+}

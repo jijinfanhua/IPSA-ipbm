@@ -1,6 +1,0 @@
-./client -p /home/fengyong/Desktop/reconf-switch/controller/config/  --processor_num 8 --sram sram.json --tcam tcam.json --mem_config_ft flow_table.json --header header.json --matcher matcher.json --executer executer.json -s
-
-add_table proto_table exact 64 64 1 100
-add_header /home/fengyong/Desktop/reconf-switch/controller/config/add_header.json
-add_matcher /home/fengyong/Desktop/reconf-switch/controller/config/add_matcher.json
-add_action /home/fengyong/Desktop/reconf-switch/controller/config/add_action.json

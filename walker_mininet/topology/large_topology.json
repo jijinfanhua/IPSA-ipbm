@@ -1,0 +1,321 @@
+{
+  "hosts": [
+    {
+      "name" : "h11",
+      "ip"   : "10.1.1.11/24",
+      "mac"  : "00:00:00:00:01:01",
+      "cmd"  : ["ip route add  10.2.0.0/16 via 10.1.1.1",
+                "ip route add  10.3.0.0/16 via 10.1.1.1",
+                "ip route add  10.1.2.0/24 via 10.1.1.1"]
+    },
+    {
+      "name" : "h12",
+      "ip"   : "10.1.1.22/24",
+      "mac"  : "00:00:00:00:01:02",
+      "cmd"  : ["ip route add  10.2.0.0/16 via 10.1.1.1",
+                "ip route add  10.3.0.0/16 via 10.1.1.1",
+                "ip route add  10.1.2.0/24 via 10.1.1.1"]
+    },
+    {
+      "name" : "h13",
+      "ip"   : "10.1.2.11/24",
+      "mac"  : "00:00:00:00:01:03",
+      "cmd"  : ["ip route add  10.2.0.0/16 via 10.1.2.1",
+                "ip route add  10.3.0.0/16 via 10.1.2.1",
+                "ip route add  10.1.1.0/24 via 10.1.2.1"]
+    },
+    {
+      "name" : "h14",
+      "ip"   : "10.1.2.22/24",
+      "mac"  : "00:00:00:00:01:04",
+      "cmd"  : ["ip route add  10.2.0.0/16 via 10.1.2.1",
+                "ip route add  10.3.0.0/16 via 10.1.2.1",
+                "ip route add  10.1.1.0/24 via 10.1.2.1"]
+    },
+    {
+      "name" : "h15",
+      "ip"   : "10.1.2.33/24",
+      "mac"  : "00:00:00:00:01:05",
+      "cmd"  : ["ip route add  10.2.0.0/16 via 10.1.2.1",
+                "ip route add  10.3.0.0/16 via 10.1.2.1",
+                "ip route add  10.1.1.0/24 via 10.1.2.1"]
+    },
+    {
+      "name" : "h16",
+      "ip"   : "10.1.2.44/24",
+      "mac"  : "00:00:00:00:01:06",
+      "cmd"  : ["ip route add  10.2.0.0/16 via 10.1.2.1",
+                "ip route add  10.3.0.0/16 via 10.1.2.1",
+                "ip route add  10.1.1.0/24 via 10.1.2.1"]
+    },
+    {
+      "name" : "h21",
+      "ip"   : "10.0.2.11/28",
+      "mac"  : "00:00:00:00:02:11",
+      "cmd"  : ["ip route add   10.0.1.0/24 via 10.0.2.1",
+                "ip route add   10.0.3.0/24 via 10.0.2.1",
+                "ip route add  10.0.2.24/28 via 10.0.2.1"]
+    },
+    {
+      "name" : "h22",
+      "ip"   : "10.0.2.12/28",
+      "mac"  : "00:00:00:00:02:22",
+      "cmd"  : ["ip route add   10.0.1.0/24 via 10.0.2.1",
+                "ip route add   10.0.3.0/24 via 10.0.2.1",
+                "ip route add  10.0.2.24/28 via 10.0.2.1"]
+    },
+    {
+      "name" : "h23",
+      "ip"   : "10.0.2.13/28",
+      "mac"  : "00:00:00:00:02:33",
+      "cmd"  : ["ip route add   10.0.1.0/24 via 10.0.2.1",
+                "ip route add   10.0.3.0/24 via 10.0.2.1",
+                "ip route add  10.0.2.24/28 via 10.0.2.1"]
+    },
+    {
+      "name" : "h24",
+      "ip"   : "10.0.2.26/28",
+      "mac"  : "00:00:00:00:02:44",
+      "cmd"  : ["ip route add   10.0.1.0/24 via 10.0.2.1",
+                "ip route add   10.0.3.0/24 via 10.0.2.1",
+                "ip route add   10.0.2.8/28 via 10.0.2.1"]
+    },
+    {
+      "name" : "h25",
+      "ip"   : "10.0.2.27/28",
+      "mac"  : "00:00:00:00:02:33",
+      "cmd"  : ["ip route add   10.0.1.0/24 via 10.0.2.1",
+                "ip route add   10.0.3.0/24 via 10.0.2.1",
+                "ip route add   10.0.2.8/28 via 10.0.2.1"]
+    },
+    {
+      "name" : "h26",
+      "ip"   : "10.0.2.28/28",
+      "mac"  : "00:00:00:00:02:66",
+      "cmd"  : ["ip route add   10.0.1.0/24 via 10.0.2.1",
+                "ip route add   10.0.3.0/24 via 10.0.2.1",
+                "ip route add   10.0.2.8/28 via 10.0.2.1"]
+    },
+    {
+      "name" : "h31",
+      "ip"   : "10.0.3.11/28",
+      "mac"  : "00:00:00:00:03:11",
+      "cmd"  : ["ip route add  10.0.1.0/24 via  10.0.3.1",
+                "ip route add 10.0.3.24/28 via 10.0.3.25",
+                "ip route add  10.0.2.0/24 via  10.0.3.1"]
+    },
+    {
+      "name" : "h32",
+      "ip"   : "10.0.3.12/28",
+      "mac"  : "00:00:00:00:03:22",
+      "cmd"  : ["ip route add  10.0.1.0/24 via  10.0.3.1",
+                "ip route add 10.0.3.24/28 via 10.0.3.25",
+                "ip route add  10.0.2.0/24 via  10.0.3.1"]
+    },
+    {
+      "name" : "h33",
+      "ip"   : "10.0.3.13/28",
+      "mac"  : "00:00:00:00:03:33",
+      "cmd"  : ["ip route add  10.0.1.0/24 via  10.0.3.1",
+                "ip route add 10.0.3.24/28 via 10.0.3.25",
+                "ip route add  10.0.2.0/24 via  10.0.3.1"]
+    },
+    {
+      "name" : "h34",
+      "ip"   : "10.0.3.26/28",
+      "mac"  : "00:00:00:00:03:44",
+      "cmd"  : ["ip route add  10.0.1.0/24 via  10.0.3.1",
+                "ip route add  10.0.3.8/28 via  10.0.3.1",
+                "ip route add  10.0.2.0/24 via  10.0.3.1"]
+    },
+    {
+      "name" : "h35",
+      "ip"   : "10.0.3.27/28",
+      "mac"  : "00:00:00:00:03:55",
+      "cmd"  : ["ip route add  10.0.1.0/24 via  10.0.3.1",
+                "ip route add  10.0.3.8/28 via  10.0.3.1",
+                "ip route add  10.0.2.0/24 via  10.0.3.1"]
+    },
+    {
+      "name" : "h36",
+      "ip"   : "10.0.3.28/28",
+      "mac"  : "00:00:00:00:03:66",
+      "cmd"  : ["ip route add  10.0.1.0/24 via  10.0.3.1",
+                "ip route add  10.0.3.8/28 via  10.0.3.1",
+                "ip route add  10.0.2.0/24 via  10.0.3.1"]
+    }
+  ],
+  "switches": [
+    {
+      "name"           : "s11",
+      "auto"           : true,
+      "interface_file" : "interface/Large/L2Switch11.yml",
+      "rpc_port"       : 50011,
+      "config"         : "config/L2Switch.json",
+      "entry_table"    : "entry/Large/L2Switch11Entry.json",
+      "output"         : "log"
+    },
+    {
+      "name"           : "s12",
+      "auto"           : true,
+      "interface_file" : "interface/Large/L2Switch12.yml",
+      "rpc_port"       : 50012,
+      "config"         : "config/L2Switch.json",
+      "entry_table"    : "entry/Large/L2Switch12Entry.json",
+      "output"         : "log"
+    },
+    {
+      "name"           : "s13",
+      "auto"           : true,
+      "interface_file" : "interface/Large/L3Switch13.yml",
+      "rpc_port"       : 50013,
+      "config"         : "config/L3Switch.json",
+      "entry_table"    : "entry/Large/L3Switch13Entry.json",
+      "output"         : "console"
+    },
+    {
+      "name"           : "s21",
+      "auto"           : false,
+      "interface_file" : "interface/Large/L2Switch21.yml",
+      "rpc_port"       : 50021,
+      "config"         : "config/L2Switch.json",
+      "entry_table"    : "entry/Large/L2Switch21Entry.json",
+      "output"         : "log"
+    },
+    {
+      "name"           : "s22",
+      "auto"           : false,
+      "interface_file" : "interface/Large/L2Switch22.yml",
+      "rpc_port"       : 50022,
+      "config"         : "config/L2Switch.json",
+      "entry_table"    : "entry/Large/L2Switch22Entry.json",
+      "output"         : "log"
+    },
+    {
+      "name"           : "s23",
+      "auto"           : false,
+      "interface_file" : "interface/Large/L3Switch23.yml",
+      "rpc_port"       : 50023,
+      "config"         : "config/L3Switch.json",
+      "entry_table"    : "entry/Large/L3Switch23Entry.json",
+      "output"         : "log"
+    },
+    {
+      "name"           : "s31",
+      "auto"           : false,
+      "interface_file" : "interface/Large/L3Switch31.yml",
+      "rpc_port"       : 50031,
+      "config"         : "config/L3Switch.json",
+      "entry_table"    : "entry/Large/L3Switch31Entry.json",
+      "output"         : "log"
+    },
+    {
+      "name"           : "s32",
+      "auto"           : false,
+      "interface_file" : "interface/Large/L2Switch32.yml",
+      "rpc_port"       : 50032,
+      "config"         : "config/L2Switch.json",
+      "entry_table"    : "entry/Large/L2Switch32Entry.json",
+      "output"         : "log"
+    },
+    {
+      "name"           : "s33",
+      "auto"           : false,
+      "interface_file" : "interface/Large/L3Switch33.yml",
+      "rpc_port"       : 50033,
+      "config"         : "config/L3Switch.json",
+      "entry_table"    : "entry/Large/L3Switch33Entry.json",
+      "output"         : "log"
+    },
+    {
+      "name"           : "s41",
+      "auto"           : false,
+      "interface_file" : "interface/Large/LER11.yml",
+      "rpc_port"       : 50041,
+      "config"         : "config/LER.json",
+      "entry_table"    : "entry/Large/LER11Entry.json",
+      "output"         : "log"
+    },
+    {
+      "name"           : "s42",
+      "auto"           : false,
+      "interface_file" : "interface/Large/LER12.yml",
+      "rpc_port"       : 50042,
+      "config"         : "config/LER.json",
+      "entry_table"    : "entry/Large/LER12Entry.json",
+      "output"         : "log"
+    },
+    {
+      "name"           : "s43",
+      "auto"           : false,
+      "interface_file" : "interface/Large/LSR13.yml",
+      "rpc_port"       : 50043,
+      "config"         : "config/LSR.json",
+      "entry_table"    : "entry/Large/LSR13Entry.json",
+      "output"         : "log"
+    },
+    {
+      "name"           : "s51",
+      "auto"           : false,
+      "interface_file" : "interface/Large/LER21.yml",
+      "rpc_port"       : 50051,
+      "config"         : "config/LER.json",
+      "entry_table"    : "entry/Large/LER21Entry.json",
+      "output"         : "log"
+    },
+    {
+      "name"           : "s52",
+      "auto"           : false,
+      "interface_file" : "interface/Large/LER22.yml",
+      "rpc_port"       : 50052,
+      "config"         : "config/LER.json",
+      "entry_table"    : "entry/Large/LER22Entry.json",
+      "output"         : "log"
+    },
+    {
+      "name"           : "s53",
+      "auto"           : false,
+      "interface_file" : "interface/Large/LSR23.yml",
+      "rpc_port"       : 50053,
+      "config"         : "config/LSR.json",
+      "entry_table"    : "entry/Large/LSR23Entry.json",
+      "output"         : "log"
+    },
+    {
+      "name"           : "s61",
+      "auto"           : false,
+      "interface_file" : "interface/Large/LER31.yml",
+      "rpc_port"       : 50061,
+      "config"         : "config/LER.json",
+      "entry_table"    : "entry/Large/LER31Entry.json",
+      "output"         : "log"
+    },
+    {
+      "name"           : "s62",
+      "auto"           : false,
+      "interface_file" : "interface/Large/LER32.yml",
+      "rpc_port"       : 50062,
+      "config"         : "config/LER.json",
+      "entry_table"    : "entry/Large/LER32Entry.json",
+      "output"         : "log"
+    },
+    {
+      "name"           : "s63",
+      "auto"           : false,
+      "interface_file" : "interface/Large/LSR33.yml",
+      "rpc_port"       : 50063,
+      "config"         : "config/LSR.json",
+      "entry_table"    : "entry/Large/LSR33Entry.json",
+      "output"         : "log"
+    }
+  ],
+  "links": [
+    ["h11", "s11"], ["h12", "s11"], ["h13", "s12"], ["h14", "s12"], ["s11", "s13"], ["s12", "s13"], ["h15", "s13"], ["h16", "s13"],
+    ["h21", "s21"], ["h22", "s21"], ["h23", "s21"], ["h24", "s22"], ["h25", "s22"], ["h26", "s22"], ["s21", "s23"], ["s22", "s23"],
+    ["h31", "s31"], ["h32", "s31"], ["h33", "s31"], ["h34", "s33"], ["h35", "s32"], ["h36", "s32"], ["s31", "s33"], ["s32", "s33"],
+    ["s13", "s41"], ["s41", "s42"], ["s42", "s43"],
+    ["s23", "s51"], ["s51", "s52"], ["s52", "s53"],
+    ["s33", "s61"], ["s61", "s62"], ["s62", "s63"],
+    ["s43", "s53"], ["s53", "s63"], ["s63", "s43"]
+  ]
+}

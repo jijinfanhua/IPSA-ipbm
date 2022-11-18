@@ -1,4 +1,0 @@
-# table_id match_type mem_type key_length value_length action_parameter_num possible_entry_num
-mac_table exact SRAM 72 64 1 100
-ipv4_lpm lpm TCAM 72 96 2 100
-arp_table exact SRAM 40 112 2 100

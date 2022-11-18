@@ -1,0 +1,7 @@
+interfaces:
+  - name: s12-eth1
+    ip: 0.0.0.0
+  - name: s12-eth2
+    ip: 0.0.0.0
+  - name: s12-eth3
+    ip: 0.0.0.0

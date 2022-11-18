@@ -1,0 +1,9 @@
+interfaces:
+  - name: s31-eth1
+    ip: 0.0.0.0
+  - name: s31-eth2
+    ip: 0.0.0.0
+  - name: s31-eth3
+    ip: 0.0.0.0
+  - name: s31-eth4
+    ip: 0.0.0.0
