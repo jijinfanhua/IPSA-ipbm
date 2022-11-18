@@ -10,6 +10,9 @@ This repository has four main components:
 - rp4c-old: old version of rP4 compiler
 - **rP4-compiler**: updated version of rP4 compiler (P4->rP4, rP4->json, runtime controller)
 
+# Attention Please
+**We have refactored the software behavioral model and designed three simple use cases that can run on `ipbm`. Please refer to the breanch [use_case_version](https://github.com/jijinfanhua/IPSA-ipbm/tree/use_case_version) for the new version and use case running. The compiler hasn't been updated.**
+
 # Dependencies
 - Update the gcc version above 8, so that `std2a` can be used to compile the compiler source code.
 
